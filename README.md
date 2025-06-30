@@ -1,6 +1,6 @@
 # Functional-programming
 
-This repository contains my notes and solutions to exercises from books and courses on functional programming in Haskell. It also includes a folder with my solutions to past exams from the University of Groningen and solutions to some extra exercises taken from several sources.
+This repository contains my notes and solutions to exercises from books and courses on functional programming in Haskell. It also includes a folder with my solutions to past exams from the University of Groningen.
 
 Books and courses included:
 
@@ -8,7 +8,7 @@ Books and courses included:
 - [Graham Hutton - Programming in Haskell](hutton)
 - [Luca Padovani - Lecture Notes on Haskell Programming](padovani)
 
-Great online resources:
+Online written resources:
 
 - [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell)
 - [Learn You a Haskell for Great Good!](https://learnyouahaskell.com/chapters)
