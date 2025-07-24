@@ -1,6 +1,6 @@
-# Functional-programming
+> *“We are what we repeatedly do. Excellence, therefore, is not an act, but a habit.”* – Will Durant (on Aristotle)
 
-> *“We are what we repeatedly do. Excellence, therefore, is not an act, but a habit.”* – Will Durant (paraphrasing Aristotle)
+# Functional-programming
 
 This repository contains my personal notes and solutions to exercises from various Haskell books and courses. It also includes my solutions to past functional programming exams.
 
