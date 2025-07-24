@@ -119,12 +119,29 @@ insert v (x : xs)
 -- Exercise 9.12
 
 -- Sorts a given list using the function insert from 9.11
+-- This is an efficient, tail-recursive implementation
 inSort :: (Ord a) => [a] -> [a]
-inSort [] = []
 inSort xs = srt xs []
   where
     srt [] sorted = sorted
     srt (x : xs) sorted = srt xs (insert x sorted)
+
+-- A less efficient non-tail-recursive implementation:
+insSort :: (Ord a) => [a] -> [a]
+insSort [] = []
+insSort (x : xs) = insert x (insSort xs)
+
+{- 
+  In the second definition, the recursive call 
+  insSort xs must complete before insert x can be 
+  applied. This creates a chain of deferred operations 
+  (stack frames), which consumes more stack memory,
+  and can lead to a stack overflow for large input lists.
+
+  The first version avoids this by using an accumulator,
+  which allows the function to be tail-recursive and more 
+  space-efficient.
+-}
 
 -----------------------------------------------------------
 -- Exercise 9.13
@@ -159,9 +176,20 @@ split' :: [a] -> ([a], [a])
 split' xs = splt xs [] (length xs `div` 2)
   where
     splt [] ys _ = (ys, [])
-    splt (x : xs) ys 0 = (reverse ys, x : xs)
+    splt xs ys 0 = (reverse ys, xs)
     splt (x : xs) ys n = splt xs (x : ys) (n - 1)
 
+
+-- alternatively, we can use the functions take and drop
+split'' :: [a] -> ([a], [a])
+split'' xs = (take n xs, drop n xs)
+  where 
+    n = length xs `div` 2
+
+-- or we can use splitAt:
+split''' :: [a] -> ([a], [a])
+split''' xs = splitAt (length xs `div` 2) xs
+ 
 -----------------------------------------------------------
 -- Exercise 9.16
 

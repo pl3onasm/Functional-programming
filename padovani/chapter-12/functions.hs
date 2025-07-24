@@ -142,15 +142,7 @@ tkWhile p = foldr (\x ac -> if p x then x : ac else []) []
    element against the predicate p. If an element 
    satisfies the predicate, it is included in the result;
    otherwise, an empty list is returned, effectively 
-   halting further processing.
-
-   Importantly, this does not mean that `foldr` starts
-   traversing the list from the end. Rather, `foldr` 
-   associates to the right but begins evaluating elements 
-   from the front. Thanks to Haskell's laziness, this 
-   allows early termination: the fold can stop as soon as 
-   it encounters an element that does not satisfy the 
-   predicate.
+   halting further processing.s
 
    A test case for both definitions would be:
 
@@ -243,7 +235,7 @@ rmOddIdxElms' xs = map fst f
    where f = filter (\(_, i) -> even i) (zip xs [1..])
 
 {- The function `rmOddIdxElms` uses list comprehension to
-   iterate over the list `xs` and its indices (starting 
+   iterate over the list xs and its indices (starting 
    from 1). It constructs a new list containing only the
    elements at even indices. The `zip` function pairs each
    element with its index, and the filter condition checks
@@ -341,10 +333,10 @@ all'' p = foldr (\x acc -> p x && acc) True
 {- So what's the difference between these two definitions?
    Does it even matter which one we use?
    
-   The difference lies in the evaluation behavior. The 
+   The difference lies in evaluation behavior. The 
    first version is NOT short-circuiting: it constructs a 
    chain of deferred expressions (thunks) like
-     (...((True && p x1) && p x2) && ...)
+     (((True && p x1) && p x2) && p x3) ...
    and only evaluates the result once the end of the list
    is reached. This can be inefficient for large lists,
    or even non-terminating for infinite lists.
@@ -370,11 +362,11 @@ all'' p = foldr (\x acc -> p x && acc) True
 
    Why does this happen? Let's look at the definitions:
 
-   foldl :: (b → a → b) → a → [b] → a
+   foldl :: (b -> a -> b) -> b -> [a] -> b
    foldl _ acc [] = acc
    foldl f acc (x : xs) = foldl f (acc `f` x) xs
 
-   foldr :: (a → b → b) → b → [a] → b
+   foldr :: (a -> b -> b) -> b -> [a] -> b
    foldr _ acc [] = acc
    foldr f acc (x : xs) = x `f` foldr f acc xs
 
@@ -387,16 +379,23 @@ all'' p = foldr (\x acc -> p x && acc) True
    `foldr`, on the other hand, allows partial evaluation
    *as it traverses the list*. The expression
      p x && acc
-   is only as strict as needed: if p x is False, then
-   the result is immediately False, and Haskell never
-   evaluates acc.
+   Since `&&` is lazy in its second argument, this means we
+   can short-circuit as soon as we encounter a `False`.
 
-   This illustrates that Haskell's laziness is not about
-   deferring everything until the end, but rather about
-   evaluating just enough to satisfy the outermost demand.
-   With `foldr`, that means it can stop early. With 
-   `foldl`, it must build the whole structure before it can
-   give you an answer.
+   Guideline:
+
+   Use foldr when the operator is lazy in its second 
+   argument and you want to benefit from short-circuiting 
+   or work with infinite lists.
+
+   Use foldl' (strict left fold) when the operator is 
+   strict and you want efficient, stack-safe evaluation on 
+   finite lists. For example, we should use foldl' in 
+   definitions for sum, product, length, etc., because 
+   addition and multiplication are not lazy in their second 
+   argument. Using foldl' avoids creating large thunks and 
+   ensures that partial results are evaluated as the list 
+   is traversed.
 -}
 
 -----------------------------------------------------------
