@@ -26,8 +26,8 @@ getPath x (Node y l r)
           5
          / \
         3   8
-       / \
-      2   4
+       / \   \
+      2   4   9
 
 Test in GHCi: 
 

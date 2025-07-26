@@ -1,6 +1,6 @@
 > *“We are what we repeatedly do. Excellence, therefore, is not an act, but a habit.”* – Will Durant (on Aristotle)
 
-# Functional-programming
+# Functional Programming
 
 This repository contains my personal notes and solutions to exercises from various Haskell books and courses. It also includes my solutions to past functional programming exams.
 
@@ -19,11 +19,11 @@ The repository is actively evolving as I continue learning and refining my solut
   - [A Tour of the Haskell Prelude](https://www.cse.chalmers.se/edu/year/2014/course/TDA452/tourofprelude.html)
   - [Haskell Prelude](https://hackage.haskell.org/package/base/docs/Prelude.html)
   - [Hoogle](https://hoogle.haskell.org/)
-  - [haskell.org](https://www.haskell.org/documentation/)
+  - [Haskell.org](https://www.haskell.org/documentation/)
 
 - **Online guides and books**
   - [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell)
-  - [Learn You a Haskell for Great Good!](https://learnyouahaskell.com/chapters)
+  - [Learn You a Haskell for Great Good!](https://learnyouahaskell.github.io/chapters.html)
   - [Real World Haskell](https://book.realworldhaskell.org/read/)
   - [What I Wish I Knew When Learning Haskell](https://github.com/sdiehl/wiwinwlh)
   

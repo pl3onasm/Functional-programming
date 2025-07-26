@@ -24,8 +24,9 @@ instance Monad ((->) a) where
     f >>= g = \x -> g (f x) x
 
   The first defines return as a function that lifts a value
-  into a constant function, one that ignores its input and
-  always returns the same result.
+  x into a constant function: a function that takes any 
+  input of type a but always returns the same result x of 
+  type b.
 
   The second defines the bind operator (>>=) as an operator
   that sequences two computations that depend on the same

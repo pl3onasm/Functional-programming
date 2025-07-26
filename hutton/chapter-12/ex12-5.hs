@@ -9,10 +9,10 @@
       id :: a -> a
       pure id :: f (a -> a)                   (def of pure)
       x :: f a                               (def of (<*>))
-      pure id <*> x :: f a 
+      pure id <*> x :: f a                   (def of (<*>))
     
     RHS
-      x :: f a
+      x :: f a                                        (LHS)
 
     So both sides yield the same type f a.
 
@@ -25,8 +25,8 @@
       pure g <*> pure x :: f b               (def of (<*>))
 
     LHS
-      g :: a -> b                             (def of pure)
-      x :: a                                  (def of pure)
+      g :: a -> b                        (LHS, def of pure)
+      x :: a                             (LHS, def of pure)
       pure (g x) :: f b                       (def of pure)
 
     So both sides yield the same type f b.
@@ -37,7 +37,7 @@
     LHS
       x :: f (a -> b)                        (def of (<*>))
       pure y :: f a                          (def of (<*>))
-      y :: a                                 (def of pure)                  
+      y :: a                                  (def of pure)                  
       x <*> pure y :: f b                    (def of (<*>))
 
     RHS

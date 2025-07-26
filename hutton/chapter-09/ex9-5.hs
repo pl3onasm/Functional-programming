@@ -130,9 +130,9 @@ percent x y = (100 * fromIntegral x) / fromIntegral y
   in expressions. This means that we can use subtraction
   without restrictions, and we can also use division by
   negative numbers. To achieve this, we only need to
-  change the valid function 'valid' to allow negative 
-  results. This increases the number of successful
-  expressions from 4672540 to 10839369.
+  change the function 'valid' to allow negative results. 
+  This increases the number of successful expressions 
+  from 4672540 to 10839369.
 
   ghci> :l ex9-5.hs
   ghci> ns = [1,3,7,10,25,50]
