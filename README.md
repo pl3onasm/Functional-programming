@@ -1,19 +1,19 @@
 > *“We are what we repeatedly do. Excellence, therefore, is not an act, but a habit.”* – Will Durant (on Aristotle)
 
-# Functional Programming
+# <img src="Haskell1.svg" width="50" /> Functional Programming
 
 This repository contains my personal notes and solutions to exercises from various Haskell books and courses. It also includes my solutions to past functional programming exams.
 
 The repository is actively evolving as I continue learning and refining my solutions.
 
-## Contents
+## <img src="Haskell2.svg" width="35" /> Contents
 
 - [Luca Padovani - *Lecture Notes on Haskell Programming*](padovani)
 - [Graham Hutton - *Programming in Haskell*](hutton) *(in progress)*
 - [Simon Thompson - *The Craft of Functional Programming*](thompson) *(to be added)*
 - [Exams](exams) *(to be added)*
 
-## References
+## <img src="Haskell2.svg" width="35" /> References
 
 - **Haskell documentation**
   - [A Tour of the Haskell Prelude](https://www.cse.chalmers.se/edu/year/2014/course/TDA452/tourofprelude.html)
