@@ -1,14 +1,66 @@
 -----------------------------------------------------------
 -- Exercise 13.8
 
+{-
+ a. We modify the original grammar as given in the book
+    by replacing the right-associative operator + with a 
+    left-associative operator -, and rewrite the grammar 
+    as follows:
 
+        expr   ::= expr - term | term
+        term   ::= factor ( * term | ε ) 
+        factor ::= ( expr ) | nat
+        nat    ::= 0 | 1 | 2 | ...
 
+    Only the first line has changed. The first line now
+    introduces left recursion, which means that the 
+    subtraction operator is interpreted as 
+    left-associative, forcing a structure like 
+    (((e1 - e2) - e3) - ... - en).
 
+ b. Implementing this grammar directly only requires 
+    changing the parser for expr to use the new 
+    left-associative subtraction operator. The other 
+    parsers (term, factor, nat) remain unchanged.
 
+    The direct (but problematic) parser for expr is:
 
+        expr :: Parser Int
+        expr = 
+          do e <- expr          -- left-recursive call
+             symbol "-"
+             t <- term
+             return (e - t)
+            <|> term
 
+ c. The new parser is left-recursive. In combination with
+    our top-down recursive-descent parser, this causes 
+    non-termination because the parser keeps calling itself
+    without ever consuming any input: to parse expr, it 
+    calls expr, which calls expr again, and so on, without
+    ever reaching a base case.
 
+ d. To fix this problem, we can rewrite the grammar to 
+    eliminate left recursion while preserving the 
+    left-associative semantics of subtraction. 
+    We do this by parsing an initial term, followed by 
+    zero or more (- term) segments, and then combining 
+    the results using foldl:
 
-
+        expr :: Parser Int
+        expr = do
+          t  <- term
+          ts <- many (do symbol "-"
+                         term)
+          return (foldl (-) t ts)
+    
+    Here many (do symbol "-"; term) collects zero or 
+    more terms that follow a "-" symbol, returning a 
+    list of terms. The first term is parsed as t, and 
+    the subsequent terms are collected in the list ts.
+    We then use foldl (-) t ts to enforce left 
+    associativity.
+      
+-}
 
 -----------------------------------------------------------

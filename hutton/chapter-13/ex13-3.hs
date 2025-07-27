@@ -1,14 +1,60 @@
 -----------------------------------------------------------
 -- Exercise 13.3
 
+{-
+  The third grammar for arithmetic expressions is as
+  follows:
+
+              expr ::= term + expr | term
+              term ::= factor * term | factor
+              factor ::= ( expr ) | nat
+              nat ::= 0 | 1 | 2 | ...
+
+  This version also takes account of associativity of
+  operators, by modifying the rules for addition and 
+  multiplication to be recursive in their right argument
+  only, rather than in both arguments.
+  This modification makes the grammar unambiguous, so 
+  expressions can be parsed in a single way.
+
+  We draw parse trees for the expressions 2 + 3, 2 * 3 * 4,
+  and (2 + 3) + 4:
 
 
+                expr                  expr
+              /  |  \                   |  
+           term  +  expr              term
+             |       |              /   |  \ 
+          factor    term        factor  *  term    
+             |       |            |       /  |  \
+            nat    factor        nat  factor * term
+             |       |            |     |        |    
+             2      nat           2    nat    factor
+                     |                  |        |
+                     3                  3       nat
+                                                 |
+                                                 4
 
 
+                             expr
+                          /   |   \
+                      term    +   expr
+                        |          |
+                     factor       term
+                        |          |
+                   (  expr  )    factor
+                     /  |  \       |
+                  term  +  expr   nat
+                    |       |      |
+                  factor   term    4
+                    |       |
+                   nat    factor
+                    |       |
+                    2      nat
+                            |
+                            3
 
 
-
-
-
+-}
 
 -----------------------------------------------------------

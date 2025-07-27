@@ -1,14 +1,43 @@
 -----------------------------------------------------------
 -- Exercise 13.4
 
+{-
+  Consider the earlier, third version of the grammar:
 
+    expr   ::= term + expr | term
+    term   ::= factor * term | factor
+    factor ::= ( expr ) | nat
+    nat    ::= 0 | 1 | 2 | ...
 
+  To parse something as simple as the number 3, the parser
+  must first try expr ::= term + expr. This means it will
+  parse a term, then expect a '+', and another expression.
 
+  Parsing a term starts with term ::= factor * term.
+  It will try factor, first checking ( expr ), which fails,
+  then nat, which succeeds, producing 3.
+  The parser will then expect '*', which fails, so it
+  backtracks and tries the alternative term ::= factor,
+  once again checking ( expr ) and nat, re-parsing 3.
 
+  Returning to expr, it now tries to match '+ expr', which
+  fails, so it backtracks and tries the alternative
+  expr ::= term. This again forces it to parse a term,
+  repeating the previous steps and re-parsing 3 again.
 
+  Thus, even a simple input like "3" is parsed multiple
+  times due to overlapping prefixes in the grammar.
 
+  By contrast, the final simplified grammar
 
+    expr ::= term (+ expr | ε)
+    term ::= factor (* term | ε)
 
-
+  parses "3" in a single pass. This improvement is due to
+  left-factorization, which eliminates overlapping prefixes
+  by factoring out the common part (term) and prevents
+  redundant parsing.
+  
+-}
 
 -----------------------------------------------------------
