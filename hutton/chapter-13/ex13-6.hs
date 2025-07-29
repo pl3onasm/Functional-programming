@@ -261,10 +261,10 @@ eval xs =
   rather than natural numbers, based upon the following 
   revisions to the grammar:
 
-        expr ::= term ( + expr | - expr | ε )
-        term ::= factor ( * term | / term | ε )
-        factor ::= ( expr ) | integer
-        int ::= ... | -1 | 0 | 1 | ...
+        expr    ::= term ( + expr | - expr | ε )
+        term    ::= factor ( * term | / term | ε )
+        factor  ::= ( expr ) | integer
+        int     ::= ... | -1 | 0 | 1 | ...
   
   The Expr data type now includes Sub and Div 
   constructors for subtraction and division, respectively. 

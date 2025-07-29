@@ -275,11 +275,11 @@ eval xs =
   • Grammar update:
     A new precedence level 'power' was introduced:
 
-        expr   ::= term ( + expr | - expr | ε )
-        term   ::= power ( * term | / term | ε )
-        power  ::= factor ( ^ power | ε )
-        factor ::= ( expr ) | int
-        int ::= ... | -1 | 0 | 1 | ...
+        expr    ::= term ( + expr | - expr | ε )
+        term    ::= power ( * term | / term | ε )
+        power   ::= factor ( ^ power | ε )
+        factor  ::= ( expr ) | int
+        int     ::= ... | -1 | 0 | 1 | ...
 
     The '^' operator now binds more tightly than * and /, 
     but still respects parentheses.

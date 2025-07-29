@@ -5,10 +5,10 @@
   The third grammar for arithmetic expressions is as
   follows:
 
-              expr ::= term + expr | term
-              term ::= factor * term | factor
-              factor ::= ( expr ) | nat
-              nat ::= 0 | 1 | 2 | ...
+              expr    ::= term + expr | term
+              term    ::= factor * term | factor
+              factor  ::= ( expr ) | nat
+              nat     ::= 0 | 1 | 2 | ...
 
   This version also takes account of associativity of
   operators, by modifying the rules for addition and 

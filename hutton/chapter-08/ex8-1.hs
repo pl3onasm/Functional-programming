@@ -66,10 +66,10 @@ mult' (Succ m) n = add n (mult' m n)
 
   Some examples:
 
-  ghci> a = Succ (Succ Zero)              -- 2
-  ghci> b = Succ (Succ (Succ Zero))       -- 3
+  ghci> a = Succ (Succ Zero)                      -- 2
+  ghci> b = Succ (Succ (Succ Zero))               -- 3
   ghci> add a b
-  Succ (Succ (Succ (Succ Zero)))          -- 5
+  Succ (Succ (Succ (Succ (Succ Zero))))           -- 5
   ghci> mult a b
-  Succ (Succ (Succ (Succ (Succ Zero))))   -- 6
+  Succ (Succ (Succ (Succ (Succ (Succ Zero)))))    -- 6
 -}

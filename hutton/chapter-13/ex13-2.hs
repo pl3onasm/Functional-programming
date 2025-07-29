@@ -5,10 +5,10 @@
   The second grammar for arithmetic expressions is as 
   follows:
 
-              expr ::= expr + expr | term
-              term ::= term * term | factor
-              factor ::= ( expr ) | nat
-              nat ::= 0 | 1 | 2 | ...
+              expr    ::= expr + expr | term
+              term    ::= term * term | factor
+              factor  ::= ( expr ) | nat
+              nat     ::= 0 | 1 | 2 | ...
 
   This version takes account of operator precedence, but
   it does not handle associativity of operators, leaving
