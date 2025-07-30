@@ -1,14 +1,27 @@
 -----------------------------------------------------------
 -- Exercise 15.3
 
+{-
+  Given is the definition:
 
+    mult = \x -> (\y -> x * y)
 
+  Evaluation of mult 3 4 yields:
 
+    mult 3 4
+  = {application of mult}
+    (\x -> (\y -> x * y)) 3 4
+  = {apply the outer lambda}
+    (\y -> 3 * y) 4
+  = {apply the inner lambda}
+    3 * 4
+  = {apply multiplication}
+    12
 
-
-
-
-
-
+  Note that evaluation is necessarily outermost in this
+  case, because lambda expressions act as black boxes
+  and do not evaluate their bodies until they are
+  applied.
+-}
 
 -----------------------------------------------------------

@@ -70,7 +70,7 @@ channel1 :: [Bit] -> [Bit]
 channel1 [] = []
 channel1 (_ : bs) = bs
 
--- Flips even bits (0 becomes 1)
+-- Flips even bits (0 becomes 1 and vice versa)
 channel2 :: [Bit] -> [Bit]
 channel2 = map (\b -> if even b then 1 - b else b)
 

@@ -50,11 +50,10 @@ instance Functor Tree where
   effectful traversals.
 
   The Foldable instance allows us to reduce a tree to a 
-  single summary value using monoidal combination or 
-  left/right folds.
+  single summary value using various methods:
 
     - fold reduces the tree by inserting mempty at the 
-      leaves and combining node values in-order
+      leaves and combining node values in-order using (<>)
 
     - foldMap maps each element to a monoid and combines 
       the results using (<>)
@@ -66,10 +65,12 @@ instance Functor Tree where
 
   The Traversable instance allows us to apply an effectful
   function to each element of the tree, preserving 
-  structure and evaluating in in-order sequence.
+  structure and returning a new tree with the results.
 
-  The Functor instance maps a pure function over all values
-  in the tree, recursively applying it to every node.
+  The Functor instance is required for the Traversable
+  instance, and it allows us to map a pure function over
+  all values in the tree, transforming each value while
+  preserving the tree structure.
 
   Examples:
     ghci> t = Node (Node Leaf 1 Leaf) 2 (Node Leaf 3 Leaf)
