@@ -56,7 +56,8 @@
     =   {unapplying cntNodes}
       1 + cntNodes (Node l r)
 
-  Hence, the property holds for all trees.
+  Hence, the property holds for all trees of the given 
+  type.
 
   □
   

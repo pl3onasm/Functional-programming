@@ -70,7 +70,7 @@
           {applying fmap}
       = Leaf (g (h x))
 
-      => LHS = RHS
+      ∴ LHS = RHS
 
     Inductive case: q(Node l r) holds
 
@@ -92,7 +92,7 @@
           {applying fmap}
       = Node (fmap g (fmap h l)) (fmap g (fmap h r))
 
-      => LHS = RHS
+      ∴ LHS = RHS
 
   Therefore, the functor laws hold for all trees of the
   given type.

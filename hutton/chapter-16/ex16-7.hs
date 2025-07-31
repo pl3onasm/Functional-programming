@@ -70,7 +70,7 @@
       =   {applying fmap}
         Nothing
 
-      => LHS = RHS
+      ∴ LHS = RHS
         
     Case 2: Just x
           {LHS second law}
@@ -89,7 +89,7 @@
       =   {applying fmap}
         Just (g (h x))
 
-      => LHS = RHS
+      ∴ LHS = RHS
 
   □
 
