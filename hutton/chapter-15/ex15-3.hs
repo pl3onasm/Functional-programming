@@ -9,13 +9,13 @@
   Evaluation of mult 3 4 yields:
 
     mult 3 4
-  = {application of mult}
+  =   {application of mult}
     (\x -> (\y -> x * y)) 3 4
-  = {apply the outer lambda}
+  =   {apply the outer lambda}
     (\y -> 3 * y) 4
-  = {apply the inner lambda}
+  =   {apply the inner lambda}
     3 * 4
-  = {apply multiplication}
+  =   {apply multiplication}
     12
 
   Note that evaluation is necessarily outermost in this

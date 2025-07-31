@@ -9,19 +9,19 @@
   Outermost evaluation yields:
 
     fst (1+2, 2+3)
-  = {application of fst}
+  =   {application of fst}
     1+2
-  = {evaluation of 1+2}
+  =   {evaluation of 1+2}
     3
 
   By contrast, innermost evaluation yields:
 
     fst (1+2, 2+3)
-  = {evaluation of 1+2}
+  =   {evaluation of 1+2}
     fst (3, 2+3)
-  = {evaluation of 2+3}
+  =   {evaluation of 2+3}
     fst (3, 5)
-  = {application of fst}
+  =   {application of fst}
     3   
 
   Hence, outermost evaluation requires only two steps,

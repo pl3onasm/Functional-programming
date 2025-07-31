@@ -19,8 +19,9 @@ sqroot x = head $ dropWhile notClose $ iterate next 1.0
   and x / y.
 
   The iteration continues until the square of the current 
-  approximation is within a small distance ε (0.0001) of x, 
-  at which point the approximation is returned.
+  approximation is within a small tolerance level epsilon
+  (ε = 0.0001) of x, at which point the approximation is 
+  returned.
 
   Examples:
 
