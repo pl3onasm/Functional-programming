@@ -40,7 +40,7 @@
   Inductive case: p(Succ n) holds
 
       Induction hypothesis:
-        add n m = add m n
+        p(n): add n m = add m n
 
         {LHS of p(Succ n)}
       add (Succ n) m

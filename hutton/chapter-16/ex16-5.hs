@@ -46,7 +46,7 @@
   Inductive case: p(n + 1, x : xs) holds
 
       Induction hypothesis:
-        take n xs ++ drop n xs = xs
+        p(n, xs): take n xs ++ drop n xs = xs
 
         {LHS of p(n + 1, x : xs)}
       take (n + 1) (x : xs) ++ drop (n + 1) (x : xs)

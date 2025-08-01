@@ -13,7 +13,7 @@
     (\x -> (\y -> x * y)) 3 4
   =   {apply the outer lambda}
     (\y -> 3 * y) 4
-  =   {apply the inner lambda}
+  =   {apply the remaining lambda}
     3 * 4
   =   {apply multiplication}
     12

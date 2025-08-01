@@ -25,9 +25,12 @@
     1. fmap id      = id 
     2. fmap (g . h) = fmap g . fmap h
 
-  We start with the first law.
+  We will verify each law in turn.
 
-    We have two cases: either we have Nothing, or a Just
+  -----------------------------------------------------
+  First law: fmap id = id
+
+    We have two cases: either we have Nothing, or Just
     
     Case 1: Nothing
           {LHS first law}
@@ -49,11 +52,11 @@
         id (Just (x))
           {RHS first law}
 
+  -----------------------------------------------------
+  Second law: fmap (g . h) = fmap g . fmap h
 
-    We proceed with the second law.
-
-      We have again two cases based on the structure of 
-      the Maybe type.
+    We have again two cases based on the structure of 
+    the Maybe type.
 
     Case 1: Nothing
           {LHS second law}
@@ -90,6 +93,10 @@
         Just (g (h x))
 
       ∴ LHS = RHS
+
+
+  Hence, the functor laws hold for the Maybe type and
+  the Functor instance defined above.
 
   □
 

@@ -30,7 +30,7 @@
   Inductive case: p(x : xs) holds
 
       Induction hypothesis:
-        xs ++ [] = xs
+        p(xs): xs ++ [] = xs
 
         {LHS of p(x : xs)}
       (x : xs) ++ []
@@ -54,7 +54,7 @@
   Inductive case: q(x : xs) holds
 
       Induction hypothesis:
-        xs ++ (ys ++ zs) = (xs ++ ys) ++ zs
+        q(xs): xs ++ (ys ++ zs) = (xs ++ ys) ++ zs
 
         {LHS of q(x : xs)}
       (x : xs) ++ (ys ++ zs)

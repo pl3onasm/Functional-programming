@@ -34,7 +34,7 @@
   Inductive case: p(Succ n) holds
 
       Induction hypothesis:
-        add n (Succ m) = Succ (add n m)
+        p(n): add n (Succ m) = Succ (add n m)
 
         {LHS of p(Succ n)}
       add (Succ n) (Succ m)
