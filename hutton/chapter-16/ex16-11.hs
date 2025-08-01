@@ -36,7 +36,7 @@
   To achieve this, we perform constructive induction on the
   structure of the expression e in the following property:
 
-    p: comp' e c = comp e ++ c
+    p(e): comp' e c = comp e ++ c
 
   Intuitively, comp' takes an expression e and an 
   accumulator c, and composes the code for e with the code
@@ -55,7 +55,8 @@
   Inductive case: p(Add x y)
 
       Induction hypothesis:
-        comp' e c = comp e ++ c
+        p(x): comp' x c = comp x ++ c
+        p(y): comp' y c = comp y ++ c
 
       comp' (Add x y) c
     =   {specification of comp'}
@@ -66,9 +67,9 @@
       comp x ++ comp y ++ ([ADD] ++ c)
     =   {applying ++}
       comp x ++ comp y ++ (ADD : c)
-    =   {induction hypothesis}
+    =   {induction hypothesis p(y)}
       comp x ++ comp' y (ADD : c)
-    =   {induction hypothesis}
+    =   {induction hypothesis p(x)}
       comp' x (comp' y (ADD : c))
 
   Thus, the property p holds for all expressions e, and 
