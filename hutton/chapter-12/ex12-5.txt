@@ -1,7 +1,6 @@
 -----------------------------------------------------------
--- Exercise 12.5
+Exercise 12.5
 
-{-
   1. Preservation of identity:
      pure id <*> x = x
 
@@ -69,8 +68,5 @@
       pure (.) <*> x <*> y <*> z :: f c      (def of (<*>))
 
     So both sides yield the same type f c.
--}
-
-
 
 -----------------------------------------------------------

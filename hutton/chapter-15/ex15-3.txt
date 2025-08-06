@@ -1,7 +1,6 @@
 -----------------------------------------------------------
--- Exercise 15.3
+Exercise 15.3
 
-{-
   Given is the definition:
 
     mult = \x -> (\y -> x * y)
@@ -22,6 +21,5 @@
   case, because lambda expressions act as black boxes
   and do not evaluate their bodies until they are
   applied.
--}
 
 -----------------------------------------------------------

@@ -1,7 +1,6 @@
 -----------------------------------------------------------
--- Exercise 13.8
+Exercise 13.8
 
-{-
  a. We modify the original grammar as given in the book
     by replacing the right-associative operator + with a 
     left-associative operator -, and rewrite the grammar 
@@ -60,7 +59,5 @@
     the subsequent terms are collected in the list ts.
     We then use foldl (-) t ts to enforce left 
     associativity.
-      
--}
 
 -----------------------------------------------------------

@@ -1,7 +1,6 @@
 -----------------------------------------------------------
--- Exercise 13.2
+Exercise 13.2
 
-{-
   The second grammar for arithmetic expressions is as 
   follows:
 
@@ -40,7 +39,5 @@
   in two different ways, which is a problem for a parser 
   that expects a single, unambiguous parse tree for each 
   expression.
-
--}
 
 -----------------------------------------------------------

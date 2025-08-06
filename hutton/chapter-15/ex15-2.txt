@@ -1,7 +1,6 @@
 -----------------------------------------------------------
--- Exercise 15.2
+Exercise 15.2
 
-{-
   Given is the expression
     
     fst (1+2, 2+3)
@@ -29,7 +28,5 @@
   yield the same result. Outermost evaluation is more
   efficient and preferred, as it avoids the unnecessary
   evaluation of the second component of the pair.
-
--}
 
 -----------------------------------------------------------

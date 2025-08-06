@@ -1,7 +1,6 @@
 -----------------------------------------------------------
--- Exercise 13.4
+Exercise 13.4
 
-{-
   Consider the earlier, third version of the grammar:
 
     expr   ::= term + expr | term
@@ -37,7 +36,5 @@
   left-factorization, which eliminates overlapping prefixes
   by factoring out the common part (term) and prevents
   redundant parsing.
-  
--}
 
 -----------------------------------------------------------
