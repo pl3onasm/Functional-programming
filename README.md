@@ -10,8 +10,8 @@ The repository is actively evolving as I continue learning and refining my solut
 
 - [Luca Padovani - *Lecture Notes on Haskell Programming*](padovani)
 - [Graham Hutton - *Programming in Haskell*](hutton)
-- [Simon Thompson - *The Craft of Functional Programming*](thompson) *(to be added)*
-- [Exams](exams) *(to be added)*
+- [Simon Thompson - *The Craft of Functional Programming*](thompson) *(in progress)*
+- [Exams](exams) *(in progress)*
 
 ## <img src="Haskell2.svg" width="35" /> References
 

@@ -200,9 +200,9 @@ expr = do t <- term
              e <- expr
              return (Add t e)
            <|> do 
-             symbol "-"
-             e <- expr
-             return (Sub t e)
+             ts <- many (do symbol "-"
+                            term)
+             return (foldl Sub t ts)
            <|> return t
 
 -- | Parses a term:
@@ -214,9 +214,11 @@ term = do f <- factor
              t <- term
              return (Mul f t)
            <|> do 
-             symbol "/"
-             t <- term
-             return (Div f t)
+             ts <- many (do symbol "/"
+                            factor)
+             if any (\x -> evalExpr x == 0) ts
+             then empty  -- Avoid division by zero
+             else return (foldl Div f ts)
            <|> return f
 
 -- | Parses a factor:
@@ -357,10 +359,11 @@ calc xs = do
   c <- getCh
   if elem c buttons 
   then do
-    clearStatus
     if elem c "\n=qQ\ESC\BS\DELdcDC "
     then clearStatus
-    else writeat (1,15) (grn ("You pressed: " ++ [c]))
+    else do
+      clearStatus 
+      writeat (1,15) (grn ("You pressed: " ++ [c]))
     process c xs
   else
     do 
@@ -432,18 +435,33 @@ press c xs = calc (xs ++ [c])
 
   Some example inputs and their outputs:  
   
-  41 * (2 + 3) - 5
-    200
-  
-  (10 - 2) - 3 * 4
-    -4
-  
-  48 / 6 +* 2
-    Error around position 8.
+    41 * (2 + 3) - 5
+      200
+    
+    (10 - 2) - 3 * 4
+      -4
+    
+    48 / 6 +* 2
+      Error around position 8.
 
-  -2--16 /2
-    6
+    -2--16 /2
+      6
 
-  + + + + + 
-    Invalid input.
+    + + + + + 
+      Invalid input.
+
+  Note that we have also implemented the solution discussed
+  in exercise 13.8, which allows for left-associative
+  parsing of subtraction and division by using the foldl 
+  function to combine terms. Implementations of the + and
+  * operators remain right-associative, as they do not
+  affect the final result.
+  
+  This change means that expressions like "1 - 2 - 3" are 
+  now parsed as "(1 - 2) - 3", yielding the expected result
+  of -4, rather than "1 - (2 - 3)" which would yield 2. The 
+  same applies to division, where "8 / 4 / 2" is now parsed
+  as "(8 / 4) / 2", yielding the expected result of 1, 
+  rather than "8 / (4 / 2)" which would yield 4.
+
 -}

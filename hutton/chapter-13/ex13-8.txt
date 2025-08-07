@@ -1,20 +1,19 @@
 -----------------------------------------------------------
-Exercise 13.8
+-- Exercise 13.8
 
- a. We modify the original grammar as given in the book
-    by replacing the right-associative operator + with a 
-    left-associative operator -, and rewrite the grammar 
-    as follows:
+{- 
+ a. We modify the original grammar by replacing the 
+    right-associative + operator with a left-associative 
+    - operator. The revised grammar is:
 
         expr   ::= expr - term | term
         term   ::= factor ( * term | ε ) 
         factor ::= ( expr ) | nat
         nat    ::= 0 | 1 | 2 | ...
 
-    Only the first line has changed. The first line now
-    introduces left recursion, which means that the 
-    subtraction operator is interpreted as 
-    left-associative, forcing a structure like 
+    Only the first line has changed. The introduction of 
+    left recursion means that subtraction is interpreted 
+    as left-associative, enforcing a structure like 
     (((e1 - e2) - e3) - ... - en).
 
  b. Implementing this grammar directly only requires 
@@ -22,7 +21,7 @@ Exercise 13.8
     left-associative subtraction operator. The other 
     parsers (term, factor, nat) remain unchanged.
 
-    The direct (but problematic) parser for expr is:
+    A direct (but problematic) parser for expr is:
 
         expr :: Parser Int
         expr = 
@@ -32,19 +31,18 @@ Exercise 13.8
              return (e - t)
             <|> term
 
- c. The new parser is left-recursive. In combination with
-    our top-down recursive-descent parser, this causes 
-    non-termination because the parser keeps calling itself
-    without ever consuming any input: to parse expr, it 
-    calls expr, which calls expr again, and so on, without
-    ever reaching a base case.
+ c. This parser is left-recursive. Combined with our 
+    top-down recursive-descent parser, this causes 
+    non-termination because the parser repeatedly calls 
+    itself without consuming any input: to parse expr, 
+    it calls expr again, and so on, with no base case 
+    ever reached.
 
- d. To fix this problem, we can rewrite the grammar to 
-    eliminate left recursion while preserving the 
-    left-associative semantics of subtraction. 
-    We do this by parsing an initial term, followed by 
-    zero or more (- term) segments, and then combining 
-    the results using foldl:
+ d. To fix this, we eliminate the left recursion while 
+    preserving the left-associative semantics of 
+    subtraction. We parse an initial term, followed by 
+    zero or more (- term) segments, and combine the 
+    results using foldl:
 
         expr :: Parser Int
         expr = do
@@ -52,12 +50,37 @@ Exercise 13.8
           ts <- many (do symbol "-"
                          term)
           return (foldl (-) t ts)
-    
-    Here many (do symbol "-"; term) collects zero or 
+
+    Here, many (do symbol "-"; term) collects zero or 
     more terms that follow a "-" symbol, returning a 
-    list of terms. The first term is parsed as t, and 
-    the subsequent terms are collected in the list ts.
-    We then use foldl (-) t ts to enforce left 
-    associativity.
+    list ts. The initial term is parsed as t, and we 
+    use foldl (-) t ts to ensure left associativity.
+
+ e. An alternative way to implement left-associative 
+    parsing is to restructure the grammar using 
+    auxiliary non-terminals. These helper rules flatten 
+    the recursion and enable left-associative parsing 
+    without introducing left recursion. The revised 
+    grammar becomes:
+
+        expr   ::= term expr'
+        expr'  ::= "+" term expr' 
+                 | "-" term expr'
+                 | ε
+        term   ::= factor term'
+        term'  ::= "*" factor term' 
+                 | "/" factor term'
+                 | ε
+        factor ::= "(" expr ")" | nat
+
+    This solution does in fact the same as the previous
+    one, but is more complex as it introduces additional
+    non-terminals (expr' and term') to handle the to 
+    handle the left-associative structure without intro-
+    ducing left recursion. Using foldl is a more concise 
+    and idiomatic way to achieve the same result in 
+    Haskell.
+
+-}
 
 -----------------------------------------------------------

@@ -215,7 +215,9 @@ term = do f <- factor
            <|> do 
              symbol "/"
              t <- term
-             return (Div f t)
+             if evalExpr t == 0
+             then empty  -- Avoid division by zero
+             else return (Div f t)
            <|> return f
 
 -- | Parses a factor:
@@ -256,27 +258,58 @@ eval xs =
 -----------------------------------------------------------
 
 {-
-  In this version we have extended the parser to support 
+  In this version, we have extended the parser to support 
   subtraction and division, and to use integer values 
-  rather than natural numbers, based upon the following 
+  rather than natural numbers, based on the following 
   revisions to the grammar:
 
         expr    ::= term ( + expr | - expr | ε )
         term    ::= factor ( * term | / term | ε )
         factor  ::= ( expr ) | integer
         int     ::= ... | -1 | 0 | 1 | ...
-  
+
   The Expr data type now includes Sub and Div 
   constructors for subtraction and division, respectively. 
   The evalExpr function has been updated to handle these
   new operations.
 
-  In order to also parse subtraction and division, we
-  modified the expr and term parsers to handle
-  subtraction and division operations. The factor parser
-  was also updated to allow for integer values, including
-  negative integers.
-  
+  To parse subtraction and division, we modified the 
+  expr and term parsers to handle the respective 
+  operators. The factor parser was also updated to 
+  accept integer values, including negatives. In order to
+  avoid division by zero, we added a check in the term
+  parser that returns an empty result if the divisor is
+  zero, which will cause the parser to fail gracefully.
+
+  It is important to note that Professor Hutton's grammar
+  assumes that operators like + and * are right-
+  associative (see also pp. 188-189), which is why the 
+  parsers for expr and term are defined in a right-
+  recursive manner. This means that the expression 
+  "1 + 2 + 3" is parsed as "1 + (2 + 3)" rather than 
+  "(1 + 2) + 3".
+
+  This right-associativity is fine for addition and 
+  multiplication due to their associativity in arithmetic, 
+  but for subtraction and division, it leads to 
+  wrong results. For example, "1 - 2 - 3" is parsed 
+  as "1 - (2 - 3)", which evaluates to 2, instead of the 
+  expected left-associative interpretation:
+  "(1 - 2) - 3 = -1 - 3 = -4". The same applies to
+  division, where "8 / 4 / 2" is parsed as "8 / (4 / 2)", 
+  which evaluates to 4, rather than the expected 
+  "(8 / 4) / 2 = 2 / 2 = 1".
+
+  This approach was likely chosen for pedagogical 
+  simplicity. Right-recursive grammars are easier to 
+  implement using recursive descent parsing, because 
+  left-recursive parsers can lead to infinite loops. 
+  Moreover, for + and *, the associativity does not affect 
+  the result, so this design avoids additional complexity 
+  in the early stages. 
+
+  Solutions to this issue, including left-associative 
+  parsing using foldl, are explored in Exercise 13.8.
 -}
 
 -----------------------------------------------------------

@@ -17,7 +17,7 @@ luhnDbl x = if d <= 9 then d else d - 9
   where 
     d = 2 * x
 
--- takes for digits and checks if the 4-digit number is 
+-- takes four digits and checks if the 4-digit number is 
 -- a valid bank car number
 luhn :: Int -> Int -> Int -> Int -> Bool 
 luhn a b c d = 

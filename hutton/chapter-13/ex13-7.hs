@@ -216,7 +216,9 @@ term = do p <- power
            <|> do 
              symbol "/"
              t <- term
-             return (Div p t)
+             if evalExpr t == 0
+             then empty  -- Avoid division by zero
+             else return (Div p t)
            <|> return p
 
 -- | Parses exponentiation:
