@@ -193,7 +193,7 @@ data Expr
 
 -- | Parses an expression:
 -- a term optionally followed by + or - and another expr
--- Right-recursive, so it is right-associative
+-- Subtraction is implemented as left-associative
 expr :: Parser Expr
 expr = do t <- term
           do symbol "+"
@@ -207,7 +207,7 @@ expr = do t <- term
 
 -- | Parses a term:
 -- a factor optionally followed by * or / and another term
--- Right-recursive, so it is right-associative
+-- Division is implemented as left-associative
 term :: Parser Expr
 term = do f <- factor
           do symbol "*"
