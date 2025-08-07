@@ -56,6 +56,11 @@
     list ts. The initial term is parsed as t, and we 
     use foldl (-) t ts to ensure left associativity.
 
+    A similar fix can be applied to the term parser
+    to handle left-associative division. See exersise
+    13.9 for an implementation of both left-associative
+    subtraction and division.
+
  e. An alternative way to implement left-associative 
     parsing is to restructure the grammar using 
     auxiliary non-terminals. These helper rules flatten 
