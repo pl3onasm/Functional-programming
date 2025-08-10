@@ -6,13 +6,13 @@ This folder contains past UG exam questions, which are perfect for self-practice
 
 Each exam folder contains the following three files:
 
-- *-questions.lhs
+- *-questions.lhs  
 Contains only the exam questions and problem statements. Use this file to attempt the problems without seeing the solutions.
 
-- *-solutions.lhs
+- *-solutions.lhs  
 Contains fully worked solutions with explanations for the corresponding questions.
 
-- functions.md
+- functions.md  
 Lists standard Haskell functions and operators allowed in the exam. The definitions here are especially useful for the proof-based questions.
 
 ## How to Use
