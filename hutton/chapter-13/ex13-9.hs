@@ -454,8 +454,8 @@ press c xs = calc (xs ++ [c])
   in exercise 13.8, which allows for left-associative
   parsing of subtraction and division by using the foldl 
   function to combine terms. Implementations of the + and
-  * operators remain right-associative, as they do not
-  affect the final result.
+  * operators remain right-associative, which is fine 
+  because the operations are associative
   
   This change means that expressions like "1 - 2 - 3" are 
   now parsed as "(1 - 2) - 3", yielding the expected result

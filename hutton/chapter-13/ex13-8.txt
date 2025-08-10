@@ -56,16 +56,17 @@ d. To fix this, we eliminate the left recursion while
    use foldl (-) t ts to ensure left associativity.
 
    A similar fix can be applied to the term parser
-   to handle left-associative division. See exersise
+   to handle left-associative division. See exercise
    13.9 for an implementation of both left-associative
    subtraction and division.
 
 e. An alternative way to implement left-associative 
    parsing is to restructure the grammar using 
-   auxiliary non-terminals. These helper rules flatten 
-   the recursion and enable left-associative parsing 
-   without introducing left recursion. The revised 
-   grammar becomes:
+   auxiliary non-terminals. These helper rules remove 
+   the direct left recursion by factoring it out into 
+   extra non-terminals, allowing left-associative parsing
+   without infinite recursion. The revised grammar 
+   becomes:
 
       expr   ::= term expr'
       expr'  ::= "+" term expr' 
@@ -77,12 +78,10 @@ e. An alternative way to implement left-associative
                | ε
       factor ::= "(" expr ")" | nat
 
-   This solution does in fact the same as the previous
-   one, but is more complex as it introduces additional
-   non-terminals (expr' and term') to handle the to 
-   handle the left-associative structure without intro-
-   ducing left recursion. Using foldl is a more concise 
-   and idiomatic way to achieve the same result in 
-   Haskell.
+   This solution achieves the same result as the previous
+   one, but is more verbose, introducing extra non-
+   terminals. In Haskell, using foldl is a more concise 
+   and idiomatic way to enforce left-associativity in such
+   cases.
 
 -----------------------------------------------------------

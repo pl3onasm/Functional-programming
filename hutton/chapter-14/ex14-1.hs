@@ -20,7 +20,7 @@ instance (Monoid a, Monoid b) => Monoid (Pair a b) where
 -----------------------------------------------------------
 
 {-
-  Since GHCi 8.4 every Monoid must also be a Semigroup.
+  Since GHC 8.4 every Monoid must also be a Semigroup.
   This is why we first define a Semigroup instance
   for Pair a b before defining the Monoid instance.
   We also had to use a newtype wrapper because GHC 
