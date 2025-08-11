@@ -260,16 +260,20 @@ Answer:
 
 ___________________________________________________________
 
-5. inﬁnite lists
+5. Inﬁnite lists
 ___________________________________________________________
 
 Question 5.1:
-Assuming the availablility of the inﬁnite list 
+Given the availablility of the inﬁnite list of prime
+numbers, defined as follows:
 
-  primes::[Integer] 
+> primes :: [Integer] 
+> primes = sieve [2..]
+>   where
+>   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
   
-of prime numbers, write a function isPrime n
-that returns True only if n is a prime number.
+write a function isPrime n that returns True only if n is 
+a prime number.
 
 --------
 Answer:

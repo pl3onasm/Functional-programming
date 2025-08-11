@@ -391,19 +391,21 @@ with list comprehensions:
 
 ___________________________________________________________
 
-5. inﬁnite lists
+5. Inﬁnite lists
 ___________________________________________________________
 
 Question 5.1:
-Assuming the availablility of the inﬁnite list
-primes::[Integer] of prime numbers, use it to deﬁne the 
-inﬁnite list composites::[Integer] which is the list of all 
-positive integers which are not prime.
+Given the availablility of the inﬁnite list of prime
+numbers, defined as follows:
 
 > primes :: [Integer] 
 > primes = sieve [2..]
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
+
+Use it to deﬁne the inﬁnite list composites::[Integer] 
+which is the list of all positive integers which are not 
+prime.
 
 --------
 Answer:
@@ -526,7 +528,7 @@ follows:
 > empty :: Fifo a
 > empty = Fo []
 
-> isEmpty :: Fifo a
+> isEmpty :: Eq a => Fifo a -> Bool
 > isEmpty (Fo xs) = xs == []
 
 > insert :: a -> Fifo a -> Fifo a

@@ -68,7 +68,7 @@ dec2int = foldl (\acc x -> 10*acc + ord x - ord '0') 0
   Use foldl (or foldl') for:
   - left-associative accumulation
   - stepwise aggregation from the front of the list
-  - you are processing finite lists
+  - when you are processing finite lists
   - the operator is strict (like (+), (*), etc.)
 
 -}
