@@ -1,4 +1,4 @@
-> import Prelude hiding (zip, flip, replicate)
+> import Prelude hiding (zip, flip, replicate, dropWhile)
 
 -----------------------------------------------------------
              EXAM FUNCTIONAL PROGRAMMING 2020               
@@ -147,6 +147,15 @@ Answer:
 > split :: (a -> Bool) -> [a] -> ([a], [a])
 > split p xs = (takeWhile (not . p) xs, 
 >               dropWhile (not . p) xs)
+
+Since the function dropWhile is not listed in the functions
+file functions.md, we can implement it as follows:
+
+> dropWhile :: (a -> Bool) -> [a] -> [a]
+> dropWhile _ [] = []
+> dropWhile p (x : xs)
+>   | p x       = dropWhile p xs
+>   | otherwise = x : xs
 
 
 ___________________________________________________________
@@ -562,12 +571,12 @@ We will prove this by structural induction on the list xs.
   length (f [] ys)
     {RHS of p([])}
 
-2. Inductive step: p(x : xs)
+2. Inductive step: p((x : xs))
 
     Induction hypothesis:
       p(xs) : length xs * length ys = length(f xs ys)
       
-    {LHS of p(x : xs)}
+    {LHS of p((x : xs))}
   length (x : xs) * length ys
 =   {applying definition of length}
   (1 + length xs) * length ys
@@ -588,7 +597,7 @@ We will prove this by structural induction on the list xs.
   length (ys ++ f xs ys)
 =   {unapplying the definition for f}
   length (f (x : xs) ys)
-    {RHS of p(x : xs)}
+    {RHS of p((x : xs))}
   
 3. Lemma: 
       q(xs) : length xs + length ys = length (xs ++ ys)

@@ -25,8 +25,11 @@ Answer:
 Yes, this expression is type correct. The second element of
 the list is a partially applied binary function (&&) with 
 the argument True. The first element is the function not, 
-a unary function of type Bool -> Bool. Thus the type of
-the expression is: [(Bool -> Bool)].
+a unary function of type Bool -> Bool. Thus, both elements 
+of the list have the same type Bool -> Bool, and the list
+can be constructed. The type of the expression is:  
+
+[(Bool -> Bool)]
 
 
 --------------------------------
@@ -42,8 +45,8 @@ Answer:
 No, this expression is not type correct. The first element 
 of the list is a list of binary functions of type
 [(Num a) => (a -> a -> a)], while the second element is a
-binary function of type (Num a) => (a -> a -> a).
-The two elements of the list have different types, so the
+single binary function of type (Num a) => (a -> a -> a).
+As the two elements of the list have different types, the
 list cannot be constructed.
 
 
@@ -62,11 +65,12 @@ operator (.) takes two unary functions and returns a
 unary function. The first function is a partially applied
 binary function (42 -) of type (Num a) => (a -> a).
 The second function is a partially applied binary function
-((+) (42::Int)) of type (Int -> Int). As the inner 
-function has an output type of Int, the first function
-must also have an input type of Int. This means that the
-composed function has type (Int -> Int), and that the
-entire expression is therefore type correct.
+((+) (42::Int)) of type (Int -> Int) enforced by the
+explicit type annotation (42::Int).
+As the inner function has an output type of Int, the 
+outer function must have an input type of Int. This means 
+that the composed function has type (Int -> Int), and that
+the entire expression is therefore type correct.
 
 
 --------------------------------
@@ -713,12 +717,13 @@ We will prove property p by structural induction on t.
   reverse(inorder(Node x (mirror r) (mirror l)))
 =   {applying inorder}
   reverse(inorder(mirror r) ++ [x] ++ inorder(mirror l))
-=   { associativity of ++ }
+=   {associativity of ++, given without proof}
   reverse ((inorder(mirror r) ++ [x]) ++ inorder(mirror l))
-=   {applying lemma 1}
+=   {applying lemma reverse(us ++ vs) with 
+     us = inorder(mirror r) ++ [x], vs = inorder(mirror l)}
   reverse(inorder(mirror l)) 
   ++ reverse (inorder(mirror r) ++ [x])
-=   {applying lemma 1 once more}
+=   {applying lemma once more}
   reverse(inorder(mirror l))
   ++ (reverse [x] ++ reverse(inorder(mirror r)))
 =   {induction hypothesis}
@@ -729,7 +734,7 @@ We will prove property p by structural induction on t.
   inorder (Node x l r)
     {RHS of p(Node x l r)}
 
-3. Lemma 1: 
+3. Lemma: 
       q(xs) : reverse(xs ++ ys) = reverse ys ++ reverse xs
 
 We will prove this lemma by structural induction on xs.
@@ -740,7 +745,8 @@ We will prove this lemma by structural induction on xs.
   reverse ([] ++ ys)
 =   {applying ++}
   reverse ys
-=   {applying lemma 2: commutativity for xs = []}
+=   {as noted, we may use without proof that xs = xs ++ [],
+     with xs = reverse ys}
   reverse ys ++ []
 =   {unapplying reverse}
   reverse ys ++ reverse []
@@ -762,35 +768,6 @@ We will prove this lemma by structural induction on xs.
 =   {unapplying reverse}
   reverse ys ++ reverse (x : xs)
     {RHS of q((x : xs))}
-
-4. Lemma 2: r(xs): reverse xs = reverse xs ++ []
-
-We will prove this lemma by structural induction on xs.
-
-4.1 Base case: r([])
-
-    {LHS of r([])}
-  [] ++ []
-=   {applying ++}
-  []
-    {RHS of r([])}
-
-4.2 Inductive step: r((x : xs))
-
-  Induction hypothesis:
-    r(xs) : reverse xs = reverse xs ++ []
-
-    {LHS of r((x : xs))}
-  reverse (x : xs) 
-=   {applying reverse}
-  reverse xs ++ [x]
-=   {induction hypothesis}
-  reverse xs ++ [] ++ [x]
-=   {associativity of ++}
-  reverse xs ++ [x] ++ []
-=   {unapplying reverse}
-  reverse (x : xs) ++ []
-    {RHS of r((x : xs))}
 
 □
 
