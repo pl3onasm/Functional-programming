@@ -250,7 +250,7 @@ Answer:
 Question 5.2:
 The numbers 
 
-  t(n) = Σ_{i=1}^n i = n(n+1)/2
+  t(n) = ∑_{i=1}^n i = n(n+1)/2
 
 (for positive integers n) are called triangle numbers. 
 The expression Σ_{i=1}^n i is the sum of the first n
@@ -281,7 +281,7 @@ Answer:
 --------------------------------
 Question 5.3:
 Consider the Cantor snake from the figure included in this
-exam folder.
+exam folder (file: CantorSnake.png).
 We represent the rational number a b as the pair (a, b). 
 Give a Haskell definition of the inifinite list cantor that 
 produces all pairs in the order that is given in the 

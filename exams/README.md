@@ -13,7 +13,7 @@ Contains only the exam questions and problem statements. Use this file to attemp
 Contains fully worked solutions with explanations for the corresponding questions.
 
 - functions.md  
-Lists standard Haskell functions and operators allowed in the exam. The definitions here are especially useful for the proof-based questions.
+Lists standard Haskell functions and operators allowed in the exam. The definitions here are the ones you should use in the proof-based questions.
 
 ## How to Use
 
