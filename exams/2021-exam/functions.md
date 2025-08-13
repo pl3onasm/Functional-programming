@@ -6,9 +6,9 @@ The following standard arithmetic/Boolean operators and standard Haskell functio
 [] ++ ys = ys
 (x:xs) ++ ys = x : (xs++ys)
 
-even x = x ‘mod‘ 2 == 0
+even x = x `mod` 2 == 0
 
-odd x = x ‘mod‘ 2 == 1
+odd x = x `mod` 2 == 1
 
 foldr f z [] = z
 foldr f z (x:xs) = f x (foldr f z xs)

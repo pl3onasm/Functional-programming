@@ -567,7 +567,9 @@ Answer:
 
 We will prove this by structural induction on the list xs.
 
-1. Base case: p([])
+------------------------------------
+1. Base case: prove p([])
+------------------------------------
 
     {LHS of p([])}
   length [] * length ys
@@ -581,7 +583,9 @@ We will prove this by structural induction on the list xs.
   length (f [] ys)
     {RHS of p([])}
 
-2. Inductive step: p((x : xs))
+------------------------------------
+2. Inductive step: prove p((x : xs))
+------------------------------------
 
     Induction hypothesis:
       p(xs) : length xs * length ys = length(f xs ys)
@@ -608,14 +612,20 @@ We will prove this by structural induction on the list xs.
 =   {unapplying the definition for f}
   length (f (x : xs) ys)
     {RHS of p((x : xs))}
-  
+
+□
+
+-------------------------------------------------------
 3. Lemma: 
       q(xs) : length xs + length ys = length (xs ++ ys)
+-------------------------------------------------------
    
   We will prove this lemma by structural induction on the 
   list xs
 
-3.1 Base case: q([])
+-------------------------------------
+3.1 Base case: prove q([])
+-------------------------------------
   
     {LHS of q([])}
   length [] + length ys
@@ -627,7 +637,9 @@ We will prove this by structural induction on the list xs.
   length ([] ++ ys)
     {RHS of q([])}
 
-3.2 Inductive step: q((x : xs))
+-------------------------------------
+3.2 Inductive step: prove q((x : xs))
+-------------------------------------
 
     Induction hypothesis:
       q(xs): length xs + length ys = length (xs ++ ys)
@@ -676,7 +688,9 @@ Answer:
 
 We prove the property p(t) by structural induction on t.
 
+--------------------------------------
 1. Base case: prove p(Empty)
+--------------------------------------
  
     {LHS of p(Empty)}
   size(Empty)
@@ -688,7 +702,9 @@ We prove the property p(t) by structural induction on t.
   length (inorder Empty)
     {RHS of p(Empty)}
 
+--------------------------------------
 2. Inductive step: prove p(Node x l r)
+--------------------------------------
 
     Induction hypothesis:
       Assume p(l) and p(r) hold for subtrees l, r:

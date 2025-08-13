@@ -654,7 +654,9 @@ Answer:
 
 We will prove this by structural induction on the list xs.
 
+---------------------------------
 Base case: prove p([])
+---------------------------------
 
     {LHS of p([])}
   take n [] ++ drop n []
@@ -666,7 +668,9 @@ Base case: prove p([])
   []
     {RHS of p([])}
 
+---------------------------------
 Inductive step: prove p((x : xs))
+---------------------------------
 
     Induction hypothesis:
       p(xs): take n xs ++ drop n xs == xs
@@ -674,7 +678,7 @@ Inductive step: prove p((x : xs))
   The if condition in take and drop requires us to 
   consider two cases: n <= 0 and n > 0.
 
-  Case 1: n <= 0
+• Case 1: n <= 0
 
     {LHS of p((x : xs))}
   take n (x : xs) ++ drop n (x : xs)
@@ -686,7 +690,7 @@ Inductive step: prove p((x : xs))
   x : xs
     {RHS of p((x : xs))}
 
-  Case 2: n > 0
+• Case 2: n > 0
 
     {LHS of p((x : xs))}
   take n (x : xs) ++ drop n (x : xs)
@@ -722,7 +726,7 @@ and isZero:
 
 Prove for all ﬁnite expressions e: 
 
-  isZero e ⇒ eval e == 0
+  p(e): isZero e ⇒ eval e == 0
 
 --------
 Answer:
@@ -730,25 +734,29 @@ Answer:
 We will prove this by structural induction on the 
 expression e.
 
-Base case: e = Value n
+-----------------------------------------------
+Base case: prove p(Value n)
+-----------------------------------------------
 
-    {LHS of isZero e}
+    {LHS of p(Value n)}
   isZero (Value n)
 =   {applying isZero}
   n == 0
 =   {unapplying eval}
   eval (Value n) == 0
-    {RHS of isZero e}
+    {RHS of p(Value n)}
 
-Inductive step: e = Add a b or e = Mul a b
+-----------------------------------------------
+Inductive step: prove p(Add a b) and p(Mul a b)
+-----------------------------------------------
 
-  Case 1: e = Add a b
+• Case 1: prove p(Add a b)
 
     Induction hypothesis:
-      isZero a ⇒ eval a == 0
-      isZero b ⇒ eval b == 0
+      p(a): isZero a ⇒ eval a == 0
+      p(b): isZero b ⇒ eval b == 0
 
-    {LHS of isZero e}
+    {LHS of p(Add a b)}
   isZero (Add a b)
 =   {applying isZero}
   isZero a && isZero b
@@ -758,15 +766,15 @@ Inductive step: e = Add a b or e = Mul a b
   eval a + eval b == 0
 =   {unapplying eval}
   eval (Add a b) == 0
-    {RHS of isZero e}
+    {RHS of p(Add a b)}
 
-  Case 2: e = Mul a b
+• Case 2: prove p(Mul a b)
 
     Induction hypothesis:
-      isZero a ⇒ eval a == 0
-      isZero b ⇒ eval b == 0
+      p(a): isZero a ⇒ eval a == 0
+      p(b): isZero b ⇒ eval b == 0
 
-    {LHS of isZero e}
+    {LHS of p(Mul a b)}
   isZero (Mul a b)
 =   {applying isZero}
   isZero a || isZero b
@@ -776,7 +784,7 @@ Inductive step: e = Add a b or e = Mul a b
   eval a * eval b == 0
 =   {unapplying eval}
   eval (Mul a b) == 0
-    {RHS of isZero e}
+    {RHS of p(Mul a b)}
 
 □
 

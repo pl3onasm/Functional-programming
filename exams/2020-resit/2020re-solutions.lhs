@@ -581,7 +581,9 @@ Answer:
 We will prove this property by structural induction on the
 list xs.
 
-1. Base case:  p([])
+------------------------------
+1. Base case: prove p([])
+------------------------------
 
     {LHS of p([])}
   length (f [] ys zs)
@@ -598,7 +600,9 @@ list xs.
   length [] * length ys + length [] * length zs
     {RHS of p([])}
 
-2. Inductive step: p((x : xs))
+------------------------------------
+2. Inductive step: prove p((x : xs))
+------------------------------------
 
   Induction hypothesis:
     p(xs) : length (f xs ys zs) = 
@@ -627,12 +631,18 @@ list xs.
   + (length (x : xs)) * length zs
     {RHS of p(x : xs)}
 
+□
+
+------------------------------------------------------
 3. Lemma: 
       q(xs): length (xs ++ ys) = length xs + length ys
+------------------------------------------------------
 
   We will prove this by structural induction on xs
 
-  3.1 Base case: q([])
+-------------------------------------
+3.1 Base case: prove q([])
+-------------------------------------
   
     {LHS of q([])}
   length [] + length ys
@@ -644,7 +654,9 @@ list xs.
   length ([] ++ ys)
     {RHS of q([])}
 
-  3.2 Inductive step: q((x : xs))
+-------------------------------------
+3.2 Inductive step: prove q((x : xs))
+-------------------------------------
 
     Induction hypothesis:
       q(xs): length xs + length ys = length (xs ++ ys)
@@ -696,7 +708,9 @@ Answer:
 
 We will prove property p by structural induction on t.
 
-1. Base case: p(Empty)
+--------------------------------------
+1. Base case: prove p(Empty)
+--------------------------------------
 
     {LHS of p(Empty)}
   reverse(inorder(mirror Empty))
@@ -710,7 +724,9 @@ We will prove property p by structural induction on t.
   inorder Empty
     {RHS of p(Empty)}
 
-2. Inductive step: p(Node x l r)
+--------------------------------------
+2. Inductive step: prove p(Node x l r)
+--------------------------------------
 
   Induction hypothesis:
     p(l): reverse(inorder(mirror l)) = inorder l
@@ -739,12 +755,18 @@ We will prove property p by structural induction on t.
   inorder (Node x l r)
     {RHS of p(Node x l r)}
 
+□
+
+----------------------------------------------------------
 3. Lemma: 
       q(xs) : reverse(xs ++ ys) = reverse ys ++ reverse xs
+----------------------------------------------------------
 
 We will prove this lemma by structural induction on xs.
 
-3.1 Base case: q([])
+-------------------------------------
+3.1 Base case: prove q([])
+-------------------------------------
 
     {LHS of q([])}
   reverse ([] ++ ys)
@@ -757,7 +779,9 @@ We will prove this lemma by structural induction on xs.
   reverse ys ++ reverse []
     {RHS of q([])}
 
-3.2 Inductive step: q((x : xs))
+-------------------------------------
+3.2 Inductive step: prove q((x : xs))
+-------------------------------------
 
     Induction hypothesis:
       q(xs) : reverse (xs ++ ys) = reverse ys ++ reverse xs

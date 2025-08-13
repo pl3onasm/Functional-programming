@@ -172,7 +172,7 @@ Question 4.1:
 What will be the output if you enter the following
 expression in the Haskell interpreter? 
 
-  [(x,y,x+y) | x<-[0,1,2], y<-[3,4]] 
+  [(x, y, x + y) | x <-[0, 1, 2], y <-[3, 4]] 
 
 --------
 Answer:
@@ -290,14 +290,14 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Give a deﬁnition of the inﬁnite list bitpals of non-empty 
+Give a deﬁnition of the infinite list pals of non-empty 
 palindromic strings that consist of the letters 'a' and
 'b'. For example: 
-  take 8 bitpals 
+  take 8 pals 
   may return: ["a","b","aa","bb","aaa","bab","aba","bbb"]
 
-The list bitpals must be organized such that a test like 
-elem "abba" bitpals terminates.
+The list pals must be organized such that a test like 
+elem "abba" pals terminates.
 
 --------
 Answer:
@@ -347,12 +347,15 @@ ___________________________________________________________
 ___________________________________________________________
 
 In this problem we use the following deﬁnition of sum (the 
-deﬁnitions of reverse and ++ are in the file functions.md):
+definitions of reverse and ++ are in the file functions.md):
 
   sum [] = 0
-  sum (x:xs) = x + sum xs
+  sum (x : xs) = x + sum xs
 
-Prove:   sum xs = sum(reverse xs) for any ﬁnite list xs
+Prove the following property p:   
+
+  sum xs = sum(reverse xs) 
+  for any finite list xs
 
 --------
 Answer:
