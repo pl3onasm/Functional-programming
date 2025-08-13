@@ -171,7 +171,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 4.1:
-mplement the function pairs (including its type) using a 
+Implement the function pairs (including its type) using a 
 list comprehension. 
 
 Example:  pairs [1..3] ['a','b']

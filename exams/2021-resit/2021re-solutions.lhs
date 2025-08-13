@@ -260,7 +260,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Give a Haskell expression that produces the infinite string 
+Give a Haskell expression that produces the inﬁnite string 
 "abbaaabbbbaaaaabbbbbbaaaaaaa...", i.e one a, two bs, three 
 as, four bs, etc.
 

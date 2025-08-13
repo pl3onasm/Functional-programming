@@ -86,9 +86,9 @@ We know that the function composition operator (.) has the
 type (.) :: (b -> c) -> (a -> b) -> (a -> c), and that the
 function (:) has the type (:) :: a -> [a] -> [a]. The
 latter function just takes an element of type a and a list
-of type [a] and returns a list of type [a]: the orignal
-list with the element prepended to it. This mean that the
-composed function g takes a function f of type
+of type [a] and returns a list of type [a], i.e. the 
+orignal list with the element prepended to it. This mean 
+that the composed function g takes a function f of type
 f :: a -> b, an element of type a, and a list of type [b]
 and returns a list of type [b]: the original list with the
 element f x prepended to it. Thus the type of g is: 
@@ -150,10 +150,10 @@ Answer:
 
 > -- generates all contiguous sublists of a list
 > allSubs :: [a] -> [[a]]
-> allSubs [] = []
+> allSubs []       = []
 > allSubs (x : xs) = prefs xs [x] ++ allSubs xs
 >   where
->     prefs [] acc = [acc]
+>     prefs []       acc = [acc]
 >     prefs (y : ys) acc = acc : prefs ys (acc ++ [y])
 
 > -- palindrome checker
@@ -308,6 +308,8 @@ is less than or equal to its successor. The zip function
 pairs each element with its successor, and the and 
 function checks if all these comparisons are True.
 
+If we are not allowed to use tail, we can simply replace
+(tail xs) with (drop 1 xs) 
 
 --------------------------------
 Question 4.2:
@@ -380,9 +382,8 @@ map, and tail like this:
 > transp xss      = (map head xss) : transp (map tail xss)
 
 But since the question requires a solution using list
-comprehensions, and we are not allowed to use head,
-and tail, we replace the two parts in the recursive case
-with list comprehensions:
+comprehensions, we replace the two parts in the recursive 
+case with list comprehensions:
 
 > transpose :: [[a]] -> [[a]]
 > transpose ([] : _) = []
@@ -395,8 +396,8 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Given the availablility of the inﬁnite list of prime
-numbers, defined as follows:
+Given is the inﬁnite list of prime numbers, defined as 
+follows:
 
 > primes :: [Integer] 
 > primes = sieve [2..]
@@ -454,6 +455,8 @@ Using zipWith:
 
 > fs' = 0 : 1 : zipWith (\x y -> 2 * y + x) fs' (tail fs')
 
+If not allowed to use (tail fs), we can simply replace it
+with (drop 1 fs)
 
 --------------------------------
 Question 5.3:

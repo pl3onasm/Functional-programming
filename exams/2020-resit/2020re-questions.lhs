@@ -288,8 +288,8 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Given the availablility of the inﬁnite list of prime
-numbers, defined as follows:
+Given is the inﬁnite list of prime numbers, defined as 
+follows:
 
 > primes :: [Integer] 
 > primes = sieve [2..]

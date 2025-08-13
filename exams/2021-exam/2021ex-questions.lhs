@@ -142,7 +142,7 @@ Answer:
 
 --------------------------------
 Question 3.2:
-ive an implementation (and the most general type) of the 
+Give an implementation (and the most general type) of the 
 function filter2 which takes a predicate and a list of
 lists, and outputs the list of lists that is obtained by 
 ﬁltering each list separately.
@@ -162,8 +162,9 @@ Answer:
 
 --------------------------------
 Question 3.3:
-ive a Haskell deﬁnition of the function applyAll (including
-its type) which takes a list of functions and an argument. 
+Give a Haskell deﬁnition of the function applyAll 
+(including its type) which takes a list of functions 
+and an argument. 
 It returns the value that is obtained by successively 
 applying the functions to this argument (i.e. function
 composition).
@@ -222,14 +223,12 @@ ___________________________________________________________
 
 Question 4.1:
 What will be the output if you enter the expression 
-[x+y|x<-[1..3], y<-[0..2]] in the Haskell interpreter?
+[x + y | x<-[1..3], y<-[0..2]] in the Haskell interpreter?
 
 --------
 Answer:
 
->
->
->
+
 
 
 --------------------------------
@@ -252,10 +251,11 @@ Answer:
 
 --------------------------------
 Question 4.3:
-Write a function factors::Integer->[Integer] which returns 
-all factors of its argument. Next, write the function 
-perfect :: Integer -> [Integer] such that perfect n returns
-the list of all perfect numbers in the domain [2..n]. 
+Write a function factors :: Integer -> [Integer] which 
+returns all factors of its argument. Next, write the 
+function perfect :: Integer -> [Integer] such that 
+perfect n returns the list of all perfect numbers in 
+the domain [2..n]. 
 Recall that a number is called a perfect number if it 
 equals the sum of its divisors (excluding itself). The 
 implementation of both functions must make use of a list 
@@ -277,7 +277,7 @@ Answer:
 
 --------------------------------
 Question 4.4:
-ake use of a list comprehension to implement the function 
+Make use of a list comprehension to implement the function 
 subs which takes a non-empty list xs and produces the
 list of all non-empty subsequences of xs. 
 Note that if xs contains duplicates, then the output also 
@@ -317,11 +317,17 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Assuming the availablility of the inﬁnite list 
-primes::[Integer] of prime numbers, use it to deﬁne the 
-Boolean function semiprime :: Integer -> Bool which returns
-True if and only if its argument is a product of exactly 
-two prime numbers.
+Given is the inﬁnite list of prime numbers, defined as 
+follows:
+
+> primes :: [Integer] 
+> primes = sieve [2..]
+>   where
+>   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
+
+Use it to deﬁne the Boolean function 
+semiprime :: Integer -> Bool which returns True if and only 
+if its argument is a product of exactly two prime numbers.
 
 --------
 Answer:
@@ -338,7 +344,7 @@ Given is the following deﬁnition of the inﬁnite list fs:
   fs = genfs 0 1 
     where genfs a b = a : genfs b (2*a + 3*b)
 
-Use zip or zipWith to give an equivalent deﬁnition of the 
+Use zip or zipWith to give an equivalent definition of the 
 list fs.
 
 --------
@@ -400,13 +406,13 @@ ___________________________________________________________
 Given are the following deﬁnitions of the functions take 
 and drop:
 
-take _ [] = []
-take n (x:xs) = if n <= 0 then [] else x:take (n-1) xs
+  take _ [] = []
+  take n (x:xs) = if n <= 0 then [] else x:take (n-1) xs
 
-drop _ [] = []
-drop n (x:xs) = if n <= 0 then (x:xs) else drop (n-1) xs
+  drop _ [] = []
+  drop n (x:xs) = if n <= 0 then (x:xs) else drop (n-1) xs
 
-Prove that: 
+Prove the following property:
 
   take n xs ++ drop n xs == xs for any integer n 
   and any ﬁnite list xs.
@@ -428,15 +434,15 @@ ___________________________________________________________
 Given is the data type Expr and the functions eval, 
 and isZero:
 
-data Expr = Value Integer | Add Expr Expr | Mul Expr Expr
+  data Expr = Value Integer | Add Expr Expr | Mul Expr Expr
 
-eval (Value n) = n
-eval (Add a b) = eval a + eval b
-eval (Mul a b) = eval a * eval b
+  eval (Value n) = n
+  eval (Add a b) = eval a + eval b
+  eval (Mul a b) = eval a * eval b
 
-isZero (Value n) = n==0
-isZero (Add a b) = isZero a && isZero b
-isZero (Mul a b) = isZero a || isZero b
+  isZero (Value n) = n==0
+  isZero (Add a b) = isZero a && isZero b
+  isZero (Mul a b) = isZero a || isZero b
 
 Prove for all ﬁnite expressions e: 
 

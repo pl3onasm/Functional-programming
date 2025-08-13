@@ -271,7 +271,8 @@ subtract 14 from 10 and push that back. The number on the
 stack is now -4, which is the ﬁnal result.
 
 We use the following data type for representing RPN literals:
-data RPN = Value Integer | Plus | Minus | Times | Div
+
+> data RPN = Value Integer | Plus | Minus | Times | Div
 
 Write a Haskell funtion rpn :: [RPN] -> Integer that 
 evaluates a RPN expression to an Integer.

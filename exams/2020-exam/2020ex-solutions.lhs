@@ -1,4 +1,5 @@
-> import Prelude hiding (zip, flip, replicate, dropWhile)
+> import Prelude hiding (zip, flip, replicate, dropWhile,
+>                        head)
 
 -----------------------------------------------------------
              EXAM FUNCTIONAL PROGRAMMING 2020               
@@ -368,15 +369,15 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Given the availablility of the inﬁnite list of prime
-numbers, defined as follows:
+Given is the inﬁnite list of prime numbers, defined as 
+follows:
 
 > primes :: [Integer] 
 > primes = sieve [2..]
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
   
-write a function isPrime n that returns True only if n is 
+Write a function isPrime n that returns True only if n is 
 a prime number.
 
 --------
@@ -390,8 +391,15 @@ already defined in part 2:
 > isPrime :: Integer -> Bool
 > isPrime n = head (dropWhile (< n) primes) == n 
 
-We can also modify the definition to use takeWhile instead,
-which is included in functions.md:
+Here, we should also define head as it is also not 
+included in the list of freely available functions:
+
+> head :: [a] -> a
+> head [] = error "head: empty list"
+> head (x : _) = x
+
+But we can also modify the definition to use takeWhile 
+and elem instead, which are included in functions.md:
 
 > isPrime' :: Integer -> Bool
 > isPrime' n = n `elem` takeWhile (<= n) primes
@@ -590,7 +598,7 @@ We will prove this by structural induction on the list xs.
   length ys + length(f xs ys)
 =   {we want to get this into the form where
      we can unapply the recursive case for f to get
-     to the LHS and conclude the proof, so we create a
+     to the RHS and conclude the proof, so we create a
      lemma which will allow us to have:
        length ys + length(f xs ys) = length (ys ++ f xs ys)
      Generalizing the lemma we need to prove:

@@ -200,12 +200,12 @@ Answer:
 --------------------------------
 Question 4.3:
 The dot product of two vectors 
-a = [a0, a1, ..., an] 
-b = [b0, b1, ..., bn]
+a = [a₀, a₁, ..., aₙ] 
+b = [b₀, b₁, ..., bₙ]
 
 is deﬁned as:
 
-  a . b = ∑_{i=1}^n aᵢ * bᵢ =
+  a . b = ∑_{i=1}^n (aᵢ * bᵢ) =
           a₀*b₀ + a₁*b₁ + ... + aₙ*bₙ  
 
 Implement the haskell function dotProduct using a list 

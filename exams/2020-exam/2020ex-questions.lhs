@@ -264,15 +264,15 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Given the availablility of the inﬁnite list of prime
-numbers, defined as follows:
+Given is the inﬁnite list of prime numbers, defined as 
+follows:
 
 > primes :: [Integer] 
 > primes = sieve [2..]
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
   
-write a function isPrime n that returns True only if n is 
+Write a function isPrime n that returns True only if n is 
 a prime number.
 
 --------
