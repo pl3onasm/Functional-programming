@@ -71,14 +71,15 @@ ___________________________________________________________
 ___________________________________________________________
 
 In number theory, a Leyland number is a number of the form 
-xy + yx, where x and y are integers greater than 1. 
+x^y + y^x, where x and y are integers greater than 1. 
 The first few Leyland numbers are: 
+
   8, 17, 32, 54, 57, 100, 145, 177, 320, 368, 
   512, 593, 945, 1124
 
 Write a Haskell function leyland :: Integer -> [Integer] 
 such that leyland n yields the ascending list of Leyland 
-numbers xy + yx, where 1 < x ≤ n and 1 < y ≤ n. 
+numbers x^y + y^x, where 1 < x ≤ n and 1 < y ≤ n. 
 Note that the list should not contain any duplicates.
 
 --------
@@ -216,7 +217,7 @@ ___________________________________________________________
 
 Question 5.1:
 Give a Haskell definition for the infinite list 
-ups=[1,1,2,1,2,3,1,2,3,4,1,2,3,4,5,1,2,3,4,5,6,..].
+  ups = [1,1,2,1,2,3,1,2,3,4,1,2,3,4,5,1,2,3,4,5,6,..]
 
 --------
 Answer:

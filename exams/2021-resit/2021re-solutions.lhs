@@ -200,7 +200,7 @@ breadth-first search (BFS) to explore all possible paths
 from n to g, but this would be less efficient: a naive BFS
 would have exponential complexity in the depth of the 
 search tree. With pruning using a visited set, it could
-be made more efficient and run in linear time, since each
+be made more efficient and run in O(g - n), since each
 integer in the range [n, g] would be visited at most once.
 
 
@@ -518,7 +518,7 @@ module declaration:
 module Set (
   Set, empty, isEmpty, isElement, insert, 
   delete, union, intersection
-)
+) where
 
 This line exports the abstract data type Set and the 
 functions, but does not export the constructor ST, thus
