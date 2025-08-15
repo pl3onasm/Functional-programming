@@ -49,4 +49,28 @@ msort xs = merge (msort left) (msort right)
   =     { applying merge }
     [0,1,3,5,5]
     
+
+  Note:
+
+  The sort is in O(n log n) time complexity, where n is the
+  length of the input list. So the way we split the list
+  into two halves, is fine (as it does not affect the 
+  overall complexity), even though it is not really the 
+  most efficient way to do it, as it traverses the list 
+  twice: once for length, and once for splitting.
+
+  A more efficient way to split the list in a single pass,
+  is to use two pointers which traverse the list at 
+  different speeds, so that when the faster pointer, 
+  traversing the list at twice the speed of the slower
+  pointer, reaches the end of the list, the slower pointer 
+  is at the middle of the list, and we can split the list
+  at that point. It would look like this:
+
+  halve :: [a] -> ([a], [a])
+  halve zs = split zs zs []
+    where
+    split (x : xs) (_ : _ : ys) acc = split xs ys (x : acc)
+    split xs _ acc = (reverse acc, xs)
+
 -}

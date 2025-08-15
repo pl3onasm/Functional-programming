@@ -193,11 +193,13 @@ complexity), even though it is not really the most
 efficient way to do it, as it traverses the list twice: 
 once for length, and once for splitting.
 
-A more efficient way to split the list in a single pass,
-is to use two pointers which traverse the list at different 
-speeds, so that when the faster pointer reaches the end,
-the slower pointer is at the middle of the list. It would
-look like this:
+A more efficient way to split the list in a single pass, is 
+to use two pointers which traverse the list at different 
+speeds, so that when the faster pointer, traversing the 
+list at twice the speed of the slower pointer, reaches the 
+end of the list, the slower pointer is at the middle of the 
+list, and we can split the list at that point. 
+It would look like this:
 
 > halve :: [a] -> ([a], [a])
 > halve zs = split zs zs []
