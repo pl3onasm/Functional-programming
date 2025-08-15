@@ -518,8 +518,8 @@ Prove the following property p:
   p(xs): foldr f e (xs ++ ys) = foldr f (foldr f e ys) xs 
          for all finite lists xs and ys.
 
-For the definitions of the involved functions, see the file
-functions.md.
+[Note: find the definitions of foldr and ++ in the file
+       functions.md included in this exam folder]
 
 --------
 Answer:
@@ -535,7 +535,7 @@ Base case: prove p([])
   foldr f e ([] ++ ys)
 =   {applying ++}
   foldr f e ys
-=   {definition of foldr}
+=   {unapplying foldr}
   foldr f (foldr f e ys) []
     {RHS of p([])}
 

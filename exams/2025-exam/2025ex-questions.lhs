@@ -225,7 +225,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -285,10 +285,10 @@ exam folder (file: CantorSnake.png).
 We represent the rational number a b as the pair (a, b). 
 Give a Haskell definition of the inifinite list cantor that 
 produces all pairs in the order that is given in the 
-figure. So:
+figure. Example:
 
-  take 10 cantor = [(1,1),(1,2),(2,1), (3,1),(2,2),
-                    (1,3),(1,4),(2,3),(3,2),(4,1)].
+  take 10 cantor = [(1,1),(1,2),(2,1),(3,1),(2,2),
+                    (1,3),(1,4),(2,3),(3,2),(4,1)]
 
 --------
 Answer:
@@ -343,12 +343,13 @@ The function add is defined as follows:
 
   add :: Integer -> [Integer] -> [Integer]
   add a [] = []
-  add a (x:xs) = (a + x):add a xs
+  add a (x : xs) = (a + x) : add a xs
 
 Prove the following property:
 
   add a (add b xs) = add (a+b) xs 
-  for all finite lists xs and for all values of a and b.
+
+  for all finite lists xs and for all values of a and b
 
 --------
 Answer:
@@ -361,13 +362,16 @@ Answer:
 
 ___________________________________________________________
 
-8. Proof of property of foldr
+8. Proof of foldr property
 ___________________________________________________________
 
 Prove for all finite lists xs::[a] and ys::[a], any 
 value z::a, and any function f :: a -> a -> a that:
 
   foldr f z (xs ++ ys) = foldr f (foldr f z ys) xs
+
+[Note: find the definitions of foldr and ++ in the file
+       functions.md included in this exam folder]
 
 --------
 Answer:

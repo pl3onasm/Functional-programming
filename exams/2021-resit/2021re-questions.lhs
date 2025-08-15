@@ -357,6 +357,9 @@ Prove the following property p:
   sum xs = sum(reverse xs) 
   for any finite list xs
 
+[Note: find the definition of reverse in the file
+       functions.md included in this exam folder]
+
 --------
 Answer:
 

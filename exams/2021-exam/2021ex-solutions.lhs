@@ -28,6 +28,7 @@ middle element is of type [Bool]. Since all elements of a
 list must have the same type, this mismatch makes the 
 expression ill-typed.
 
+
 --------------------------------
 Question 1.2:
 Is the following expression type correct? 
@@ -41,6 +42,7 @@ Answer:
 Yes, this expression is type correct. It is a list 
 containing the Boolean negation function. Its type is
 [Bool -> Bool].
+
 
 --------------------------------
 Question 1.3:
@@ -57,6 +59,7 @@ elements are binary Boolean functions, while the last
 element is a unary Boolean function. As the types of
 the elements are not the same, and cannot be unified
 into a single type, the expression is ill-typed.
+
 
 --------------------------------
 Question 1.4:
@@ -117,6 +120,7 @@ Then we have:  g 5 ys = [(: 5), tail, reverse]
 The output is a list that contains functions that can be
 applied to lists of Ints, where the first function
 (: 5) prepends the integer 5 to any list of Ints.
+
 
 --------------------------------
 Question 1.5:
@@ -217,6 +221,7 @@ A more efficient alternative would compute the next valid
 candidate directly using modular arithmetic (modular 
 inverses) instead of a brute-force linear search.
 
+
 ___________________________________________________________
 
 3. Higher-order functions
@@ -238,6 +243,7 @@ First we use filter to select all elements satisfying the
 predicate p from the input list. Then we apply the length
 function to count the number of elements in the filtered 
 list. 
+
 
 --------------------------------
 Question 3.2:
@@ -262,6 +268,7 @@ sublist in the input list of lists. The filter function
 selects only those elements that satisfy the predicate p, 
 resulting in a new list of lists where each sublist 
 contains only the elements that satisfy the predicate.
+
 
 --------------------------------
 Question 3.3:
@@ -301,6 +308,7 @@ achieve the same effect:
 > applyAll' :: [a -> a] -> a -> a
 > applyAll' fs x = foldr (\f acc -> f acc) x (reverse fs)
 
+
 --------------------------------
 Question 3.4:
 The standard Haskell function foldl is similar to foldr
@@ -325,6 +333,7 @@ list, and then recursively calling foldl on the rest of
 the list with the updated accumulator (f acc x). 
 The base case is when the list is empty, in which case 
 it simply returns the accumulator.
+
 
 --------------------------------
 Question 3.5:
@@ -373,6 +382,7 @@ order, where for each x in the first list, it iterates
 over all y in the second list, producing all combinations 
 of sums x + y. The output is a flat list of these sums.
 
+
 --------------------------------
 Question 4.2:
 The function mapfilter is deﬁned as: 
@@ -392,6 +402,7 @@ Answer:
 For each x drawn from xs, if p x is true, we include f x 
 in the output list. This exactly mimics (map f).(filter p) 
 but uses only a list comprehension instead.
+
 
 --------------------------------
 Question 4.3:
@@ -430,6 +441,7 @@ A more efficient implementation of factors would use the
 fact that factors come in pairs, but the above implemen-
 tation is straightforward and the question does not
 require optimization.
+
 
 --------------------------------
 Question 4.4:
@@ -481,6 +493,7 @@ The outer generator picks each number x from the infinite
 list [1..]. The inner generator _ <- [1..x] is used as a
 counter to repeat each x exactly x times. 
 
+
 --------------------------------
 Question 5.2:
 Given is the inﬁnite list of prime numbers, defined as 
@@ -509,6 +522,7 @@ n is divisible by x and the quotient n `div` x is also a
 prime. Although it may seem that the list ps is computed
 twice, this is not the case due to a process called 
 sharing in Haskell.
+
 
 --------------------------------
 Question 5.3:
@@ -649,6 +663,8 @@ Prove the following property:
   p(xs): take n xs ++ drop n xs == xs 
          for any integer n and any ﬁnite list xs
 
+[Note: the definition for ++ is given in functions.md]
+
 --------
 Answer:
 
@@ -705,6 +721,7 @@ Inductive step: prove p((x : xs))
     {RHS of p((x : xs))}
 
 □
+
 
 ___________________________________________________________
 

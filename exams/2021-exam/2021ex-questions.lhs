@@ -417,6 +417,8 @@ Prove the following property:
   take n xs ++ drop n xs == xs for any integer n 
   and any ﬁnite list xs.
 
+[Note: the definition for ++ is given in functions.md]
+
 --------
 Answer:
 

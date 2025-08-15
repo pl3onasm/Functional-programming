@@ -116,6 +116,7 @@ is:
 
 f :: (a -> a, a) -> a -> (a, a)
 
+
 ___________________________________________________________
 
 2. Programming in Haskell
@@ -197,6 +198,7 @@ Answer:
 >    split ys (z : zs)
 >      | p z       = (z, reverse ys, zs)
 >      | otherwise = split (z : ys) zs
+
 
 --------------------------------
 Question 3.2:
@@ -311,6 +313,7 @@ function checks if all these comparisons are True.
 If we are not allowed to use tail, we can simply replace
 (tail xs) with (drop 1 xs) 
 
+
 --------------------------------
 Question 4.2:
 Use a list comprehension to implement the function 
@@ -390,13 +393,14 @@ case with list comprehensions:
 > transpose xss      = [x | (x : _)  <- xss] : 
 >                       transpose [xs | (_ : xs) <- xss]
 
+
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -404,7 +408,7 @@ follows:
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
 
-Use it to deﬁne the inﬁnite list composites::[Integer] 
+Use it to deﬁne the infinite list composites::[Integer] 
 which is the list of all positive integers which are not 
 prime.
 
@@ -457,6 +461,7 @@ Using zipWith:
 
 If not allowed to use (tail fs), we can simply replace it
 with (drop 1 fs)
+
 
 --------------------------------
 Question 5.3:
@@ -574,6 +579,9 @@ Prove that
           length xs * length ys + length xs * length zs 
 
 for all ﬁnite lists xs, ys, and zs.
+
+[Note: definitions of length and ++ are given in the file
+ functions.md]
 
 --------
 Answer:
@@ -701,7 +709,8 @@ Prove for all ﬁnite trees t:
 [Note: If you need one or more lemmas to complete the 
  proof, then prove these lemmas separately. You may use 
  without proof that ++ is an associative operator, and 
- that xs ++ [] = xs.]
+ that xs ++ [] = xs.
+ The definition of length is given in functions.md]
 
 --------
 Answer:

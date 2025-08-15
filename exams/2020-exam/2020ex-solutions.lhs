@@ -562,6 +562,9 @@ Prove that
   
 for all ﬁnite lists xs and ys.
 
+[Note: find the definition of length in the file
+       functions.md included in this exam folder]
+
 --------
 Answer:
 
@@ -658,6 +661,7 @@ We will prove this by structural induction on the list xs.
 
 □
 
+
 ___________________________________________________________
 
 8. Proof on trees
@@ -681,7 +685,8 @@ Prove for all finite trees t:
   p(t): size(t) = length (inorder t)
 
 [Note: If you need one or more lemmas to complete the 
- proof, then prove these lemmas separately.]
+ proof, then prove these lemmas separately.
+ The definition of length is given in functions.md]
 
 --------
 Answer:

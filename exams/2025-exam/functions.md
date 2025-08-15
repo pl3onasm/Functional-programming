@@ -6,9 +6,11 @@ The following standard arithmetic/Boolean operators and standard Haskell functio
 [] ++ ys = ys
 (x:xs) ++ ys = x : (xs++ys)
 
-even x = x ‘mod‘ 2 == 0
+even x = x `mod` 2 == 0
 
-odd x = x ‘mod‘ 2 == 1
+odd x = x `mod` 2 == 1
+
+head (x: _) = x
 
 foldr f z [] = z
 foldr f z (x:xs) = f x (foldr f z xs)
@@ -41,6 +43,9 @@ take n (x:xs) = if n == 0 then [] else x:take (n-1) xs
 
 drop _ [] = []
 drop n (x:xs) = if n == 0 then (x:xs) else drop (n-1) xs
+
+dropWhile p [] = []
+dropWhile p (x:xs) = if (p x) then dropWhile p xs else (x:xs)
 
 takeWhile p [] = []
 takeWhile p (x:xs) = if (p x) then (x:takeWhile p xs) else []

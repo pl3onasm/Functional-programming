@@ -312,6 +312,9 @@ Prove:
   foldr f e (xs ++ ys) = foldr f (foldr f e ys) xs 
   for all finite lists xs and ys.
 
+[Note: find the definitions of foldr and ++ in the file
+       functions.md included in this exam folder]
+       
 --------
 Answer:
 

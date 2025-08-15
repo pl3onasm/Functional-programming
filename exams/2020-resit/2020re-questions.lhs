@@ -397,6 +397,9 @@ Prove that
 
 for all ﬁnite lists xs, ys, and zs.
 
+[Note: definitions of length and ++ are given in the file
+ functions.md]
+
 --------
 Answer:
 
@@ -431,7 +434,8 @@ Prove for all ﬁnite trees t:
 [Note: If you need one or more lemmas to complete the 
  proof, then prove these lemmas separately. You may use 
  without proof that ++ is an associative operator, and 
- that xs ++ [] = xs.]
+ that xs ++ [] = xs.
+ The definition of ++ is given in functions.md]
 
 --------
 Answer:
