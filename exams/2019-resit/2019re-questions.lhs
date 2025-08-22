@@ -217,11 +217,11 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Deﬁne the inﬁnite list fibs of Fibonacci numbers using a 
+Deﬁne the infinite list fibs of Fibonacci numbers using a 
 list comprehension. So:
   
   take 10 fibs 
@@ -241,7 +241,7 @@ Answer:
 --------------------------------
 Question 5.2:
 Without using a list comprehension, give a deﬁnition of 
-the inﬁnite list natlists = [[0],[0,1],[0,1,2],...].
+the infinite list natlists = [[0],[0,1],[0,1,2],...].
 
 --------
 Answer:
@@ -253,8 +253,8 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Implement the function multiples that takes a ﬁnite list
-of Integers and outputs the increasing inﬁnite list of
+Implement the function multiples that takes a finite list
+of Integers and outputs the increasing infinite list of
 positive integers that can be expressed as a multiple of 
 one (or more) of the numbers in the input list.
 
@@ -315,7 +315,7 @@ Consider the following Haskell function rvl.
 Prove the following property:
 
   rvl (xs++ys) [] = rvl ys (rvl xs []) 
-  for all ﬁnite lists xs and ys.
+  for all finite lists xs and ys.
 
 --------
 Answer:
@@ -349,8 +349,10 @@ Prove for all ﬁnite trees t:
   inorder (mirror t) = reverse (inorder t)
 
 [Note: You may use without proof that the operator ++ is 
-associative. If you need any other lemmas to complete the 
-proof, then prove these lemmas separately.]
+associative and that xs = xs ++ []. If you need any other 
+lemmas to complete the proof, then prove these lemmas 
+separately. For the definitions of reverse and ++ see the 
+file functions.md]
 
 --------
 Answer:

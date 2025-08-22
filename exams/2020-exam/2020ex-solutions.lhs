@@ -499,39 +499,51 @@ module RLElist (
     tl, cons, cat, len, rev
 ) where
 
-This line exports the RLElist type and the functions, but
-does not export the constructor RLE, thus hiding the
-implementation details. 
+This line exports the RLElist type and its associated 
+functions, but does not export the constructor Rle, thus 
+hiding the concrete implementation details. 
 
 Then, you would implement the data type and functions as 
 follows:
 
-> data RLElist a = RLE [(a, Integer)]
->      deriving (Show, Eq)
+> -- RLElist is an abstract data type 
+> -- for Run Length Encoding
+> data RLElist a = Rle [(a, Integer)]
 
+> -- show instance for pretty printing
+> instance (Show a) => Show (RLElist a) where
+>   show (Rle xs) = "rle " ++ show xs
+
+> -- converts a standard list to an RLElist
 > fromList :: Eq a => [a] -> RLElist a
-> fromList xs = foldr cons (RLE []) xs
+> fromList xs = foldr cons (Rle []) xs
 
+> -- converts an RLElist to a standard list
 > toList :: RLElist a -> [a]
-> toList (RLE xs) = [x | (x, n) <- xs, _ <- [1..n]]
+> toList (Rle xs) = [x | (x, n) <- xs, _ <- [1..n]]
 
+> -- returns the head of the RLElist
+> -- (the first element of the first chunk)
 > hd :: RLElist a -> a
-> hd (RLE ((x, _) : _)) = x
-> hd (RLE []) = error "hd: empty RLElist"
+> hd (Rle ((x, _) : _)) = x
+> hd (Rle []) = error "hd: empty RLElist"
 
+> -- returns the tail of the RLElist
 > tl :: RLElist a -> RLElist a
-> tl (RLE ((x, 1) : xs)) = RLE xs
-> tl (RLE ((x, n) : xs)) = RLE ((x, n - 1) : xs)
-> tl (RLE []) = error "tl: empty RLElist"
+> tl (Rle ((x, 1) : xs)) = Rle xs
+> tl (Rle ((x, n) : xs)) = Rle ((x, n - 1) : xs)
+> tl (Rle []) = error "tl: empty RLElist"
 
+> -- adds an element to the front of the RLElist
 > cons :: Eq a => a -> RLElist a -> RLElist a
-> cons x (RLE []) = RLE [(x, 1)]
-> cons x (RLE ((y, n) : xs))
->   | x == y    = RLE ((y, n + 1) : xs)
->   | otherwise = RLE ((x, 1) : (y, n) : xs)
+> cons x (Rle []) = Rle [(x, 1)]
+> cons x (Rle ((y, n) : xs))
+>   | x == y    = Rle ((y, n + 1) : xs)
+>   | otherwise = Rle ((x, 1) : (y, n) : xs)
 
+> -- concatenates two RLElists
 > cat :: Eq a => RLElist a -> RLElist a -> RLElist a
-> cat (RLE xs) (RLE ys) = RLE (merge xs ys)
+> cat (Rle xs) (Rle ys) = Rle (merge xs ys)
 >   where
 >     merge [] ys = ys
 >     merge [(x, n)] ((y, m) : ys)
@@ -539,11 +551,36 @@ follows:
 >       | otherwise = (x, n) : (y, m) : ys
 >     merge ((x, n) : xs) ys = (x, n) : merge xs ys
 
+> -- returns the length of the RLElist
 > len :: RLElist a -> Integer
-> len (RLE xs) = sum (map (\(_, n) -> n) xs)
+> len (Rle xs) = sum (map (\(_, n) -> n) xs)
 
+> -- reverses the RLElist
 > rev :: RLElist a -> RLElist a
-> rev (RLE xs) = RLE (reverse xs)
+> rev (Rle xs) = Rle (reverse xs)
+
+
+Example usage:
+
+ghci> x = fromList [1,1,1,4,5,2,2,2,2,2,2,1,1,1]
+ghci> x
+rle [(1,3),(4,1),(5,1),(2,6),(1,3)]
+ghci> len x
+14
+ghci> toList x
+[1,1,1,4,5,2,2,2,2,2,2,1,1,1]
+ghci> hd x
+1
+ghci> tl x
+rle [(1,2),(4,1),(5,1),(2,6),(1,3)]
+ghci> cons 3 x
+rle [(3,1),(1,3),(4,1),(5,1),(2,6),(1,3)]
+ghci> cons 1 x
+rle [(1,4),(4,1),(5,1),(2,6),(1,3)]
+ghci> y = cat x (fromList [3,3,3])
+rle [(1,3),(4,1),(5,1),(2,6),(1,3),(3,3)]
+ghci> rev y
+rle [(3,3),(1,3),(2,6),(5,1),(4,1),(1,3)]
 
 
 ___________________________________________________________
@@ -570,9 +607,9 @@ Answer:
 
 We will prove this by structural induction on the list xs.
 
-------------------------------------
+---------------------------------------------
 1. Base case: prove p([])
-------------------------------------
+---------------------------------------------
 
     {LHS of p([])}
   length [] * length ys
@@ -586,9 +623,9 @@ We will prove this by structural induction on the list xs.
   length (f [] ys)
     {RHS of p([])}
 
-------------------------------------
-2. Inductive step: prove p((x : xs))
-------------------------------------
+---------------------------------------------
+2. Inductive step: prove p(xs) => p((x : xs))
+---------------------------------------------
 
     Induction hypothesis:
       p(xs) : length xs * length ys = length(f xs ys)
@@ -626,9 +663,9 @@ We will prove this by structural induction on the list xs.
   We will prove this lemma by structural induction on the 
   list xs
 
--------------------------------------
+----------------------------------------------
 3.1 Base case: prove q([])
--------------------------------------
+----------------------------------------------
   
     {LHS of q([])}
   length [] + length ys
@@ -640,9 +677,9 @@ We will prove this by structural induction on the list xs.
   length ([] ++ ys)
     {RHS of q([])}
 
--------------------------------------
-3.2 Inductive step: prove q((x : xs))
--------------------------------------
+----------------------------------------------
+3.2 Inductive step: prove q(xs) => q((x : xs))
+----------------------------------------------
 
     Induction hypothesis:
       q(xs): length xs + length ys = length (xs ++ ys)
@@ -693,9 +730,9 @@ Answer:
 
 We prove the property p(t) by structural induction on t.
 
---------------------------------------
+-----------------------------------------
 1. Base case: prove p(Empty)
---------------------------------------
+-----------------------------------------
  
     {LHS of p(Empty)}
   size(Empty)
@@ -707,9 +744,10 @@ We prove the property p(t) by structural induction on t.
   length (inorder Empty)
     {RHS of p(Empty)}
 
---------------------------------------
-2. Inductive step: prove p(Node x l r)
---------------------------------------
+-----------------------------------------
+2. Inductive step: prove p(l) ∧ p(r) 
+                         => p(Node x l r)
+-----------------------------------------
 
     Induction hypothesis:
       Assume p(l) and p(r) hold for subtrees l, r:

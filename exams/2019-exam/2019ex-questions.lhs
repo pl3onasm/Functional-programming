@@ -172,13 +172,13 @@ ___________________________________________________________
 
 Question 4.1:
 Use a list comprehension to implement the function 
-partition which takes two arguments. The ﬁrst is some
+partition which takes two arguments. The first is some
 element x, and the second a list xs. The function should 
-return a pair of lists of which the ﬁrst is the list of all
-elements of xs that are less than or equal to x, while the 
-second is the list of all elements of xs that are greater 
-than x. Also, give the most general type of the function 
-partition.
+return a pair of lists of which the first is the list of 
+all elements of xs that are less than or equal to x, while 
+the second is the list of all elements of xs that are 
+greater than x. Also, give the most general type of the 
+function partition.
 
 --------
 Answer:
@@ -190,11 +190,11 @@ Answer:
 
 --------------------------------
 Question 4.2:
-Use an efﬁcient list comprehension to implement the 
+Use an efficient list comprehension to implement the 
 function tripletSum (including its type) that takes a 
 positive Integer n, and returns the lexicographically 
 ordered list of all triples (a,b,c) such that n equals 
-a+b+c and 1 <= a <= b <=c. 
+a+b+c and 1 <= a <= b <= c. 
 
 For example:
 
@@ -231,14 +231,14 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
 Give a recursive implementation of the function iterate 
-(including its type) that takes two arguments. The ﬁrst is 
+(including its type) that takes two arguments. The first is 
 a function f and the second some value x. The call 
-iterate f x returns an inﬁnite list of repeated 
+iterate f x returns an infinite list of repeated 
 applications of f to x. So: 
 
 iterate f x = [x, f x, f(f x), f(f(f x)), f(f(f(f x))),...]
@@ -258,7 +258,7 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Give a deﬁnition of the infnite list tribonacci which is 
+Give a deﬁnition of the infinite list tribonacci which is 
 the ordered list of all tribonacci numbers. Recall that the
 tribonacci numbers are deﬁned as: 
 
@@ -281,10 +281,10 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Give a deﬁnition of the infnite list palindromes which is a
-list of lists of palindromic bit strings. The nth list con-
-tains all lexicographically sorted palindromes of length n 
-(starting with n = 0). For example: 
+Give a deﬁnition of the infinite list palindromes which is 
+a list of lists of palindromic bit strings. The n-th list
+contains all lexicographically sorted palindromes of length 
+n (starting with n = 0). For example: 
 
   take 4 palindromes
   = [[""],["0","1"],["00","11"],["000","010","101","111"]]
@@ -382,7 +382,8 @@ Prove for all ﬁnite trees t:
   inorder t = flatten t []
 
 [Note: If you need one or more lemmas to complete the 
-proof, then prove these lemmas separately.]
+proof, then prove these lemmas separately.
+The defintion of ++ can be found in functions.md]
 
 --------
 Answer:

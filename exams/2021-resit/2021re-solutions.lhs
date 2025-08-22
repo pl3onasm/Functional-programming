@@ -520,19 +520,30 @@ module Set (
   delete, union, intersection
 ) where
 
-This line exports the abstract data type Set and the 
-functions, but does not export the constructor ST, thus
-hiding the concrete implementation details.
+This line exports the abstract data type Set and its 
+associated functions, but does not export the constructor 
+ST, thus hiding the concrete implementation details.
 
-> data Set a = ST [a]  
+> data Set a = ST [a]
 
+> -- Show instance for Set for pretty printing
+> instance (Show a) => Show (Set a) where
+>   show (ST xs) = "{" ++ showSet xs ++ "}"
+>     where
+>       showSet []     = ""
+>       showSet [x]   = show x
+>       showSet (x:xs) = show x ++ "," ++ showSet xs
+
+> -- creates an empty set
 > empty :: Set a
 > empty = ST []
 
+> -- checks if a set is empty
 > isEmpty :: Set a -> Bool
 > isEmpty (ST []) = True
 > isEmpty _       = False
 
+> -- checks if an element is in the set
 > isElement :: Ord a => a -> Set a -> Bool
 > isElement x (ST []) = False
 > isElement x (ST (y : ys))
@@ -540,6 +551,8 @@ hiding the concrete implementation details.
 >   | x < y     = False
 >   | otherwise = isElement x (ST ys)
 
+> -- inserts an element into the set
+> -- (no duplicates allowed)
 > insert :: Ord a => a -> Set a -> Set a
 > insert x (ST xs) = ST (ins x xs)
 >   where
@@ -549,6 +562,7 @@ hiding the concrete implementation details.
 >       | x == y    = y : ys            -- no duplicates
 >       | otherwise = y : ins x ys
 
+> -- deletes an element from the set (if it exists)
 > delete :: Ord a => a -> Set a -> Set a
 > delete x (ST xs) = ST (del x xs)
 >   where
@@ -558,6 +572,7 @@ hiding the concrete implementation details.
 >       | x == y    = ys
 >       | otherwise = y : del x ys
 
+> -- returns the union of two sets
 > union :: Ord a => Set a -> Set a -> Set a
 > union (ST xs) (ST ys) = ST (uMerge xs ys)
 >   where
@@ -568,6 +583,7 @@ hiding the concrete implementation details.
 >       | x == y    = x : uMerge xs ys  -- no duplicates
 >       | otherwise = y : uMerge (x : xs) ys
 
+> -- returns the intersection of two sets
 > intersection :: Ord a => Set a -> Set a -> Set a
 > intersection (ST xs) (ST ys) = ST (iMerge xs ys)
 >   where
@@ -583,6 +599,30 @@ Note that the helper functions uMerge and iMerge only
 differ in how they handle the base cases. We could have 
 combined them into a single higher-order merge function,
 but that would have made the code less readable.
+
+Example usage:
+
+ghci> x = empty
+ghci> x
+{}
+ghci> isEmpty x
+True
+ghci> y = insert 5 (insert 4 (insert 1 (insert 9 x)))
+ghci> y
+{1,4,5,9}
+ghci> isElement 4 y
+True
+ghci> isElement 2 y
+False
+ghci> z = insert 2 (insert 3 (insert 6 (insert 4 x)))
+ghci> z
+{2,3,4,6}
+ghci> union y z
+{1,2,3,4,5,6,9}
+ghci> intersection y z
+{4}
+ghci> delete 4 y
+{1,5,9}
 
 
 ___________________________________________________________
@@ -609,9 +649,9 @@ Answer:
 
 We will prove this property by structural induction on the
 list xs.
----------------------------------
+------------------------------------------
 Base case: prove p([])
----------------------------------
+------------------------------------------
 
     {RHS of p([])}
   sum (reverse [])
@@ -619,9 +659,9 @@ Base case: prove p([])
   sum []
     {LHS of p([])}
 
----------------------------------
-Inductive case: prove p((x : xs))
----------------------------------
+------------------------------------------
+Inductive case: prove p(xs) => p((x : xs))
+------------------------------------------
     Induction hypothesis:
       p(xs): sum xs = sum (reverse xs)
 
@@ -652,9 +692,9 @@ We will prove this lemma by structural induction on xs.
 [Note the similarity with: 
   length (xs ++ ys) = length xs + length ys]
 
----------------------------------
+------------------------------------------
 Base case: prove q([])
----------------------------------
+------------------------------------------
 
     {RHS of q([])}
   sum [] + sum ys
@@ -666,9 +706,10 @@ Base case: prove q([])
   sum ([] ++ ys)
     {LHS of q([])}
 
----------------------------------
-Inductive case: prove q((x : xs))
----------------------------------
+------------------------------------------
+Inductive case: prove q(xs) => q((x : xs))
+------------------------------------------
+
     Induction hypothesis:
       q(xs):  sum (xs ++ ys) = sum xs + sum ys
 
@@ -717,9 +758,9 @@ Answer:
 We will prove this property by structural induction on the
 tree t.
 
------------------------------------
+---------------------------------------
 Base case: prove p(Empty)
------------------------------------
+---------------------------------------
 
     {LHS of p(Empty)}
   size (mirror Empty)
@@ -731,9 +772,11 @@ Base case: prove p(Empty)
   size Empty
     {RHS of p(Empty)}
 
------------------------------------
-Inductive case: prove p(Node x l r)
------------------------------------
+---------------------------------------
+Inductive case: prove p(l) ∧ p(r)
+                      => p(Node x l r)
+---------------------------------------
+
     Induction hypothesis:
       p(l): size (mirror l) = size l
       p(r): size (mirror r) = size r

@@ -4,10 +4,7 @@ The following standard arithmetic/Boolean operators and standard Haskell functio
 
 ```haskell
 [] ++ ys = ys
-xs ++ [] = xs
 (x:xs) ++ ys = x : (xs++ys)
-
-id x = x
 
 concat xss = [x | xs <- xss, x <- xs]
 
@@ -18,7 +15,8 @@ filter p xs = [x | x <- xs, p x]
 foldr f z [] = z
 foldr f z (x:xs) = f x (foldr f z xs)
 
-sum [] = foldr (+) 0 []
+sum [] = 0
+sum (x:xs) = x + sum xs
 
 reverse [] = []
 reverse (x:xs) = reverse xs ++ [x]

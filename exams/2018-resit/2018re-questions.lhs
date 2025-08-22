@@ -21,7 +21,6 @@ If YES, then give the type of the expression.
 Answer: 
 
 
-
 --------------------------------
 Question 1.2:
 Is the following expression type correct? 
@@ -90,7 +89,7 @@ once.
 
 For example: 
 
-    paths 1 4 [(1,2),(1,3),(3,2),(3,4),(4,3)]
+    paths 1 2 [(1,2),(1,3),(3,2),(3,4),(4,3)]
   = [[1,2],[1,3,2],[1,3,4,3,2]]
 
 --------
@@ -131,14 +130,18 @@ Answer:
 
 --------------------------------
 Question 3.2:
-Assuming the availability of the function gcd that returns 
-the greatest common divisor of its two arguments (i.e.
-gcd 36 42 returns 6), implement the function listgcd that 
-takes a list of integers, and returns the greatest common 
-divisor of all elements in the list. Your implementation 
-must make use of the function foldr. 
+Given is the function gcd that returns the greatest common 
+divisor of its two arguments (i.e. gcd 36 42 returns 6):
 
-For example:  listgcd [25,15,125,555] = 5.
+> gcd :: Int -> Int -> Int
+> gcd a b = if b == 0 then a else gcd b (a `mod` b)
+
+Implement the function listgcd that takes a list of 
+integers, and returns the greatest common divisor of all 
+elements in the list. Your implementation must make use of 
+the function foldr. 
+
+For example:  listgcd [25,15,125,555] = 5
 
 --------
 Answer:
@@ -195,7 +198,7 @@ takes a list of Integers and returns the sum of the squares
 of those numbers in the list that are divisible by 3 but 
 not by 5. 
 
-  For example: sumdiv3not5 [-6,15,2,3] = 45.
+  For example: sumdiv3not5 [-6,15,2,3] = 45
 
 You must use a list comprehension, and are not allowed 
 to use recursion.
@@ -224,12 +227,12 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Give a deﬁnition of the inﬁnite list inits (including its 
-type) of which the nth element is a list containing the 
+Give a deﬁnition of the infinite list inits (including its 
+type) of which the n-th element is a list containing the 
 numbers 0,1,2,..,n. 
 
 Example:    take 5 inits 
@@ -247,7 +250,7 @@ Answer:
 Question 5.2:
 Give a deﬁnition of the function powerfunc (including its 
 type) that accepts a function f on its input, and outputs
-the inﬁnite list of repeated applications of f. The ﬁrst 
+the infinite list of repeated applications of f. The first 
 element (index 0) of this list should be the function f 
 raised to the power zero, i.e. the identity function. 
 The second element (index 1) is the function f raised to 
@@ -257,7 +260,7 @@ for all x, and so on.
 
 For example:  
 
-    head ((drop 5) (powerfunc (+2))) 0 = 10.
+    head ((drop 5) (powerfunc (+2))) 0 = 10
 
 --------
 Answer:
@@ -380,7 +383,7 @@ and inorder:
   inorder Empty = []
   inorder (Node x l r) = inorder l ++ [x] ++ inorder r
 
-  Prove for all ﬁnite trees t: 
+Prove for all ﬁnite trees t: 
 
   inorder(mirror t) = reverse(inorder t)
 

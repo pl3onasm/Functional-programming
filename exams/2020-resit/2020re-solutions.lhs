@@ -508,7 +508,7 @@ The following operations on queues need to be implemented:
 • insert: inserts an element in a Fifo queue.
 • retrieve: returns the 'oldest' element from 
   a non-empty Fifo queue.
-• delete: returns the ﬁfo that is obtained by removing 
+• delete: returns the fifo that is obtained by removing 
   the 'oldest' element from the queue.
 • size: returns the number of elements of the Fifo queue.
 
@@ -524,32 +524,43 @@ module Fifo (
       retrieve, delete, size
 ) where
 
-This line exports the abstract data type Fifo and the 
-functions, but does not export the constructor Fo, thus
-hiding the concrete implementation details.
+This line exports the abstract data type Fifo and its 
+associated functions, but does not export the constructor 
+Fo, thus hiding the concrete implementation details.
 
 Then, you would implement the data type and functions as 
 follows:
 
+> -- Fifo is an abstract data type for FIFO queues
 > data Fifo a = Fo [a]
 
+> -- show instance for pretty printing
+> instance (Show a) => Show (Fifo a) where
+>   show (Fo xs) = "Fifo " ++ show xs
+
+> -- creates an empty Fifo queue
 > empty :: Fifo a
 > empty = Fo []
 
+> -- checks if the Fifo queue is empty
 > isEmpty :: Eq a => Fifo a -> Bool
 > isEmpty (Fo xs) = xs == []
 
+> -- inserts an element into the Fifo queue
 > insert :: a -> Fifo a -> Fifo a
 > insert x (Fo xs) = Fo (xs ++ [x])
 
+> -- retrieves the 'oldest' element from the Fifo queue
 > retrieve :: Fifo a -> a
 > retrieve (Fo [])       = error "empty queue"
 > retrieve (Fo (x : xs)) = x 
 
+> -- deletes the 'oldest' element from the Fifo queue
 > delete :: Fifo a -> Fifo a
 > delete (Fo [])       = error "empty queue"
 > delete (Fo (_ : xs)) = Fo xs 
 
+> -- returns the number of elements in the Fifo queue
 > size :: Fifo a -> Int
 > size (Fo xs) = length xs
 
@@ -559,6 +570,25 @@ elements that are inserted and one for the elements that
 are retrieved. This would allow both insertion and removal
 in amortized O(1) time. However, the above implementation
 is simpler and meets the requirements of the question.
+
+
+Example usage:
+
+ghci> x = empty
+ghci> isEmpty x
+True
+ghci> y = insert 4 (insert 5 (insert 2 x))
+ghci> y
+Fifo [2,5,4]
+ghci> isEmpty y
+False
+ghci> retrieve y
+2
+ghci> size y
+3
+ghci> z = delete y
+ghci> z
+Fifo [5,4]
 
 
 ___________________________________________________________
@@ -589,9 +619,9 @@ Answer:
 We will prove this property by structural induction on the
 list xs.
 
-------------------------------
+---------------------------------------------
 1. Base case: prove p([])
-------------------------------
+---------------------------------------------
 
     {LHS of p([])}
   length (f [] ys zs)
@@ -608,9 +638,9 @@ list xs.
   length [] * length ys + length [] * length zs
     {RHS of p([])}
 
-------------------------------------
-2. Inductive step: prove p((x : xs))
-------------------------------------
+---------------------------------------------
+2. Inductive step: prove p(xs) => p((x : xs))
+---------------------------------------------
 
   Induction hypothesis:
     p(xs) : length (f xs ys zs) = 
@@ -637,7 +667,7 @@ list xs.
 =   {unapplying length}
   (length (x : xs)) * length ys 
   + (length (x : xs)) * length zs
-    {RHS of p(x : xs)}
+    {RHS of p((x : xs))}
 
 □
 
@@ -648,9 +678,9 @@ list xs.
 
   We will prove this by structural induction on xs
 
--------------------------------------
+----------------------------------------------
 3.1 Base case: prove q([])
--------------------------------------
+----------------------------------------------
   
     {LHS of q([])}
   length [] + length ys
@@ -662,9 +692,9 @@ list xs.
   length ([] ++ ys)
     {RHS of q([])}
 
--------------------------------------
-3.2 Inductive step: prove q((x : xs))
--------------------------------------
+----------------------------------------------
+3.2 Inductive step: prove q(xs) => q((x : xs))
+----------------------------------------------
 
     Induction hypothesis:
       q(xs): length xs + length ys = length (xs ++ ys)
@@ -710,16 +740,17 @@ Prove for all ﬁnite trees t:
  proof, then prove these lemmas separately. You may use 
  without proof that ++ is an associative operator, and 
  that xs ++ [] = xs.
- The definition of length is given in functions.md]
+ Definitions of length, reverse, and ++ are given in 
+ the file functions.md]
 
 --------
 Answer:
 
 We will prove property p by structural induction on t.
 
---------------------------------------
+-----------------------------------------
 1. Base case: prove p(Empty)
---------------------------------------
+-----------------------------------------
 
     {LHS of p(Empty)}
   reverse(inorder(mirror Empty))
@@ -733,9 +764,10 @@ We will prove property p by structural induction on t.
   inorder Empty
     {RHS of p(Empty)}
 
---------------------------------------
-2. Inductive step: prove p(Node x l r)
---------------------------------------
+-----------------------------------------
+2. Inductive step: prove p(l) ∧ p(r) 
+                         => p(Node x l r)
+-----------------------------------------
 
   Induction hypothesis:
     p(l): reverse(inorder(mirror l)) = inorder l
@@ -773,9 +805,9 @@ We will prove property p by structural induction on t.
 
 We will prove this lemma by structural induction on xs.
 
--------------------------------------
+----------------------------------------------
 3.1 Base case: prove q([])
--------------------------------------
+----------------------------------------------
 
     {LHS of q([])}
   reverse ([] ++ ys)
@@ -788,9 +820,9 @@ We will prove this lemma by structural induction on xs.
   reverse ys ++ reverse []
     {RHS of q([])}
 
--------------------------------------
-3.2 Inductive step: prove q((x : xs))
--------------------------------------
+----------------------------------------------
+3.2 Inductive step: prove q(xs) => q((x : xs))
+----------------------------------------------
 
     Induction hypothesis:
       q(xs) : reverse (xs ++ ys) = reverse ys ++ reverse xs

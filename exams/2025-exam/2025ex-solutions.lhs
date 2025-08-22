@@ -186,26 +186,36 @@ Answer:
 >     (left, right) = let n = length xs `div` 2
 >                     in (take n xs, drop n xs)
 
-The sort is in O(n log n) time complexity, where n is
-the length of the input list. So the way we split the list
-into two halves, is fine (as it does not affect the overall
-complexity), even though it is not really the most 
-efficient way to do it, as it traverses the list twice: 
-once for length, and once for splitting.
+The sort is in O(n log n) time complexity, where n is the 
+length of the input list. That is because each level of 
+recursion takes O(n) time to merge the two sorted halves, 
+and there are O(log n) levels of recursion due to the 
+halving of the list at each level.
 
-A more efficient way to split the list in a single pass, is 
-to use two pointers which traverse the list at different 
-speeds, so that when the faster pointer, traversing the 
-list at twice the speed of the slower pointer, reaches the 
-end of the list, the slower pointer is at the middle of the 
-list, and we can split the list at that point. 
-It would look like this:
+At each level of recursion, the list is split into two
+halves using take and drop. This split takes O(n) time, but
+it traverses the list twice. It is possible to improve on 
+this constant factor of two by using two empty lists as
+accumulators, and traversing the list only once to evenly
+distribute the elements into the two accumulators. It
+would look like this:
 
-> halve :: [a] -> ([a], [a])
-> halve zs = split zs zs []
+> split :: [a] -> ([a], [a])
+> split xs = splt xs ([], [])
 >   where
->   split (x : xs) (_ : _ : ys) acc = split xs ys (x : acc)
->   split xs _ acc = (reverse acc, xs)
+>     splt []  (as, bs) = (as, bs)         -- even split
+>     splt [x] (as, bs) = ((x : as), bs)   -- odd split
+>     splt (x : y : zs) (as, bs) = splt zs (x : as, y : bs)
+
+Mind that this function splits the list in a very 
+particular way: one half contains all elements at even
+indices, and the other half contains all elements at odd
+indices, and both halves are in reverse order. However,
+this does not matter for merge sort, since both halves
+are sorted again in the recursive calls to mergeSort.
+This optimization reduces the constant factor from roughly
+two to one, thus making the split noticeably faster for
+very large lists.
 
 
 ___________________________________________________________
@@ -260,7 +270,7 @@ Answer:
 
 > sublists :: [a] -> [[a]]
 > sublists xs = [take n (drop m xs) | m <- [0..len - 1],
->                 n <- [1..len - m]]
+>                 n <- [1..len - m]] 
 >   where len = length xs
 
 This uses two zero-based indices:
@@ -365,12 +375,14 @@ the predicate p. If p x is True, we apply the function f
 to x, otherwise we keep x unchanged. The result is
 accumulated in the list, starting from an empty list. 
 
-It is also possible to leave out the accumulator from the 
-lambda function because in foldr, a lambda function of the 
-form \x -> ... automatically produces a function that 
-prepends to the accumulator. So we can write:
+It is also possible to leave out the accumulator by turning
+the lambda function into a partially applied (:) operator:
 
-> doif' p f = foldr (\x -> if p x then f x else x) []
+> doif' p f = foldr (\x -> (:) (if p x then f x else x)) []
+
+Another possibility is to use map:
+
+> doif'' p f xs = map (\x -> if p x then f x else x) xs
 
 
 ___________________________________________________________
@@ -530,20 +542,29 @@ module KVstore (
   find, delete, size
 ) where
 
-This line exports the abstract data type KVS and the 
-functions, but does not export the constructor FO, thus
-hiding the concrete implementation details.
+This line exports the abstract data type KVstore and its
+associated functions, but does not export the constructor
+KVS, thus hiding the concrete implementation details.
 
+> -- KVstore is an abstract data type for a key-value store
 > data KVstore ktp vtp = KVS [(ktp, vtp)]
 
+> instance (Show ktp, Show vtp) => Show (KVstore ktp vtp) where
+>   show (KVS kvs) = show kvs
+
+> -- creates an empty key-value store
 > empty :: Eq ktp => KVstore ktp vtp
 > empty = KVS []
 
+> -- inserts a key-value pair into the store
+> -- or overwrites an existing pair with the same key
 > insert :: Eq ktp => ktp -> vtp -> KVstore ktp vtp
 >          -> KVstore ktp vtp
 > insert k v (KVS kvs) = 
 >   KVS ((k, v) :  filter (\(k', _) -> k' /= k) kvs)
 
+> -- looks up a value by its key
+> -- returns Nothing if the key is not found
 > find :: Eq ktp => ktp -> KVstore ktp vtp
 >          -> Maybe vtp
 > find k (KVS kvs) = check kvs
@@ -553,13 +574,33 @@ hiding the concrete implementation details.
 >     | k == k'   = Just v
 >     | otherwise = check kvs
 
+> -- removes a key-value pair from the store
+> -- if the key is found, otherwise does nothing
 > delete :: Eq ktp => ktp -> KVstore ktp vtp
 >             -> KVstore ktp vtp
 > delete k (KVS kvs) = 
 >   KVS (filter (\(k', _) -> k' /= k) kvs)
 
+> -- returns the number of key-value pairs in the store
 > size :: Eq ktp => KVstore ktp vtp -> Int
 > size (KVS kvs) = length kvs
+
+
+Example usage:
+
+ghci> x = empty 
+ghci> y = insert "apple" 10 (insert "orange" 5 x)
+ghci> z = insert "mango" 7 (insert "lemon" 3 y)
+ghci> z
+[("mango",7),("lemon",3),("orange",5),("apple",10)]
+ghci> find "orange" z
+Just 5
+ghci> size z
+4
+ghci> insert "apple" 20 z
+[("mango",7),("lemon",3),("orange",5),("apple",20)]
+ghci> delete "apple" z
+[("mango",7),("lemon",3),("orange",5)]
 
 
 ___________________________________________________________
@@ -585,9 +626,9 @@ Answer:
 We will prove property p by structural induction on the 
 list xs. 
 
----------------------------------
+------------------------------------------
 Base case: prove p([])
----------------------------------
+------------------------------------------
 
     {LHS of p([])}
   add a (add b [])
@@ -599,9 +640,9 @@ Base case: prove p([])
   add (a+b) []
     {RHS of p([])}
 
----------------------------------
-Inductive step: prove p((x : xs))
----------------------------------
+------------------------------------------
+Inductive step: prove p(xs) => p((x : xs))
+------------------------------------------
 
     Induction hypothesis:
       p(xs) : add a (add b xs) = add (a+b) xs
@@ -642,9 +683,9 @@ Answer:
 We will prove this property p by structural induction on 
 the list xs. 
 
----------------------------------
+------------------------------------------
 Base case: prove ([])
----------------------------------
+------------------------------------------
 
     {RHS of p([])}
   foldr f (foldr f z ys) []
@@ -653,9 +694,9 @@ Base case: prove ([])
 =   {unapplying ++}
   foldr f z ([] ++ ys)
 
----------------------------------
-Inductive step: prove p((x : xs))
----------------------------------
+------------------------------------------
+Inductive step: prove p(xs) => p((x : xs))
+------------------------------------------
 
     Induction hypothesis:
       p(xs): foldr f z (xs ++ ys) 

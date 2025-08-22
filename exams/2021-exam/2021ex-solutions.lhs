@@ -71,41 +71,39 @@ g = (:).(:)
 Answer: 
 
 This one is a bit tricky and can use some explanation. 
-The (.) operator is the function composition operator, 
-which takes two unary functions and returns their 
-composition, also a unary function. 
-It is this operator (.) that forces the inner (:) to be 
-partially applied to an element x :: a, turning it from a 
-binary function (:) :: a -> [a] -> [a] into a unary 
-function (: x) :: [a] -> [a], which prepends the 
-element x to a list of type [a]. 
+First, let us recall the types of the function involved:
+  (:) :: a -> [a] -> [a] 
+  (.) :: (b -> c) -> (a -> b) -> a -> c
 
-The outer (:) then receives this function as its first
-argument, and when partially applied, yields a unary 
-function:
+The key point is that function composition (.) always 
+expects unary functions. So when we compose with (.), we 
+must read its arguments in curried form. For example, 
+although (:) is usually thought of as a binary function, 
+its curried type is
+  (:) :: a -> ([a] -> [a])
+That is, it takes an element of type a and returns a 
+function that takes a list of type [a] and returns a
+new list of type [a] with the element prepended.
 
-    (: f) :: [[a] -> [a]] -> [[a] -> [a]]
+The outer (:) is also interpreted in its curried form.
+It receives the earlier function of type [a] -> [a] as 
+its left argument and, by simple substitution in its
+type signature, yields a unary function of type:
+  [[a] -> [a]] -> [[a] -> [a]]
 
-that prepends the received function f = (: x) to a list 
-of such functions.
+that prepends the received function (: x) to a list of 
+such functions.
 
-Since the composition operator (.) has the type 
-(.) :: (b -> c) -> (a -> b) -> a -> c, we can deduce the
-type of g by simply substituting the types of the
-components:
+Putting it all together, we can see that g is a unary
+function of the following type:
 
     g :: a -> [[a] -> [a]] -> [[a] -> [a]]
-
-Note that the function arrow -> is right-associative, 
-so the above type is equivalent to
-
-    g :: a -> ( [[a] -> [a]] -> [[a] -> [a]] )
 
 This means that g takes a single element x :: a, and 
 returns a unary function which takes a list of unary 
 functions of type [a] -> [a], that outputs the same
 list of unary functions with a new function (: x) 
-prepended to it.
+prepended.
 
 To clarify, we can define g as follows:
 
@@ -599,11 +597,15 @@ module Array (
     resize, size, elems  
 ) where
 
-This line exports the abstract data type Array and the 
-functions, but does not export the constructor AR, thus
-hiding the concrete implementation details.
+This line exports the abstract data type Array and its 
+associated functions, but does not export the constructor 
+AR, thus hiding the concrete implementation details.
 
 > data Array a = AR [Maybe a]  
+
+> -- show instance for pretty printing
+> instance (Show a) => Show (Array a) where
+>   show (AR xs) = "Array " ++ show xs
 
 > -- Creates an uninitialized array of length n
 > create :: Int -> Array a
@@ -644,6 +646,27 @@ hiding the concrete implementation details.
 >         isJust (Just _) = True
 
 
+Example usage:
+
+ghci> x = create 5
+ghci> x
+Array [Nothing,Nothing,Nothing,Nothing,Nothing]
+ghci> y = setElement x 2 42
+ghci> y
+Array [Nothing,Nothing,Just 42,Nothing,Nothing]
+ghci> getElement y 2
+Just 42
+ghci> getElement y 5
+Nothing
+ghci> z = resize y 3
+ghci> z
+Array [Nothing,Nothing,Just 42]
+ghci> size z
+3
+ghci> elems z
+1
+
+
 ___________________________________________________________
 
 7. Proof on lists
@@ -670,9 +693,9 @@ Answer:
 
 We will prove this by structural induction on the list xs.
 
----------------------------------
+------------------------------------------
 Base case: prove p([])
----------------------------------
+------------------------------------------
 
     {LHS of p([])}
   take n [] ++ drop n []
@@ -684,9 +707,9 @@ Base case: prove p([])
   []
     {RHS of p([])}
 
----------------------------------
-Inductive step: prove p((x : xs))
----------------------------------
+------------------------------------------
+Inductive step: prove p(xs) => p((x : xs))
+------------------------------------------
 
     Induction hypothesis:
       p(xs): take n xs ++ drop n xs == xs
@@ -764,10 +787,11 @@ Base case: prove p(Value n)
     {RHS of p(Value n)}
 
 -----------------------------------------------
-Inductive step: prove p(Add a b) and p(Mul a b)
+Inductive step: prove p(a) ∧ p(b) => p(Add a b)
+                      p(a) ∧ p(b) => p(Mul a b)
 -----------------------------------------------
 
-• Case 1: prove p(Add a b)
+• Case 1: prove p(a) ∧ p(b) => p(Add a b)
 
     Induction hypothesis:
       p(a): isZero a ⇒ eval a == 0
@@ -785,7 +809,7 @@ Inductive step: prove p(Add a b) and p(Mul a b)
   eval (Add a b) == 0
     {RHS of p(Add a b)}
 
-• Case 2: prove p(Mul a b)
+• Case 2: prove p(a) ∧ p(b) => p(Mul a b)
 
     Induction hypothesis:
       p(a): isZero a ⇒ eval a == 0

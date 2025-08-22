@@ -479,25 +479,35 @@ module Fifo (
   insert, top, remove
 ) where
 
-This line exports the abstract data type Fifo and the 
-functions, but does not export the constructor FO, thus
-hiding the concrete implementation details.
+This line exports the abstract data type Fifo and its
+associated functions, but does not export the constructor 
+FO, thus hiding the concrete implementation details.
 
+> -- Fifo is an abstract data type for a FIFO queue
 > data Fifo a = FO [a]
 
+> -- Show instance for Fifo for pretty printing
+> instance (Show a) => Show (Fifo a) where
+>   show (FO xs) = "Fifo " ++ show xs
+
+> -- creates an empty queue
 > empty :: Fifo a
 > empty = FO []
 
+> -- checks if the queue is empty
 > isEmpty :: Fifo a -> Bool
 > isEmpty (FO []) = True
 > isEmpty (FO _) = False
 
+> -- inserts an element into the queue
 > insert :: a -> Fifo a -> Fifo a
 > insert x (FO xs) = FO (xs ++ [x])
 
+> -- retrieves the 'oldest' element from the queue
 > top :: Fifo a -> a
 > top (FO (x : _)) = x
 
+> -- removes the 'oldest' element from the queue
 > remove :: Fifo a -> Fifo a
 > remove (FO (_ : xs)) = FO xs
 
@@ -506,6 +516,24 @@ Note: A more efficient ADT would use two lists
 (front and rear) to achieve amortized constant time
 complexity for insertions and removals, but the above
 implementation meets the requirements.
+
+Example usage:
+
+ghci> x = empty
+ghci> isEmpty x
+True
+ghci> y = insert 5 (insert 4 (insert 1 (insert 9 x)))
+ghci> y
+Fifo [9,1,4,5]
+ghci> isEmpty y
+False
+ghci> top y
+9
+ghci> z = remove y
+ghci> z
+Fifo [1,4,5]
+ghci> top z
+1
 
 
 ___________________________________________________________
@@ -527,9 +555,9 @@ Answer:
 We will prove this property by structural induction on the 
 list xs.
 
--------------------------------
+----------------------------------------
 Base case: prove p([])
--------------------------------
+----------------------------------------
 
     {LHS of p([])}
   foldr f e ([] ++ ys)
@@ -539,9 +567,9 @@ Base case: prove p([])
   foldr f (foldr f e ys) []
     {RHS of p([])}
 
--------------------------------
-Recursive case: prove p((x:xs))
--------------------------------
+----------------------------------------
+Recursive case: prove p(xs) => p((x:xs))
+----------------------------------------
 
     Induction hypothesis:
       p(xs): foldr f e (xs ++ ys) 
@@ -586,9 +614,9 @@ Answer:
 We will prove this property by structural induction on the
 tree t.
 
------------------------------------
+---------------------------------------
 Base case: prove p(Empty)
------------------------------------
+---------------------------------------
 
     {LHS of p(Empty)}
   mapTree f (mapTree g Empty)
@@ -598,9 +626,10 @@ Base case: prove p(Empty)
   Empty
 =   {RHS of p(Empty)}
 
------------------------------------
-Recursive case: prove p(Node x l r)
------------------------------------
+---------------------------------------
+Recursive case: prove p(l) ∧ p(r) 
+                      => p(Node x l r)
+---------------------------------------
 
     Induction hypothesis:
       p(l): mapTree f (mapTree g l) = mapTree (f . g) l

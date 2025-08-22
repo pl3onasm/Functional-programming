@@ -50,27 +50,37 @@ msort xs = merge (msort left) (msort right)
     [0,1,3,5,5]
     
 
-  Note:
+Note:
 
-  The sort is in O(n log n) time complexity, where n is the
-  length of the input list. So the way we split the list
-  into two halves, is fine (as it does not affect the 
-  overall complexity), even though it is not really the 
-  most efficient way to do it, as it traverses the list 
-  twice: once for length, and once for splitting.
+The sort is in O(n log n) time complexity, where n is
+the length of the input list. That is because each level
+of recursion takes O(n) time to merge the two sorted 
+halves, and there are O(log n) levels of recursion due to 
+the halving of the list at each level.
 
-  A more efficient way to split the list in a single pass,
-  is to use two pointers which traverse the list at 
-  different speeds, so that when the faster pointer, 
-  traversing the list at twice the speed of the slower
-  pointer, reaches the end of the list, the slower pointer 
-  is at the middle of the list, and we can split the list
-  at that point. It would look like this:
+At each level of recursion, the list is split into two
+halves using take and drop. This split takes O(n) time, but
+it traverses the list twice. It is possible to improve on 
+this constant factor of two by using two empty lists as
+accumulators, and traversing the list only once to evenly
+distribute the elements into the two accumulators. It
+would look like this:
 
-  halve :: [a] -> ([a], [a])
-  halve zs = split zs zs []
+  split :: [a] -> ([a], [a])
+  split xs = splt xs ([], [])
     where
-    split (x : xs) (_ : _ : ys) acc = split xs ys (x : acc)
-    split xs _ acc = (reverse acc, xs)
+      splt []  (as, bs) = (as, bs)         -- even split
+      splt [x] (as, bs) = ((x : as), bs)   -- odd split
+      splt (x : y : zs) (as, bs) = splt zs (x : as, y : bs)
+
+Mind that this function splits the list in a very 
+particular way: one half contains all elements at even
+indices, and the other half contains all elements at odd
+indices, and both halves are in reverse order. However,
+this does not matter for merge sort, since both halves
+are sorted again in the recursive calls to mergeSort.
+This optimization reduces the constant factor from roughly
+two to one, thus making the split noticeably faster for
+very large lists.
 
 -}
