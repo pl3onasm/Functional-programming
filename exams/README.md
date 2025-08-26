@@ -24,6 +24,3 @@ Lists standard Haskell functions and operators allowed in the exam. The definiti
 - Test your code in GHCi by loading the file with `:l *-questions.lhs`.
 
 - When you have finished, review the *-solutions.lhs file to compare your solutions with the provided answers.
-
-***In progress:***
-Solution files are being added gradually.
