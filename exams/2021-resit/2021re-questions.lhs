@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[],[[]]]
+  [[],[[]]]
 
 --------
 Answer: 
@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[not, id]
+  [not, id]
 
 --------
 Answer:
@@ -39,7 +39,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[(+), (:)]
+  [(+), (:)]
 
 --------
 Answer: 
@@ -50,7 +50,7 @@ Answer:
 Question 1.4:
 What is the most general type of the following function f?
 
-f = foldr (&&)
+  f = foldr (&&)
 
 --------
 Answer: 
@@ -61,7 +61,7 @@ Answer:
 Question 1.5:
 What is the most general type of the following function g?
 
-g = map map
+  g = map map
 
 --------
 Answer: 
@@ -237,7 +237,7 @@ Answer:
 
 --------------------------------
 Question 4.5:
-Deﬁne a function doubleReverse which takes a list of lists 
+Define a function doubleReverse which takes a list of lists 
 as its argument and reverses each element of the list and 
 then reverses the resulting list. The implementation of 
 doubleReverse must use a list comprehension. 
@@ -256,7 +256,7 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
@@ -290,7 +290,7 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Give a deﬁnition of the infinite list pals of non-empty 
+Give a definition of the infinite list pals of non-empty 
 palindromic strings that consist of the letters 'a' and
 'b'. For example: 
   take 8 pals 
@@ -333,7 +333,6 @@ implemented:
 • intersection: returns the intersection of two sets.
 
 --------
-
 Answer:
 
 > 
@@ -346,7 +345,7 @@ ___________________________________________________________
 7. Proof on lists
 ___________________________________________________________
 
-In this problem we use the following deﬁnition of sum (the 
+In this problem we use the following definition of sum (the 
 definitions of reverse and ++ are in the file functions.md):
 
   sum [] = 0
@@ -387,7 +386,7 @@ size:
   size Empty = 0
   size (Node x l r) = 1 + size l + size r
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   size (mirror t) = size t
 

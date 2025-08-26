@@ -24,11 +24,12 @@ Answer:
 
 No, this is not type correct. The operator (:) is right-
 associative, so the expression is parsed as: 
-True : ([] : []).
+  True : ([] : [])
+
 Prepending the empty list to the empty list results in 
 [[a]] for some type a. To this the Boolean value True is 
 prepended, but this is not compatible with the type of the 
-list: [a] cannot be unified with Bool.
+list elements: [a] cannot be unified with Bool.
 The expression would be type correct if it were written as:
 (True : []) : []  to override the right-associativity. Now
 we are prepending a list of Booleans to a list of lists, 
@@ -46,9 +47,10 @@ If YES, then give the most general type of the expression.
 Answer:
 
 Yes, this expression is type correct. The operator (:) is
-right-associative, but in this case it is overridden by the
-parentheses. The expression is parsed as:
-(True : []) : [].
+right-associative, but in this case that property is 
+overridden by the parentheses. The expression is parsed as:
+  (True : []) : [].
+
 Here, (True : []) is a list of Booleans, and we are
 prepending it to the empty list, which has type [a] for 
 some type a. Unifying the types yields a = Bool. This 
@@ -73,7 +75,8 @@ associative, and (++) has the same precedence as (:),
 (you can check this in GHCi whith :i (:) and :i (++), 
 and you will see that both have precedence level 5), so the
 expression is parsed as:
-  (True : []) : ([] ++ [False]).
+  (True : []) : ([] ++ [False])
+
 The right-hand side constructs a list of Booleans, having
 the type [Bool]. The left-hand side also constructs a list
 of Booleans by prepending True to the empty list. However,
@@ -117,9 +120,9 @@ Since (.) only works on unary functions, the type of filter
 is forced to be interpreted in its curried form as:
   filter :: (a -> Bool) -> ([a] -> [a])
 
-That way, filter h (for some predicate h) is a unary 
-function of type [a] -> [a], which can be composed with
-map.
+That way, filter h (for some predicate h::(a -> Bool)) is a 
+unary function of type [a] -> [a], which can be composed 
+with map.
 
 As we know the composition (.) f g can be expanded as
   f . g = \x -> f (g x) 
@@ -212,7 +215,7 @@ character matches the first character of the string.
 • The third line checks if the first character of the
 pattern is followed by an asterisk. If so, it calls the
 helper function skipOrMany. This helper either skips the
-character c in the pattern or consumes it zero or more
+character c in the pattern or consumes it one or more
 times if the character matches the first character of the
 string.
 • The fourth line checks if the first character of the
@@ -387,7 +390,7 @@ exactly the indices where z occurs in xs.
 Question 4.3:
 The function sumProdPairs = zipWith (\x y -> (x+y,x*y)) 
 is defined using the function zipWith.
-Give an equivalent deﬁnition of sumProdPairs that uses 
+Give an equivalent definition of sumProdPairs that uses 
 a list comprehension instead.
 
 --------
@@ -550,7 +553,6 @@ implemented:
   multiplying the Peano numbers a and b.
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -566,9 +568,10 @@ module Peano (
     mul
 ) where
 
-This line exports the abstract data type Peano and the 
-functions, but does not export the constructors of Peano,
-thus hiding the concrete implementation details.
+This line exports the abstract data type Peano and its 
+associated functions, but does not export the 
+constructors of Peano, thus hiding the concrete 
+implementation details.
 
 > data Peano = Zero | Succ Peano
 
@@ -680,7 +683,7 @@ Case 2: n = 1
     {RHS of p(1)}
 
 ------------------------------------
-Induction step: prove p(n) -> p(n+1)
+Induction step: prove p(n) => p(n+1)
 ------------------------------------
 
     As we are using strong induction, we assume that the
@@ -786,7 +789,7 @@ Let f :: a -> a -> a be an associative function
 (i.e. f a (f b c) = f (f a b) c) with identity element z 
 such that f x z = f z x = x.
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   p(t): foldT f z t = foldr f z (inorder t)
 
@@ -848,16 +851,18 @@ Induction step: prove p(l) ∧ p(r)
 
 □
 
-Lemma q:
+--------------------------------------------------
+Lemma q
          q(xs):  foldr f z (xs ++ ys)  
                  = f (foldr f z xs) (foldr f z ys)
+--------------------------------------------------
 
 We will prove this lemma by structural induction on the
 list xs.
 
---------------------------------------
+----------------------------------------
 Base case: prove q([])
---------------------------------------
+----------------------------------------
 
     {RHS of q([])}
   f (foldr f z []) (foldr f z ys)
@@ -869,15 +874,15 @@ Base case: prove q([])
   foldr f z ([] ++ ys)
     {LHS of q([])}
 
---------------------------------------
-Induction step: prove q(xs) => q(x:xs)
---------------------------------------
+----------------------------------------
+Induction step: prove q(xs) => q((x:xs))
+----------------------------------------
 
     Induction hypothesis: 
       q(xs):  foldr f z (xs ++ ys)  
              = f (foldr f z xs) (foldr f z ys)
 
-    {RHS of q(x:xs)}
+    {RHS of q((x:xs))}
   f (foldr f z (x:xs)) (foldr f z ys)
 =   {applying foldr}
   f (f x (foldr f z xs)) (foldr f z ys)
@@ -889,7 +894,7 @@ Induction step: prove q(xs) => q(x:xs)
   foldr f z (x : (xs ++ ys))
 =   {unapplying ++}
   foldr f z ((x:xs) ++ ys)
-    {LHS of q(x:xs)}
+    {LHS of q((x:xs))}
 
 □
 

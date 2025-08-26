@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-([[]],[])
+  ([[]],[])
 
 --------
 Answer: 
@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-[[[]],[]]
+  [[[]],[]]
 
 --------
 Answer:
@@ -39,7 +39,7 @@ Question 1.3:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-[[[]],[True]]
+  [[[]],[True]]
 
 --------
 Answer: 
@@ -51,7 +51,7 @@ Question 1.4:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-not.(&&)
+  not.(&&)
 
 --------
 Answer: 
@@ -63,7 +63,7 @@ Question 1.5:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-(&&).not
+  (&&).not
 
 --------
 Answer: 
@@ -221,7 +221,7 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists and lazy evaluation
+5. Infinite lists and lazy evaluation
 ___________________________________________________________
 
 Question 5.1:
@@ -326,7 +326,6 @@ The following operations on the ADT must be implemented:
   This returns the number of key-value pairs in the store.
 
 --------
-
 Answer:
 
 > 

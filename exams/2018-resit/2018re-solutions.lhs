@@ -17,7 +17,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-("x", 'x', [True]) : []
+  ("x", 'x', [True]) : []
 
 --------
 Answer: 
@@ -25,8 +25,8 @@ Answer:
 Yes, this is type correct. Tuples are allowed to contain
 elements of different types, and the tuple in this case has
 type (String, Char, [Bool]). It is prepended to the empty
-list [], thus creating a list of tuples of the type 
-[(String, Char, [Bool])].
+list [], thus creating a list of tuples of the type: 
+  [(String, Char, [Bool])]
 
 
 --------------------------------
@@ -34,7 +34,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-(+1) . (0<)
+  (+1) . (0<)
 
 --------
 Answer:
@@ -58,7 +58,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-(+1) . (0+)
+  (+1) . (0+)
 
 --------
 Answer: 
@@ -87,7 +87,7 @@ Question 1.4:
 Is the following definition of f type correct?
 If YES, then give the most general type of f.
 
-f = [] : [[xs] | xs <- f]
+  f = [] : [[xs] | xs <- f]
 
 --------
 Answer: 
@@ -115,7 +115,7 @@ leads to a type mismatch between the left and right sides.
 Question 1.5:
 What is the type of the following function g?
 
-(.).(.)
+  (.).(.)
 
 --------
 Answer: 
@@ -289,7 +289,7 @@ divisor of all elements in the list.
 
 --------------------------------
 Question 3.3:
-Consider the following haskell deﬁnition of the function 
+Consider the following haskell definition of the function 
 scanl:
 
   scanl f z xs = 
@@ -297,7 +297,7 @@ scanl:
 
 For example, scanl (+) 1 [1..10] returns 
 [1,2,4,7,11,16,22,29,37,46,56]. The above implementation 
-of scanl is quite inefﬁcient (it has quadratic time 
+of scanl is quite inefficient (it has quadratic time 
 complexity). Give an equivalent implementation (including
 its type) that runs in linear time.
 
@@ -401,7 +401,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Give a deﬁnition of the infinite list inits (including its 
+Give a definition of the infinite list inits (including its 
 type) of which the n-th element is a list containing the 
 numbers 0,1,2,..,n. 
 
@@ -549,7 +549,6 @@ implemented:
   obtained by multiplying the natural numbers a and b.
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -630,7 +629,7 @@ ___________________________________________________________
 7. Proof on foldr and foldl
 ___________________________________________________________
 
-Consider the following Haskell deﬁnitions of the functions
+Consider the following Haskell definitions of the functions
 foldr and foldl:
 
   foldr f z [] = z
@@ -642,7 +641,7 @@ foldr and foldl:
 Prove the following property p: 
 
   p(xs) : foldr (+) z xs = foldl (+) z xs 
-          for all ﬁnite lists xs
+          for all finite lists xs
 
 --------
 Answer:
@@ -682,12 +681,16 @@ Inductive step: prove p(xs) => p((x:xs))
   foldl (+) (z + x) xs
 
 In order to show that the two sides are equal, we
-need a lemma q showing that:
+need to prove the following lemma q.
 
-  x + (foldl (+) z xs) = foldl (+) (z + x) xs
+----------------------------------------
+Lemma q
+          q(xs): x + (foldl (+) z xs) 
+                 = foldl (+) (z + x) xs
+----------------------------------------
 
-We will prove this lemma q by structural induction on the
-list xs.
+We will prove this lemma q by structural 
+induction on the list xs.
 
 ----------------------------------------
 Base case: prove q([])
@@ -748,7 +751,7 @@ and inorder:
   inorder Empty = []
   inorder (Node x l r) = inorder l ++ [x] ++ inorder r
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   p(t): inorder(mirror t) = reverse(inorder t)
 
@@ -813,7 +816,7 @@ Inductive step: prove p(l) ∧ p(r)
 □
 
 -------------------------------------------
-Lemma q: 
+Lemma q
         q(xs) : reverse(xs ++ ys) 
                 = reverse ys ++ reverse xs
 -------------------------------------------
@@ -828,8 +831,8 @@ Base case: prove q([])
   reverse ([] ++ ys)
 =   {applying ++}
   reverse ys
-=   {as noted, we may use without proof that xs = xs ++ [],
-     with xs = reverse ys}
+=   {as noted, we may use without proof that 
+     xs = xs ++ [], with xs = reverse ys}
   reverse ys ++ []
 =   {unapplying reverse}
   reverse ys ++ reverse []

@@ -17,7 +17,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[not,(&& True)]
+  [not,(&& True)]
 
 --------
 Answer: 
@@ -29,7 +29,7 @@ a unary function of type Bool -> Bool. Thus, both elements
 of the list have the same type Bool -> Bool, and the list
 can be constructed. The type of the expression is:  
 
-[(Bool -> Bool)]
+  [(Bool -> Bool)]
 
 
 --------------------------------
@@ -37,7 +37,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[(*)],(+)]
+  [[(*)],(+)]
 
 --------
 Answer:
@@ -55,7 +55,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-(42 - ) . (+ (42::Int))
+  (42 - ) . (+ (42::Int))
 
 --------
 Answer: 
@@ -68,39 +68,56 @@ The second function is a partially applied binary function
 ((+) (42::Int)) of type (Int -> Int) enforced by the
 explicit type annotation (42::Int).
 As the inner function has an output type of Int, the 
-outer function must have an input type of Int. This means 
-that the composed function has type (Int -> Int), and that
-the entire expression is therefore type correct.
+outer function must have an input type of Int, so we have
+a = Int. This means that the composed function has type 
+(Int -> Int), and that the entire expression is therefore 
+type correct.
 
 
 --------------------------------
 Question 1.4:
 What is the type of the following function g?
 
-g f = (:).f
+  g f = (:) . f
 
 --------
 Answer: 
 
 We know that the function composition operator (.) has the 
 type (.) :: (b -> c) -> (a -> b) -> (a -> c), and that the
-function (:) has the type (:) :: a -> [a] -> [a]. The
-latter function just takes an element of type a and a list
-of type [a] and returns a list of type [a], i.e. the 
-orignal list with the element prepended to it. This mean 
-that the composed function g takes a function f of type
-f :: a -> b, an element of type a, and a list of type [b]
-and returns a list of type [b]: the original list with the
-element f x prepended to it. Thus the type of g is: 
+function (:) has the type (:) :: d -> [d] -> [d]. The
+latter function just takes an element of type d and a list
+of type [d] and returns a list of type [d], i.e. the 
+orignal list with the element prepended to it. 
 
-g :: (a -> b) -> a -> [b] -> [b]
+Since a composition g . f can be rewritten as
+g . f =  (\x -> g (f x)), for our case we have
+(:) . f = (\x -> (:) (f x)). That is, for some argument x, 
+we first apply f to x, and then feed the result f x as the 
+first argument to (:). 
+
+Because (:) is the outer function of the composition, we 
+identify c = [d] -> [d] and b = d. This means that the 
+output type of f must be d, i.e. f :: a -> d for some 
+type a.
+
+Following the signature of (.), we see that the result is
+a unary function of type (a -> c), where c = [d] -> [d].
+Therefore, the most general type of g is:
+
+  g :: (a -> b) -> a -> [b] -> [b]
+
+That is, g takes a unary function f of type (a -> b) and
+returns a unary function of type (a -> ([b] -> [b])), which
+takes an argument of type a, and produces a function that
+prepends the result of f to a list of type [b].
 
 
 --------------------------------
 Question 1.5:
 What is the most general type of the following function f?
 
-f = \ (x,y) z -> (x (x y), x z)
+  f = \ (x,y) z -> (x (x y), x z)
 
 --------
 Answer: 
@@ -114,7 +131,7 @@ which takes a tuple (x,y) and a value z, and returns a
 tuple (x (x y), x z). Therefore the most general type of f
 is:
 
-f :: (a -> a, a) -> a -> (a, a)
+  f :: (a -> a, a) -> a -> (a, a)
 
 
 ___________________________________________________________
@@ -241,7 +258,7 @@ to every element of each sublist.
 
 --------------------------------
 Question 3.4:
-The function count is recursively deﬁned as:
+The function count is recursively defined as:
 
 count _ [] = 0
 count p (x : xs)
@@ -319,7 +336,7 @@ Question 4.2:
 Use a list comprehension to implement the function 
 locations :: Eq a => a -> [a] -> [Int] which takes an 
 item x and a list xs ands returns a list of indexes at 
-which x is found in xs. Note that the ﬁrst element of a 
+which x is found in xs. Note that the first element of a 
 list has index 0. For example:
 
   locations 1 [3,1,4,1,5,9,2,6,5,1] 
@@ -357,12 +374,18 @@ Answer:
 > fun :: (Int -> Bool) -> Int -> [(Int, Int)]
 > fun p n = [(x, y) | x <- [1..n], p x, y <- [1..x]]
 
+The list comprehension iterates over all integers x from
+1 to n, filters those that satisfy the predicate p, and
+for each such x, it generates pairs (x, y) where y ranges
+from 1 to x. This effectively combines the filtering and
+mapping operations into a single comprehension.
+
 
 --------------------------------
 Question 4.4:
 Matrices can be represented in Haskell as lists of lists. 
 For example, [[1,2,3],[4,5,6]] represents the 2 x 3
-matrix of which the ﬁrst row is [1,2,3] and the second row 
+matrix of which the first row is [1,2,3] and the second row 
 is [4,5,6]. Write a function transpose that takes a matrix 
 (i.e. a lists of lists) and returns the transposed matrix. 
 For example:
@@ -386,7 +409,7 @@ map, and tail like this:
 
 But since the question requires a solution using list
 comprehensions, we replace the two parts in the recursive 
-case with list comprehensions:
+case with list comprehensions, thus obtaining:
 
 > transpose :: [[a]] -> [[a]]
 > transpose ([] : _) = []
@@ -408,7 +431,7 @@ follows:
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
 
-Use it to deﬁne the infinite list composites::[Integer] 
+Use it to define the infinite list composites::[Integer] 
 which is the list of all positive integers which are not 
 prime.
 
@@ -416,26 +439,28 @@ prime.
 Answer:
 
 > composites :: [Integer]
-> composites = filterComps [1..] primes
+> composites = filterComps [4..] primes
 >   where
 >     filterComps (x : xs) (p : ps)
 >       | x == p    = filterComps xs ps
 >       | x < p     = x : filterComps xs (p : ps)
 >       | otherwise = filterComps (x : xs) ps
 
-The function filterComps takes two lists: the list of
-positive integers and the list of primes. It checks each
-element of the first list against the primes and filters
-out the primes, returning only the composite numbers. This
-implementation is efficient because it only traverses
-the list of primes as needed, keeping in lockstep with the
-list of positive integers. 
+The function filterComps takes two infinite, ordered lists: 
+the list of positive integers starting from 4, and the list 
+of primes. It checks each element of the first list against 
+the primes and filters out the primes, returning only the 
+composite numbers. This implementation is efficient because 
+it only traverses the list of primes as needed, keeping in 
+lockstep with the list of positive integers. 
+Note that 1 is neither prime nor composite, so we start 
+from 4, the smallest composite number.
 
 
 --------------------------------
 Question 5.2:
-Using zip or zipWith, give a deﬁnition of the inﬁnite list 
-fs which is the list of numbers which are deﬁned as:
+Using zip or zipWith, give a definition of the infinite list 
+fs which is the list of numbers which are defined as:
 
   F (0) = 0 
   F (1) = 1
@@ -465,7 +490,7 @@ with (drop 1 fs)
 
 --------------------------------
 Question 5.3:
-Implement the ordered inﬁnite list ds23 of all positive 
+Implement the ordered infinite list ds23 of all positive 
 integers that can be expressed as 2i · 3j (where i and j 
 are non-negative integers). For example, take 15 ds23 
 equals [1,2,3,4,6,8,9,12,16,18,24,27,32,36,48].
@@ -552,12 +577,12 @@ follows:
 
 > -- retrieves the 'oldest' element from the Fifo queue
 > retrieve :: Fifo a -> a
-> retrieve (Fo [])       = error "empty queue"
+> retrieve (Fo []) = error "retrieve from empty queue"
 > retrieve (Fo (x : xs)) = x 
 
 > -- deletes the 'oldest' element from the Fifo queue
 > delete :: Fifo a -> Fifo a
-> delete (Fo [])       = error "empty queue"
+> delete (Fo []) = error "delete from empty queue"
 > delete (Fo (_ : xs)) = Fo xs 
 
 > -- returns the number of elements in the Fifo queue
@@ -608,7 +633,7 @@ Prove that
   p(xs) : length (f xs ys zs) = 
           length xs * length ys + length xs * length zs 
 
-for all ﬁnite lists xs, ys, and zs.
+for all finite lists xs, ys, and zs.
 
 [Note: definitions of length and ++ are given in the file
  functions.md]
@@ -732,16 +757,15 @@ and mirror:
   mirror Empty = Empty
   mirror (Node x l r) = Node x (mirror r) (mirror l)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   p(t): reverse(inorder(mirror t)) = inorder t
 
 [Note: If you need one or more lemmas to complete the 
  proof, then prove these lemmas separately. You may use 
  without proof that ++ is an associative operator, and 
- that xs ++ [] = xs.
- Definitions of length, reverse, and ++ are given in 
- the file functions.md]
+ that xs ++ [] = xs. Definitions of reverse, and ++ are 
+ given in the file functions.md]
 
 --------
 Answer:
@@ -781,11 +805,11 @@ We will prove property p by structural induction on t.
   reverse(inorder(mirror r) ++ [x] ++ inorder(mirror l))
 =   {associativity of ++, given without proof}
   reverse ((inorder(mirror r) ++ [x]) ++ inorder(mirror l))
-=   {applying lemma reverse(us ++ vs) with 
+=   {applying lemma q, reverse(us ++ vs) with 
      us = inorder(mirror r) ++ [x], vs = inorder(mirror l)}
   reverse(inorder(mirror l)) 
   ++ reverse (inorder(mirror r) ++ [x])
-=   {applying lemma once more}
+=   {applying lemma q once more}
   reverse(inorder(mirror l))
   ++ (reverse [x] ++ reverse(inorder(mirror r)))
 =   {induction hypothesis}
@@ -799,8 +823,9 @@ We will prove property p by structural induction on t.
 □
 
 ----------------------------------------------------------
-3. Lemma: 
-      q(xs) : reverse(xs ++ ys) = reverse ys ++ reverse xs
+3. Lemma q
+
+    q(xs) : reverse(xs ++ ys) = reverse ys ++ reverse xs
 ----------------------------------------------------------
 
 We will prove this lemma by structural induction on xs.

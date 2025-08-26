@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[(*)],(+)]
+  [[(*)],(+)]
 
 --------
 Answer:
@@ -39,7 +39,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-(42 - ) . (+ (42::Int))
+  (42 - ) . (+ (42::Int))
 
 --------
 Answer: 
@@ -50,7 +50,7 @@ Answer:
 Question 1.4:
 What is the type of the following function g?
 
-g f = (:).f
+  g f = (:) . f
 
 --------
 Answer: 
@@ -61,7 +61,7 @@ Answer:
 Question 1.5:
 What is the most general type of the following function f?
 
-f = \ (x,y) z -> (x (x y), x z)
+  f = \ (x,y) z -> (x (x y), x z)
 
 --------
 Answer: 
@@ -165,7 +165,7 @@ Answer:
 
 --------------------------------
 Question 3.4:
-The function count is recursively deﬁned as:
+The function count is recursively defined as:
 
 count _ [] = 0
 count p (x:xs)
@@ -221,7 +221,7 @@ Question 4.2:
 Use a list comprehension to implement the function 
 locations :: Eq a => a -> [a] -> [Int] which takes an 
 item x and a list xs ands returns a list of indexes at 
-which x is found in xs. Note that the ﬁrst element of a 
+which x is found in xs. Note that the first element of a 
 list has index 0. For example:
 
   locations 1 [3,1,4,1,5,9,2,6,5,1] 
@@ -261,7 +261,7 @@ Answer:
 Question 4.4:
 Matrices can be represented in Haskell as lists of lists. 
 For example, [[1,2,3],[4,5,6]] represents the 2 x 3
-matrix of which the ﬁrst row is [1,2,3] and the second row 
+matrix of which the first row is [1,2,3] and the second row 
 is [4,5,6]. Write a function transpose that takes a matrix 
 (i.e. a lists of lists) and returns the transposed matrix. 
 For example:
@@ -284,11 +284,11 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -296,7 +296,7 @@ follows:
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
 
-Use it to deﬁne the inﬁnite list composites::[Integer] 
+Use it to define the infinite list composites::[Integer] 
 which is the list of all positive integers which are not 
 prime.
 
@@ -310,8 +310,8 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Using zip or zipWith, give a deﬁnition of the inﬁnite list 
-fs which is the list of numbers which are deﬁned as:
+Using zip or zipWith, give a definition of the infinite list 
+fs which is the list of numbers which are defined as:
 
   F (0) = 0 
   F (1) = 1
@@ -333,7 +333,7 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Implement the ordered inﬁnite list ds23 of all positive 
+Implement the ordered infinite list ds23 of all positive 
 integers that can be expressed as 2i · 3j (where i and j 
 are non-negative integers). For example, take 15 ds23 
 equals [1,2,3,4,6,8,9,12,16,18,24,27,32,36,48].
@@ -366,7 +366,7 @@ The following operations on queues need to be implemented:
 • insert: inserts an element in a Fifo queue.
 • retrieve: returns the 'oldest' element from 
   a non-empty Fifo queue.
-• delete: returns the ﬁfo that is obtained by removing 
+• delete: returns the fifo that is obtained by removing 
   the 'oldest' element from the queue.
 • size: returns the number of elements of the Fifo queue.
 
@@ -395,7 +395,7 @@ Prove that
   length (f xs ys zs) = 
     length xs * length ys + length xs * length zs 
 
-for all ﬁnite lists xs, ys, and zs.
+for all finite lists xs, ys, and zs.
 
 [Note: definitions of length and ++ are given in the file
  functions.md]
@@ -427,15 +427,15 @@ and mirror:
   mirror Empty = Empty
   mirror (Node x l r) = Node x (mirror r) (mirror l)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   reverse(inorder(mirror t)) = inorder t
 
 [Note: If you need one or more lemmas to complete the 
  proof, then prove these lemmas separately. You may use 
  without proof that ++ is an associative operator, and 
- that xs ++ [] = xs.
- The definition of ++ is given in functions.md]
+ that xs ++ [] = xs. Definitions of reverse, and ++ are 
+ given in the file functions.md]
 
 --------
 Answer:

@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[True]:[]
+  [True]:[]
 
 --------
 Answer: 
@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[]:[True]
+  []:[True]
 
 --------
 Answer:
@@ -38,7 +38,7 @@ Answer:
 Question 1.3:
 What is the most general type of the following function f?
 
-f = (\x -> \y -> \z -> [x (y z), y z])
+  f = (\x -> \y -> \z -> [x (y z), y z])
 
 --------
 Answer: 
@@ -49,7 +49,7 @@ Answer:
 Question 1.4:
 What is the most general type of the following function g?
 
-g = \x -> \y -> \z -> x.y.z
+  g = \x -> \y -> \z -> x.y.z
 
 --------
 Answer: 
@@ -60,7 +60,7 @@ Answer:
 Question 1.5:
 What is the type of the following function h?
 
-h = foldr (&&)
+  h = foldr (&&)
 
 --------
 Answer: 
@@ -142,7 +142,7 @@ Answer:
 
 --------------------------------
 Question 3.3:
-The function concatMap is deﬁned as follows: 
+The function concatMap is defined as follows: 
 
   concatMap f xs = concat(map f xs)
 
@@ -174,7 +174,7 @@ Answer:
 
 --------------------------------
 Question 4.2:
-The function evenLists is deﬁned as: 
+The function evenLists is defined as: 
 
   evenLists xss = map (filter even) xss
 
@@ -191,7 +191,7 @@ Answer:
 
 --------------------------------
 Question 4.3:
-The function triples takes three ﬁnite lists and combines 
+The function triples takes three finite lists and combines 
 them as follows. 
 
 Let: xs = [x0, x1, x2, .., xl], ys = [y0, y1, y2, .., ym], 
@@ -221,7 +221,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Deﬁne the infinite list fibs of Fibonacci numbers using a 
+Define the infinite list fibs of Fibonacci numbers using a 
 list comprehension. So:
   
   take 10 fibs 
@@ -240,7 +240,7 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Without using a list comprehension, give a deﬁnition of 
+Without using a list comprehension, give a definition of 
 the infinite list natlists = [[0],[0,1],[0,1,2],...].
 
 --------
@@ -294,7 +294,6 @@ The following operations need to be implemented:
   Recall that (a + ib)(c + id) = (ac - bd) + i(ad + bc).
 
 --------
-
 Answer:
 
 > 
@@ -344,7 +343,7 @@ and mirror:
   mirror Empty = Empty
   mirror (Node x l r) = Node x (mirror r) (mirror l)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   inorder (mirror t) = reverse (inorder t)
 

@@ -14,7 +14,7 @@ ___________________________________________________________
 Question 1.1:
 What is the most general type of the following expression? 
 
-[(('A', "BC"), [True])]
+  [(('A', "BC"), [True])]
 
 --------
 Answer: 
@@ -25,7 +25,7 @@ Answer:
 Question 1.2:
 What is the most general type of the following expression?
 
-[id, abs]
+  [id, abs]
 
 --------
 Answer:
@@ -36,7 +36,7 @@ Answer:
 Question 1.3:
 What is the most general type of the function f?
 
-f g (x,y)= g x y
+  f g (x,y) = g x y
 
 --------
 Answer: 
@@ -56,7 +56,7 @@ Answer:
 Question 1.5:
 What is the type of the following Haskell function h?
 
-h f g x y = f (g x y) x
+  h f g x y = f (g x y) x
 
 --------
 Answer: 
@@ -71,13 +71,16 @@ ___________________________________________________________
 The Luhn algorithm is a simple checksum formula used to 
 validate a credit card number. It works as follows.
 Let n be the number to be checked, e.g. n = 49927398716. 
-The ﬁrst step is to double every second digit, starting 
+
+The first step is to double every second digit, starting 
 from the right (so, in the example we only consider the 
-digits 4.9.7.9.1.). If doubling a digit results in a number 
-greater than 9 then subtract 9 from the number. For this 
-example, the result of this ﬁrst step is the number 
-x = 49947697726. In the second step of the algorithm, all 
-digits of x are summed up. For the example, we get:
+digits .9.2.3.8.1.). If doubling a digit results in a 
+number greater than 9 then subtract 9 from the number. 
+For this example, the result of this first step is the 
+number x = 49947697726. 
+
+In the second step of the algorithm, all digits of x are 
+summed up. For the example, we get:
 4 + 9 + 9 + 4 + 7 + 6 + 9 + 7 + 7 + 2 + 6 = 7
 If this sum is evenly divisible by 10, then the number is 
 a valid credit card number, otherwise it is invalid. The 
@@ -85,7 +88,7 @@ conclusion is that the example number is a valid credit
 card number.
 
 Write a Haskell function isValidNumber :: Integer -> Bool 
-that returns True if and only if its ﬁrst argument is a 
+that returns True if and only if its first argument is a 
 valid credit card number. 
 
 Example:    isValidNumber 49927398716 = True
@@ -108,10 +111,10 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 3.1:
-Using the higher-order functions foldr and map, deﬁne a 
+Using the higher-order functions foldr and map, define a 
 function powersum (including its type) which takes two
 non-negative integers n and e. It returns the sum of the 
-ﬁrst n positive integers raised to the power e.
+first n positive integers raised to the power e.
 
 So: powersum 4 3 = 1^3 + 2^3 + 3^3 + 4^3 
                  = 1 + 8 + 27 + 64 
@@ -127,7 +130,7 @@ Answer:
 
 --------------------------------
 Question 3.2:
-Deﬁne the function filter (including its type) using the 
+Define the function filter (including its type) using the 
 function foldr.
 
 --------
@@ -203,7 +206,7 @@ The dot product of two vectors
 a = [a₀, a₁, ..., aₙ] 
 b = [b₀, b₁, ..., bₙ]
 
-is deﬁned as:
+is defined as:
 
   a . b = ∑_{i=1}^n (aᵢ * bᵢ) =
           a₀*b₀ + a₁*b₁ + ... + aₙ*bₙ  
@@ -224,13 +227,15 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
 Give a recursive expression for the list pairs which is the
-inﬁnite list of pairs (n,n+1), where n ranges over the
-natural numbers. So, take 3 pairs=[(0,1),(1,2),(2,3)].
+infinite list of pairs (n,n+1), where n ranges over the
+natural numbers. For example:
+
+  take 3 pairs = [(0,1),(1,2),(2,3)]
 
 --------
 Answer:
@@ -242,9 +247,9 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Give a deﬁnition of the function gendups which takes a 
-(possibly inﬁnite) list of positive Integers and generates 
-the (posssibly inﬁnite) list where each element x of the 
+Give a definition of the function gendups which takes a 
+(possibly infinite) list of positive Integers and generates 
+the (posssibly infinite) list where each element x of the 
 input list has been replaced by x copies of itself. 
 
 For example:
@@ -261,11 +266,11 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Deﬁne the function sums::[Integer] -> [Integer], that takes
-an inﬁnite list of Integers and produces the corresponding 
-inﬁnite list of preﬁx sums.
+Define the function sums::[Integer] -> [Integer], that 
+takes an infinite list of Integers and produces the 
+corresponding infinite list of prefix sums.
 
-For example: sums [0,2..] should produce the inﬁnite list 
+For example: sums [0,2..] should produce the infinite list 
              [0, 0+2, 0+2+4, ...] = [0, 2, 6, ...]
 
 --------
@@ -281,7 +286,7 @@ ___________________________________________________________
 6. ADT module
 ___________________________________________________________
 
-he type Stack a is an Abstract Data Type (ADT) for stacks 
+The type Stack a is an Abstract Data Type (ADT) for stacks 
 containing elements of the type a. Recall that a stack is 
 a container that works according the LIFO (Last In First 
 Out) principle. In other words, the element that was most
@@ -305,7 +310,6 @@ The following operations on stacks need to be implemented:
   recently added to the stack.
 
 --------
-
 Answer:
 
 > 
@@ -322,6 +326,9 @@ Prove the following property p:
 
   map (f.g) xs = (map f . map g) xs 
   for all finite lists xs
+
+[Note: refer to the file functions.md for the 
+ definitions of map and (.)]
 
 --------
 Answer:
@@ -351,9 +358,16 @@ and mapTree:
   mapTree f (Node x t1 t2) = 
       Node (f x) (mapTree f t1) (mapTree f t2)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   inorder (mapTree f t) = map f (inorder t)
+
+Associativity of (++) may be used without proof:
+
+    (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
+
+[Note: refer to the file functions.md for
+ definitions of map and (++)]
 
 --------
 Answer:

@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-([[]],[])
+  ([[]],[])
 
 --------
 Answer: 
@@ -35,20 +35,20 @@ Question 1.2:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-[[[]],[]]
+  [[[]],[]]
 
 --------
 Answer:
 
 Yes, this is a valid expression. The first element of the 
-outer list is a list containing the emptpy list, so that 
+outer list is a list containing the empty list, so that 
 the first element has type [[a]] for some type a.
 The second element is the empty list, which has type [b]
 for some type b. Since these two elements are in a list,
 the type checking system will try to unify the two types,
 and so it will choose b = [a].
 Hence, the most general type of the outer list becomes: 
-[[[a]]]
+  [[[a]]]
 
 
 --------------------------------
@@ -56,7 +56,7 @@ Question 1.3:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-[[[]],[True]]
+  [[[]],[True]]
 
 --------
 Answer: 
@@ -77,7 +77,7 @@ Question 1.4:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-not.(&&)
+  not.(&&)
 
 --------
 Answer: 
@@ -117,7 +117,7 @@ Question 1.5:
 Is the following expression a valid Haskell expression?
 If YES, then give the most general type of the expression.
 
-(&&).not
+  (&&).not
 
 --------
 Answer: 
@@ -387,7 +387,7 @@ Another possibility is to use map:
 
 ___________________________________________________________
 
-5. Inﬁnite lists and lazy evaluation
+5. Infinite lists and lazy evaluation
 ___________________________________________________________
 
 Question 5.1:
@@ -530,7 +530,6 @@ The following operations on the ADT must be implemented:
   This returns the number of key-value pairs in the store.
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -549,8 +548,9 @@ KVS, thus hiding the concrete implementation details.
 > -- KVstore is an abstract data type for a key-value store
 > data KVstore ktp vtp = KVS [(ktp, vtp)]
 
-> instance (Show ktp, Show vtp) => Show (KVstore ktp vtp) where
->   show (KVS kvs) = show kvs
+> instance (Show ktp, Show vtp) => Show (KVstore ktp vtp)
+>   where
+>     show (KVS kvs) = show kvs
 
 > -- creates an empty key-value store
 > empty :: Eq ktp => KVstore ktp vtp

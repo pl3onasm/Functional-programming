@@ -59,8 +59,8 @@ Answer:
 Question 1.5:
 What is the type of the following Haskell function f?
 
-  f = sum.h.g
-  g = (\x -> (head x, (head.reverse) x))
+  f = sum . h . g
+  g = (\x -> (head x, (head . reverse) x))
   h (x,y) = [x,y]
 
 --------
@@ -91,6 +91,12 @@ Write a Haskell functie isDCSN (including its type) that
 determines whether its argument passes the test described 
 above.
 
+For example:
+
+  isDCSN 123456782 = True
+  isDCSN 123456789 = False
+  isDCSN 012345672 = True
+
 --------
 Answer:
 
@@ -116,6 +122,10 @@ greatest common divisor of its two arguments). The
 implementation of relPrimePairs must be a list 
 comprehension.
 
+Example:    relPrimePairs 7 
+          = [(2,3),(2,5),(2,7),(3,4),(3,5),(3,7),
+             (4,5),(4,7),(5,6),(5,7),(6,7)]
+
 --------
 Answer:
 
@@ -126,13 +136,15 @@ Answer:
 
 --------------------------------
 Question 3.2:
-Given are the Haskell deﬁnitions of suits, cards and honours:
+Given are the Haskell definitions of suits, cards and 
+honours:
 
-suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
-cards = map show [2..10]
-honours = ["J","Q","K","A"]
+> suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+> cards = map show [2..10]
+> honours = ["J","Q","K","A"]
 
-Write a list comprehension for deck, where deck is
+Write a list comprehension for deck, where deck is:
+
   [("Clubs","2"),("Clubs","3"),("Clubs","4"),
   ("Clubs","5"),("Clubs","6"),("Clubs","7"),
   ("Clubs","8"),("Clubs","9"),("Clubs","10"),
@@ -165,12 +177,12 @@ Question 3.3:
 Use a list comprehension and the function zip to write
 a Haskell function locations n xs that returns the list of
 all indexes i such that the i-th element of xs is n 
-(i.e. xs!!i == n). Note that the ﬁrst elelement of a list 
+(i.e. xs!!i == n). Note that the first elelement of a list 
 has index 0. You are not allowed to use the indexing 
-operator !!.
+operator !!, nor are you allowed to implement it yourself.
 
-Example: locations 0 [x `mod` 10 | x <- [1..50]]
-         = [9,19,29,39,49]
+Example:    locations 0 [x `mod` 10 | x <- [1..50]]
+          = [9,19,29,39,49]
 
 --------
 Answer:
@@ -187,12 +199,13 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 4.1:
-The function iterate creates an inﬁnite list where the ﬁrst
-item is calculated by applying the function its ﬁrst
-argument on its secod argument, the second item by applying 
-the function on the previous result and so on. 
+The function iterate creates an infinite list where the 
+first element is the given starting value, the second 
+element is obtained by applying the given function to the 
+starting value, the third element by applying the function 
+to the second element, and so on. 
 
-For example, iterate (2*) 1 yields the inﬁnite list 
+For example, iterate (2*) 1 yields the infinite list 
 [2,4,8,16,32,64,128,256,512,...]. Give a Haskell
 implementation (including its type) of the function 
 iterate.
@@ -207,9 +220,9 @@ Answer:
 
 --------------------------------
 Question 4.2:
-Deﬁne the inﬁnite list ints, which is the list of all 
+Define the infinite list ints, which is the list of all 
 integers. It should be ordered in such a way that you can 
-ﬁnd any given integer after searching a ﬁnite number of 
+find any given integer after searching a finite number of 
 elements in ints. In other words, this is not going to 
 work: ints = [0..] ++ [-1, -2..]
 
@@ -223,14 +236,14 @@ Answer:
 
 --------------------------------
 Question 4.3:
-Given is the deﬁnition of the inﬁnite list of primes:
+Given is the definition of the infinite list of primes:
 
 > primes :: [Integer] 
 > primes = sieve [2..]
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
 
-Use primes to deﬁne the inﬁnite list composites of non-
+Use primes to define the infinite list composites of non-
 primes. So, take 10 composites should yield
 [4,6,8,9,10,12,14,15,16,18]. Note that we skip the value 1.
 
@@ -248,17 +261,17 @@ ___________________________________________________________
 5. Reverse Polish Notation
 ___________________________________________________________
 
-We are used to write expressions using inﬁx notation. For 
+We are used to write expressions using infix notation. For 
 instance, we write 10 - (4 + 3) * 2. The downside of this 
 notation is that we have to use parentheses to denote 
 precedence. Reverse Polish Notation (RPN) is another way of 
 writing down expressions, and does not need parentheses. 
 In RPN, every operator follows its operands, therefore RPN 
-is also called postﬁx notation. The above expression in RPN 
-is: 10 4 3 + 2 * -
+is also called postfix notation. The above expression in 
+RPN is: 10 4 3 + 2 * -
 
 Evaluating such an expression goes as follows. We keep 
-pushing numbers onto a stack, until we encounter the ﬁrst 
+pushing numbers onto a stack, until we encounter the first 
 operator. So, when we encounter the +, the stack contains 
 [3, 4, 10] (here, the head of the list is the top of the 
 stack). We replace the two top numbers from the stack by 
@@ -268,21 +281,22 @@ again, we pop 2 and 7 off the stack, apply the operator
 and push the result to the stack yielding [14, 10]. 
 Finally, there is a -. We pop 10 and 14 from the stack, 
 subtract 14 from 10 and push that back. The number on the
-stack is now -4, which is the ﬁnal result.
+stack is now -4, which is the final result.
 
-We use the following data type for representing RPN literals:
+We use the following data type for representing RPN 
+literals:
 
-> data RPN = Value Integer | Plus | Minus | Times | Div
+> data RPN = Val Integer | Plus | Minus | Times | Div
 
 Write a Haskell funtion rpn :: [RPN] -> Integer that 
-evaluates a RPN expression to an Integer.
+evaluates an RPN expression to an Integer.
 
 Two examples:
 
-  rpn [Value 10, Value 2, Div] 7 = 5
+  rpn [Val 10, Val 2, Div] = 5
 
-  rpn [Value 10, Value 4, Value 3, Plus,  
-       Value 2, Times, Minus] 7 = -4
+  rpn [Val 10, Val 4, Val 3, 
+       Plus, Val 2, Times, Minus] = -4
 
 --------
 Answer:
@@ -320,7 +334,6 @@ implemented:
   removing the 'oldest' element.
 
 --------
-
 Answer:
 
 > 
@@ -345,7 +358,7 @@ Given are the functions leaves and nodes:
   nodes (Leaf _) = 0
   nodes (Node a l r) = 1 + nodes l + nodes r
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   leaves t = nodes t + 1
 
@@ -363,7 +376,7 @@ ___________________________________________________________
 8. Proof on lists
 ___________________________________________________________
 
-Given are the deﬁnitions of the functions rev1, shunt, 
+Given are the definitions of the functions rev1, shunt, 
 and rev2:
 
   rev1 :: [a] -> [a]
@@ -379,7 +392,16 @@ and rev2:
 
 Prove the following property p: 
 
-  rev1 xs = rev2 xs for all ﬁnite lists xs.
+  rev1 xs = rev2 xs 
+  for all finite lists xs.
+
+The following properties may be used without proof:
+
+  Associativity of (++):
+    (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
+
+  Concatenation with []:
+    xs ++ [] = xs
 
 --------
 Answer:

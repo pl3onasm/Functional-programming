@@ -17,7 +17,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-'a' : 'b' : [] : []
+  'a' : 'b' : [] : []
 
 --------
 Answer: 
@@ -45,7 +45,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-('a' : 'b' : []) : []
+  ('a' : 'b' : []) : []
 
 --------
 Answer:
@@ -64,7 +64,7 @@ Thus, the type of the entire expression is:
 Question 1.3:
 What is the most general type of the following function f?
 
-f = (\x -> \y -> \z -> [x y, x (x z)])
+  f = (\x -> \y -> \z -> [x y, x (x z)])
 
 --------
 Answer: 
@@ -88,7 +88,7 @@ applying x to itself with z. Thus, the type of f is:
 Question 1.4:
 What is the most general type of the following function g?
 
-g = (. not)
+  g = (. not)
 
 --------
 Answer: 
@@ -111,7 +111,7 @@ type a. Thus, the most general type of g is:
 Question 1.5:
 What is the most general type of the following function h?
 
-h = (not . )
+  h = (not .)
 
 --------
 Answer:
@@ -133,7 +133,7 @@ ___________________________________________________________
 2. Programming in Haskell
 ___________________________________________________________
 
-A well formed string of parentheses is deﬁned by the 
+A well formed string of parentheses is defined by the 
 following recursive rules:
 
 • The empty string is well formed.
@@ -183,10 +183,10 @@ Without using recursion or a list comprehension, write a
 function selectiveMap which takes three arguments. Also, 
 give the type of the function selectiveMap. 
 
-The ﬁrst argument of the function is a predicate p, the 
+The first argument of the function is a predicate p, the 
 second some function f, and the third a list xs. The 
 function selectiveMap returns a list that is just like xs, 
-but in which every element x that satisﬁes p is replaced 
+but in which every element x that satisfies p is replaced 
 by f applied to x.
 
 For example, the call 
@@ -222,7 +222,7 @@ Another possibility is to use map:
 Question 3.2:
 Without using recursion or a list comprehension, write a 
 function thresholdPairs which takes two arguments.
-The ﬁrst is an Integer n, and the second is a list xs of 
+The first is an Integer n, and the second is a list xs of 
 Integer pairs. The output should be the list of pairs 
 (a,b), in the same order as in the list xs, for which the
 sum of a and b is greater than n.
@@ -325,18 +325,23 @@ For example:
 Answer:
 
 > tripletSum :: Integer -> [(Integer, Integer, Integer)]
-> tripletSum n = [(a, b, n-a-b) | a <- [1 .. n `div` 3], 
->                           b <- [a .. (n - a) `div` 2]]
+> tripletSum n = [(a, b, n - a - b) | a <- [1..n `div` 3], 
+>                              b <- [a..(n - a) `div` 2]]
 
 In order to generate the triples (a, b, c) efficiently, 
 we use a list comprehension with two nested generators.
-The outer generator iterates over a, which ranges from 1
-up to n div 3, because a must be less than or equal to b
-and c, and thus a cannot exceed n/3.
-The inner generator iterates over b, which ranges from a
-up to (n - a) div 2, because b must be less than or equal
-to c. 
-The value of c is then determined uniquely as n - a - b.
+The outer generator iterates over a. If we fix a to some
+value x, then the smallest possible values for b and c are
+also x. Thus we have x + x + x = 3x <= n, which implies
+a <= n div 3. In other words, a can only take values from
+1 up to n div 3.
+
+Once a is fixed to some value x, the sum condition becomes
+x + b + c = n  => c = n - x - b. Since we have b <= c, we
+also have b <= n - x - b, which implies b <= (n - x) div 2.
+Thus, for each fixed a = x, b can take values from x up to
+(n - x) div 2. The value of c is then determined by the sum
+condition, so we do not need a separate generator for c.
 
 This ensures that all triples are unique and are generated 
 in lexicographic order, as a is always less than or equal 
@@ -376,9 +381,9 @@ ___________________________________________________________
 
 Question 5.1:
 Give a recursive implementation of the function iterate 
-(including its type) that takes two arguments. The ﬁrst is 
+(including its type) that takes two arguments. The first is 
 a function f and the second some value x. The call 
-iterate f x returns an inﬁnite list of repeated 
+iterate f x returns an infinite list of repeated 
 applications of f to x. So: 
 
 iterate f x = [x, f x, f(f x), f(f(f x)), f(f(f(f x))),...]
@@ -413,9 +418,9 @@ the next value f x.
 
 --------------------------------
 Question 5.2:
-Give a deﬁnition of the infinite list tribonacci which is 
+Give a definition of the infinite list tribonacci which is 
 the ordered list of all tribonacci numbers. Recall that the
-tribonacci numbers are deﬁned as: 
+tribonacci numbers are defined as: 
 
   T (n) = n for n < 3
   T (n) = T (n - 1) + T (n - 2) + T (n - 3) for n ≥ 3
@@ -447,7 +452,7 @@ the previous three elements in two steps:
 
 --------------------------------
 Question 5.3:
-Give a deﬁnition of the infinite list palindromes which is 
+Give a definition of the infinite list palindromes which is 
 a list of lists of palindromic bit strings. The n-th list
 contains all lexicographically sorted palindromes of length 
 n (starting with n = 0). For example: 
@@ -504,7 +509,6 @@ The following operations need to be implemented:
   scale 5.0 (makePolynomial [2.0,0.0,0.5])
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -688,7 +692,7 @@ and flatten:
   flatten Empty ys = ys
   flatten (Node x l r) ys = flatten l (x:flatten r ys)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   p(t): inorder t = flatten t []
 
@@ -729,7 +733,7 @@ Inductive step: prove p(l) ∧ p(r)
   inorder l ++ [x] ++ inorder r
 =   {using induction hypothesis}
   flatten l [] ++ [x] ++ flatten r []
-=   {applying lemma: associativity of (++)}
+=   {applying lemma q: associativity of (++)}
   flatten l [] ++ ([x] ++ flatten r [])
 =   {[x] ++ xs = x : xs by definition of (++)} 
   flatten l [] ++ (x : flatten r [])
@@ -742,11 +746,13 @@ Inductive step: prove p(l) ∧ p(r)
 □
 
 -------------------------------------------------
-Lemma q(xs):  xs ++ (ys ++ zs) = (xs ++ ys) ++ zs
+Lemma q: associativity of (++)
+
+     q(xs): xs ++ (ys ++ zs) = (xs ++ ys) ++ zs
 -------------------------------------------------
 
-We will prove this lemma q by structural induction 
-on the list xs.
+We will prove this lemma q by structural  
+induction on the list xs.
 
 ----------------------------------------
 Base case: prove q([])

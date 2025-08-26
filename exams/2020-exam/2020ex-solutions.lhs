@@ -18,15 +18,19 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[not, []]
+  [not, []]
 
 --------
 Answer: 
 
 It is not type correct, since lists can only contain
 elements of the same type, and not is of type 
-Bool -> Bool while [] is polymorphic with type [a] for 
-any type a. 
+Bool -> Bool, while [] is polymorphic with type [a] for 
+any type a. The type checker tries to unify these two 
+types, so that not and [] could coexist in the same list.
+However, this fails because [a] is wrapped in a list,
+and Bool -> Bool is not a list type. Therefore, 
+unification fails and yiels a type error.
 
 
 --------------------------------
@@ -34,15 +38,22 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[not],[]]
+  [[not],[]]
 
 --------
 Answer:
 
-Yes, this is type correct. Here, the types of the 
-elements of the list can be resolved to [Bool -> Bool].
-So, the expression is a list of lists of functions
-of type Bool -> Bool, i.e., the type is [[Bool -> Bool]]
+Yes, this is type correct. The outer list contains two
+elements, both of which are lists themselves. The first
+element is the list [not]. Since not has type Bool -> Bool,
+the list [not] has type [Bool -> Bool]. 
+The second element is the empty list [], which is 
+polymorphic and has type [a] for any type a. 
+Since both of these are elements of the outer list, the 
+type checker tries to unify their types, and succeeds by 
+choosing a = Bool -> Bool.
+Thus, the entire expression has type [[Bool -> Bool]],
+i.e. a list of lists of functions from Bool to Bool.
 
 
 --------------------------------
@@ -50,39 +61,73 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-(&&).(&&)
+  (&&).(&&)
 
 --------
 Answer: 
 
 It is not type correct. The composition operator (.) 
-composes two unary functions. However, (&&) is a 
-binary function with type Bool -> Bool -> Bool. 
-Therefore, the expression (&&) . (&&) is invalid 
-because it tries to compose two binary functions, 
-which (.) does not support.
+composes two unary functions, and has the type:
+  (.) :: (b -> c) -> (a -> b) -> a -> c
+In our case, both functions being composed are (&&),    
+which has the type:
+  (&&) :: Bool -> Bool -> Bool
+The type checker first tries to unify the inner (&&)
+with the type (a -> b) of the second argument of (.),
+and comes up with: 
+  a = Bool
+  b = Bool -> Bool
+Then, it tries to unify the outer (&&) with the type
+(b -> c) of the first argument of (.), where 
+  b = Bool -> Bool
+  c = Bool
+This, however, would require the input type of the outer 
+(&&) to be Bool -> Bool, while its actual input type 
+is just Bool. Recall that (->) is right-associative, 
+so that
+  Bool -> Bool -> Bool
+is actually
+  Bool -> (Bool -> Bool)
+
+Since these input types cannot be unified, the type
+checker fails and yields a type error.
+
+It would have been type correct if we had partially
+applied (&&) to one argument, like so:
+  (&& True) . (&& False)
+This would yield a function of type Bool -> Bool.
 
 
 --------------------------------
 Question 1.4:
 What is the type of the following function g?
 
-g = not.not
+  g = not . not
 
 --------
 Answer: 
 
 The type of g is Bool -> Bool.
-This is because the composition simply chains two
-functions of type Bool -> Bool, resulting in a function
-that still takes a Bool and returns a Bool.
+This is because the function not has the type 
+  not :: Bool -> Bool
+and the composition operator (.) has the type
+  (.) :: (b -> c) -> (a -> b) -> a -> c
+When we compose not with itself, we have:
+  b = Bool
+  c = Bool
+  a = Bool
+So that the unary function a -> c that results from the 
+composition is indeed of type Bool -> Bool.
+In other words, g simply chains two functions of type 
+Bool -> Bool, resulting in a function that still takes 
+a Bool and returns a Bool.
 
 
 --------------------------------
 Question 1.5:
 What is the most general type of the following function f?
 
-f = \x -> \y -> \z -> (x (x y), x z)
+  f = \x -> \y -> \z -> (x (x y), x z)
 
 --------
 Answer: 
@@ -99,7 +144,7 @@ containing two elements, both of type a.
 
 Therefore, the most general type of f is:
   
-f :: (a -> a) -> a -> a -> (a, a)
+  f :: (a -> a) -> a -> a -> (a, a)
 
 
 ___________________________________________________________
@@ -193,6 +238,11 @@ Answer:
 > evenLists :: [[Integer]] -> [[Integer]]
 > evenLists = filter (any even)
 
+The predicate (any even) checks if there is any element in 
+an inner list that is even, and filter uses this predicate 
+to filter the input list of lists, retaining only those
+lists that contain at least one even number.
+
 
 --------------------------------
 Question 3.3:
@@ -206,8 +256,8 @@ Answer:
 > append :: [a] -> [a] -> [a]
 > append xs ys = foldr (:) ys xs
 
-Note: recall that foldr takes a binary function, an
-initial value, and a list, and essentially replaces the 
+Recall that foldr takes a binary function, an initial 
+accumulator value, and a list, and essentially replaces the 
 cons operator (:) with the binary function, and the empty
 list with the initial value. In this case, we replace
 the cons operator with itself, and the empty list with ys.
@@ -293,19 +343,25 @@ Answer:
 > pairs :: [a] -> [(a, a)]
 > pairs xs = [(x, y) | x <- xs, y <- xs]
 
+The two nested generators behave like two nested loops,
+iterating over each element x of xs and for each x, 
+iterating over each element y of xs, thus generating
+all possible pairs (x, y). 
+
 
 --------------------------------
 Question 4.3:
 The function pairs2 also takes a list xs and outputs a list
 of pairs. A recursive implementation is given below.
-For example, pairs2 [1,2,3,4] returns 
-[(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)].
 
-pairs2 [] = []
-pairs2 (x : xs) = p x xs ++ pairs2 xs
-  where 
-    p x [] = []
-    p x (y : ys) = (x,y) : p x ys
+  pairs2 [] = []
+  pairs2 (x : xs) = p x xs ++ pairs2 xs
+    where 
+      p x [] = []
+      p x (y : ys) = (x,y) : p x ys
+
+For example, pairs2 [1,2,3,4] returns 
+  [(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)].
 
 Give an equivalent implementation that makes use of (a) 
 list comprehension(s) that replaces the recursions.
@@ -316,6 +372,12 @@ Answer:
 > pairs2 :: Eq a => [a] -> [(a, a)]
 > pairs2 xs = [(x, y) | (x, n) <- zip xs [1..], 
 >                        y <- drop n xs]
+
+The outer generator iterates over the list xs, and pairs
+each element x with its index n using zip. The inner 
+generator then iterates over the elements of xs starting
+from index n, effectively generating pairs (x, y) where
+y comes after x in the original list. 
 
 
 --------------------------------
@@ -331,7 +393,7 @@ Implement perms using a list comprehension.
 --------
 Answer:
 
-The question is not very precise about whether the input
+The question is not precise about whether the input
 list may contain duplicate elements or not.
 
 If we assume that the input list only contains distinct 
@@ -365,11 +427,11 @@ permutations even when the input list contains duplicates.
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -404,12 +466,33 @@ and elem instead, which are included in functions.md:
 > isPrime' :: Integer -> Bool
 > isPrime' n = n `elem` takeWhile (<= n) primes
 
+However, this is less efficient, as it generates all primes
+up to n, and then traverses the resulting list again to 
+check for membership, while the first definition stops as 
+soon as it finds the first prime greater than or equal 
+to n.
+
+To remedy this, and get single-pass efficiency, we can 
+define isPrime as follows:
+
+> isPrime'' :: Integer -> Bool
+> isPrime'' n = check primes
+>   where 
+>     check (p : ps)
+>       | p == n    = True
+>       | p > n     = False
+>       | otherwise = check ps
+
+This definition traverses the list of primes only once,
+stopping as soon as it finds a prime equal to n (returning
+True) or a prime greater than n (returning False).
+
 
 --------------------------------
 Question 5.2:
-Using zip or zipWith, give a deﬁnition of the inﬁnite list 
-delayedFib which is the list of delayed Fibonacci numbers 
-which are deﬁned as:
+Using zip or zipWith, give a definition of the infinite 
+list delayedFib which is the list of delayed Fibonacci 
+numbers which are defined as:
 
 F (n) = n for n < 3, 
 F (n) = F (n - 1) + F (n - 3) for n ≥ 3
@@ -422,15 +505,18 @@ Answer:
 
 > delayedFib :: [Integer]
 > delayedFib = 0 : 1 : 2 : zipWith (+) 
->              (delayedFib) (drop 2 delayedFib)
+>              (drop 2 delayedFib) delayedFib
 
-This definition uses zipWith to combine the
-delayedFib list with itself, offset by two elements.
+The three base cases F(0), F(1), and F(2) are listed first.
+The rest of the list is generated using the recursive
+definition of F(n) for n >= 3. This is done by summing the
+(n-1)th and (n-3)th Fibonacci numbers, using zipWith to
+pair the appropriate elements from the list. 
 
 
 --------------------------------
 Question 5.3:
-Implement the inﬁnite list abc which consists of all 
+Implement the infinite list abc which consists of all 
 strings that can be produced with the letters 'a', 
 'b', and 'c'. For example, take 25 abc should return:
 
@@ -463,7 +549,7 @@ like:
 [1,1,1,4,5,2,2,2,2,2,2,1,1,1]
   
 This list can be stored more compactly as a list of pairs, 
-where the ﬁrst element represents a data element and the 
+where the first element represents a data element and the 
 second contains the length of the chunk. This type of data 
 storage is called RLE (Run Length Encoding). For the given 
 example, this representation would be:
@@ -597,7 +683,7 @@ Prove that
 
   p(xs) : length xs * length ys = length(f xs ys) 
   
-for all ﬁnite lists xs and ys.
+for all finite lists xs and ys.
 
 [Note: find the definition of length in the file
        functions.md included in this exam folder]
@@ -656,12 +742,13 @@ We will prove this by structural induction on the list xs.
 □
 
 -------------------------------------------------------
-3. Lemma: 
+3. Lemma q
+      
       q(xs) : length xs + length ys = length (xs ++ ys)
 -------------------------------------------------------
    
-  We will prove this lemma by structural induction on the 
-  list xs
+  We will prove this lemma by structural induction 
+  on the list xs
 
 ----------------------------------------------
 3.1 Base case: prove q([])

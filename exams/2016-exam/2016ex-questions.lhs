@@ -14,7 +14,7 @@ ___________________________________________________________
 Question 1.1:
 What is the type of the following expression?
 
-(42, [42], [[42]])
+  (42, [42], [[42]])
 
 --------
 Answer: 
@@ -25,7 +25,7 @@ Answer:
 Question 1.2:
 What is the most general type of the function f?
 
-f = filter (== 'A')
+  f = filter (== 'A')
 
 --------
 Answer:
@@ -36,7 +36,7 @@ Answer:
 Question 1.3:
 What is the most general type of the function g?
 
-g = (\x -> (\y -> (y,x)))
+  g = (\x -> (\y -> (y,x)))
 
 --------
 Answer: 
@@ -56,7 +56,7 @@ Answer:
 Question 1.5:
 What is the type of the following Haskell function h?
 
-h =(\f -> map f "Text" == [1,2,3,4])
+  h = (\f -> map f "Text" == [1,2,3,4])
 
 --------
 Answer: 
@@ -81,7 +81,7 @@ For example, balancedSubLists [1,2,3,4,5]
 may return the list:
 
   [[4,5],[3,4],[2,5],[2,3],[2,3,4,5],
-  [1,4],[1,2],[1,2,4,5],[1,2,3,4]].
+   [1,4],[1,2],[1,2,4,5],[1,2,3,4]]
 
 --------
 Answer:
@@ -102,7 +102,7 @@ ___________________________________________________________
 
 Question 3.1:
 Write a function isEqual (including its type) that accepts 
-three arguments: the ﬁrst two arguments are functions
+three arguments: the first two arguments are functions
 (both having the same type), which can be applied to each 
 element of a list (the third argument). The function should
 return True if and only if applying both functions to each 
@@ -162,7 +162,7 @@ ___________________________________________________________
 
 Question 4.1:
 Write a function oddeven (including its type) that takes a 
-list of pairs and returns a list containing the ﬁrst 
+list of pairs and returns a list containing the first 
 element from each of the pairs in even-numbered positions 
 and the second element from each of the pairs in odd-
 numbered positions, where numbering of list elements begins 
@@ -175,7 +175,7 @@ Examples:
             oddeven [("hello","world"),("from","Venus")] 
           = ["hello", "Venus"].
 
-The implementation off oddeven must be a list 
+The implementation of oddeven must be a list 
 comprehension.
 
 --------
@@ -198,7 +198,7 @@ Examples:   removeRepetition [1,2,2,3,3,3,4,5,1,1]
             removeRepetition "Haaassskkkell"  
           = "Haskel"
 
-The deﬁnition of the function removeRepetition must make 
+The definition of the function removeRepetition must make 
 use of a list comprehension.
 
 --------
@@ -217,7 +217,7 @@ a list and returns the list of all its possible sublists
 Use a list comprehension in combination with recursion.
 For example:
   sublists [1,2,3] may return 
-  [[],[1],[2],[3],[1,2],[1,3],[2, 3],[1,2,3]]
+  [[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]
 
 --------
 Answer:
@@ -229,12 +229,12 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Given the availablility of the inﬁnite list of prime
-numbers, defined as follows:
+Given is the infinite list of prime numbers, defined as 
+follows:
 
 > primes :: [Integer] 
 > primes = sieve [2..]
@@ -248,19 +248,22 @@ if and only if n is in the list primes.
 Answer:
 
 > 
->
+> 
 >
 
 
 --------------------------------
 Question 5.2:
-The inﬁnite list ones is deﬁned as ones = 1 : ones.
+The infinite list ones is defined as:
+
+> ones = 1 : ones
+
 Use only ones, arithmetic operators, and zipWith to create 
-two mutually recursive deﬁnitions of the inﬁnite lists
+two mutually recursive definitions of the infinite lists
 evens and odds, where evens = [0,2,4,6,8,..] and 
-odds = [1,3,5,7,9,..]. Mutual recursive means that evens 
-(but not odds) can appear in the deﬁnition of odds and 
-odds (but not evens) can appear in the deﬁnition of evens.
+odds = [1,3,5,7,9,..]. Mutually recursive means that evens 
+(but not odds) can appear in the definition of odds and 
+odds (but not evens) can appear in the definition of evens.
 
 --------
 Answer:
@@ -272,14 +275,14 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Deﬁne the function multiples :: [Integer] -> [Integer], 
-that takes a ﬁnite list of Integers and produces the 
-inﬁnite sorted list (without repetitions) of all 
+Define the function multiples :: [Integer] -> [Integer], 
+that takes a finite list of Integers and produces the 
+infinite sorted list (without repetitions) of all 
 multiples of the numbers in the input list.
 
 For example: 
     take 10 (multiples [2,3,5]) 
-  = [0,2,3,4,5,6,8,9,10,12].
+  = [0,2,3,4,5,6,8,9,10,12]
 
 --------
 Answer:
@@ -312,7 +315,6 @@ implemented:
 • intersection: returns the intersection of two sets.
 
 --------
-
 Answer:
 
 > 
@@ -325,7 +327,7 @@ ___________________________________________________________
 7. Proof on lists
 ___________________________________________________________
 
-Given is the recursive deﬁnition of the function drop:
+Given is the recursive definition of the function drop:
 
   drop :: Int -> [a] -> [a]
   drop 0 xs = xs
@@ -335,7 +337,7 @@ Given is the recursive deﬁnition of the function drop:
 Prove the following property p: 
 
   drop m (drop n xs) = drop (m+n) xs 
-  for all ﬁnite lists xs and m, n ≥ 0
+  for all finite lists xs and m, n ≥ 0
 
 --------
 Answer:
@@ -367,9 +369,17 @@ rlorder, and mirror:
   rlorder Empty = []
   rlorder (Node x l r) = rlorder r ++ [x] ++ rlorder l
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   lrorder t = rlorder (mirror t)
+
+The following properties of (++) may be used without proof:
+
+  (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
+  xs ++ [] = xs
+
+[Note: refer to the file functions.md for the 
+ definition of (++)]
 
 --------
 Answer:

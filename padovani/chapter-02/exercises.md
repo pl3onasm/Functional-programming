@@ -168,7 +168,7 @@ Error message:
 
 Explanation:
 
-Without parentheses around `-2`, the parser cannot unambiguously deterime how to parse the expression: it could mean either ``4 `div` (-2)`` or ``(4  `div` -) 2``. Even if they had the same precedence, the parser would still reject mixing a prefix operator (-) immediately following an infix operator (div) in the same expression without parentheses.
+Without parentheses around `-2`, the parser cannot unambiguously determine how to parse the expression: it could mean either ``4 `div` (-2)`` or ``(4  `div` -) 2``. Even if they had the same precedence, the parser would still reject mixing a prefix operator (-) immediately following an infix operator (div) in the same expression without parentheses.
 
 ### 2.3.3
 

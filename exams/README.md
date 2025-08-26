@@ -19,7 +19,7 @@ Lists standard Haskell functions and operators allowed in the exam. The definiti
 
 - Open the *-questions.lhs file in your Haskell editor.
 
-- Write your solutions directly in the file. Make sure that all code lines start with > (no space before it), and that each code block is separated by a blank line.
+- Write your solutions directly in the file. Make sure that all code lines start with > (no space before it, and one space after it), and that each code block is separated by a blank line.
 
 - Test your code in GHCi by loading the file with `:l *-questions.lhs`.
 

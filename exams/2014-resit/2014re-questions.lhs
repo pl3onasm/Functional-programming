@@ -27,7 +27,7 @@ Answer:
 Question 1.2:
 What is the type of the following Haskell function cl?
 
-cl ps = ps ++ [(p,s) | (p,q) <- ps, (r,s) <- ps, q == r]
+  cl ps = ps ++ [(p,s) | (p,q) <- ps, (r,s) <- ps, q == r]
 
 --------
 Answer:
@@ -104,7 +104,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 3.1:
-Use a list comprehension to deﬁne a function 
+Use a list comprehension to define a function 
 inverse::[(a, b)]->[(b, a)] such that elem (x,y) ps if
 and only if elem (y,x) (inverse ps).
 
@@ -134,7 +134,7 @@ Answer:
 
 --------------------------------
 Question 3.3:
-Deﬁne a function doubleReverse which takes a list of 
+Define a function doubleReverse which takes a list of 
 strings as its argument and reverses each element of the 
 list and then reverses the resulting list. 
 The implementation of doubleReverse must use a list 
@@ -156,7 +156,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 4.1:
-The function powers n returns the inﬁnite list 
+The function powers n returns the infinite list 
 [n^0, n^1, n^2, n^3, ...]. Give a recursive Haskell 
 implementation (including its type) of the function powers.
 
@@ -170,13 +170,13 @@ Answer:
 
 --------------------------------
 Question 4.2:
-The sequence ak is deﬁned as follows:
+The sequence aₖ is defined as follows:
 
   a₀ = 1 
   a₁ = 2
   aₖ = 3aₖ₋₁ + 2aₖ₋₂ for integer k > 1 
   
-Deﬁne the inﬁnite list seqa, which is the list 
+Define the infinite list seqa, which is the list 
 [a₀, a₁, a₂, a₃, a₄, ...], so seqa!!k should yield aₖ.
 
 --------
@@ -195,11 +195,11 @@ To build the triangle, we start with the row [1] at the top
 (we call this row 0), then continue placing numbers below 
 it in a triangular pattern. Each row consists of elements 
 that are the sum of the two numbers above it (except for 
-the boundaries, which are all 1). In the ﬁgure, it is 
+the boundaries, which are all 1). In the figure, it is 
 highlighted that the 4 in row 4 is obtained by adding the 
 numbers 1 and 3 from row 3.
 
-Give a deﬁnition of the infinite list 
+Give a definition of the infinite list 
 pascalTriangle ::[[Integer]], such that pascalTriangle!!n
 yields the nth row of Pascal's triangle 
 So:   pascalTriangle!!4 = [1,4,6,4,1]
@@ -235,7 +235,6 @@ implemented:
 • intersection: returns the intersection of two sets.
 
 --------
-
 Answer:
 
 > 
@@ -248,7 +247,7 @@ ___________________________________________________________
 7. Proof by induction
 ___________________________________________________________
 
-Given are the following Haskell deﬁnitions of the 
+Given are the following Haskell definitions of the 
 functions f and g:
 
   f :: Integer -> Integer
@@ -278,7 +277,7 @@ ___________________________________________________________
 8. Proof on lists
 ___________________________________________________________
 
-Given are the deﬁnitions of the Haskell functions sum, 
+Given are the definitions of the Haskell functions sum, 
 and reverse:
 
   sum :: [Integer] -> Integer
@@ -291,7 +290,12 @@ and reverse:
 
 Prove the following property p: 
 
-  sum (reverse xs) = sum xs for all ﬁnite lists xs.
+  sum (reverse xs) = sum xs 
+  for all finite lists xs.
+
+[Note: If you need one or more lemmas to complete the 
+ proof, then prove these lemmas separately. 
+ Refer to functions.md for the definition of ++]
 
 --------
 Answer:

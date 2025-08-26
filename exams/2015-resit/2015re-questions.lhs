@@ -14,7 +14,7 @@ ___________________________________________________________
 Question 1.1:
 What is the type of the following Haskell expression?
 
-[('4'=='4', 2)]
+  [('4'=='4', 2)]
 
 --------
 Answer: 
@@ -25,7 +25,7 @@ Answer:
 Question 1.2:
 What is the most general type of the Haskell function f?
 
-f = map length
+  f = map length
 
 --------
 Answer:
@@ -36,7 +36,7 @@ Answer:
 Question 1.3:
 What is the most general type of the Haskell function g?
 
-g = foldr (+) 0
+  g = foldr (+) 0
 
 --------
 Answer: 
@@ -45,8 +45,9 @@ Answer:
 
 --------------------------------
 Question 1.4:
-What is the type of the the following Haskell expression?
-(\f -> (\g -> (\x -> f (g x))))
+What is the type of the following Haskell expression?
+
+  (\f -> (\g -> (\x -> f (g x))))
 
 --------
 Answer: 
@@ -57,7 +58,7 @@ Answer:
 Question 1.5:
 What is the type of the following Haskell function h?
 
-h = head . tail . fst
+  h = head . tail . fst
 
 --------
 Answer: 
@@ -98,8 +99,8 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 3.1:
-Implement the function filter (including its type, 
-see the file functions.md) as a list comprehension.
+Implement the function filter (including its type) as a
+list comprehension.
 
 --------
 Answer:
@@ -122,7 +123,8 @@ For example:
             = [(3,4,5),(6,8,10),(5,12,13),
                (9,12,15),(8,15,17)]
 
-The implementation of pytriads must be a list comprehension.
+The implementation of pytriads must be a list
+comprehension.
 
 --------
 Answer:
@@ -146,8 +148,9 @@ perfect number is 12, since the proper divisors of 12 are
 Write a Haskell function spf n that computes the list of 
 all semi-perfect numbers in the range [1..n]. The implemen-
 tation must be a list comprehension (which may use helper 
-function if needed). For example, spf 50 should yield
-[6,12,18,20,24,28,30,36,40,42,48].
+function if needed). 
+
+For example:  spf 50 = [6,12,18,20,24,28,30,36,40,42,48]
 
 --------
 Answer:
@@ -163,7 +166,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 4.1:
-Give a recursive deﬁnition of the inﬁnite list tf of non-
+Give a recursive definition of the infinite list tf of non-
 empty lists of alternating boolean values that end with the
 value True. 
 
@@ -181,7 +184,7 @@ Answer:
 
 --------------------------------
 Question 4.2:
-Give a recursive deﬁnition of the list bits of all binary 
+Give a recursive definition of the list bits of all binary 
 (character) strings that end with a zero, and do not 
 contain two consecutive ones. The order of the strings may
 be chosen arbitrarily.
@@ -198,9 +201,9 @@ Answer:
 
 --------------------------------
 Question 4.3:
-Give a deﬁnition of the function multiples that takes as 
-its argument a ﬁnite list of positive integers, and 
-outputs the inﬁnite list of all multiples of the input 
+Give a definition of the function multiples that takes as 
+its argument a finite list of positive integers, and 
+outputs the infinite list of all multiples of the input 
 numbers. Note that the output list must be generated in 
 increasing order, and should not contain any duplicates.
 
@@ -227,8 +230,8 @@ times. For example, if we insert some element twice in a
 bag, and remove one of them afterwards, then one element 
 still remains in the bag (in contrast with a standard set).
 
-Implement a module Bag such that the concrete implementation 
-of the type Bag is hidden from the user.
+Implement a module Bag such that the concrete 
+implementation of the type Bag is hidden from the user.
 
 The following operations on the data type Bag must be 
 implemented:
@@ -237,15 +240,14 @@ implemented:
   otherwise False.
 • insert: returns the bag that is the result 
   of inserting an element.
-• remove: returns the bag that is obtained 
+• del: returns the bag that is obtained 
   by removing an element.
 • cardinality: returns the number of occurrences 
   of an element in the bag.
 • union: returns the union of two bags.
-• intersection: returns the intersection of two bags.
+• intersect: returns the intersection of two bags.
 
 --------
-
 Answer:
 
 > 
@@ -258,13 +260,16 @@ ___________________________________________________________
 6. Proof on lists
 ___________________________________________________________
 
-The deﬁnitions of the functions filter, and (++) are given 
+The definitions of the functions filter, and (++) are given 
 in the file functions.md of this exam folder.
 
 Prove the following property p: 
 
   filter p (xs ++ ys) = filter p xs ++ filter p ys 
-  for all ﬁnite lists xs and ys
+  for all finite lists xs and ys
+
+[Note: refer to the file functions.md for the 
+ definitions of filter and (++)]
 
 --------
 Answer:
@@ -294,9 +299,16 @@ and maptree:
   maptree f (Node x l r) = 
     Node (f x) (maptree f l) (maptree f r)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
   
   inorder(maptree f t) = map f (inorder t)
+
+Associativity of (++) may be used without proof:
+
+  (xs ++ ys) ++ zs = xs ++ (ys ++ zs)
+
+[Note: refer to the file functions.md for
+ definitions of map and (++)]
 
 --------
 Answer:

@@ -14,7 +14,7 @@ ___________________________________________________________
 Question 1.1:
 What is the most general type of the following expression?
 
-[([],[]), ([],[])]
+  [([],[]), ([],[])]
 
 --------
 Answer: 
@@ -25,7 +25,7 @@ Answer:
 Question 1.2:
 What is the most general type of the following expression?
 
-[([],"ABC"), ("DEF",[])]
+  [([],"ABC"), ("DEF",[])]
 
 --------
 Answer:
@@ -36,7 +36,7 @@ Answer:
 Question 1.3:
 What is the most general type of the function f?
 
-f g = \ (a,b) -> g a b
+  f g = \ (a,b) -> g a b
 
 --------
 Answer: 
@@ -47,7 +47,7 @@ Answer:
 Question 1.4:
 What is the type of the standard Haskell function foldr?
 
-g = not.not
+  g = not.not
 
 --------
 Answer: 
@@ -58,7 +58,7 @@ Answer:
 Question 1.5:
 What is the type of the following Haskell function h?
 
-f = \x -> \y -> \z -> (x (x y), x z)
+  f = \x -> \y -> \z -> (x (x y), x z)
 
 --------
 Answer: 
@@ -212,7 +212,7 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
@@ -294,7 +294,6 @@ implemented:
   non-empty).
 
 --------
-
 Answer:
 
 > 

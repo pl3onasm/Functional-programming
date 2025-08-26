@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[1<2, [not False], 2>1]]
+  [[1<2, [not False], 2>1]]
 
 --------
 Answer: 
@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[not]]
+  [[not]]
 
 --------
 Answer:
@@ -39,7 +39,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[(&&), (||), not]
+  [(&&), (||), not]
 
 --------
 Answer: 
@@ -50,7 +50,7 @@ Answer:
 Question 1.4:
 What is the type of the following function g?
 
-g = (:).(:)
+  g = (:).(:)
 
 --------
 Answer: 
@@ -61,7 +61,7 @@ Answer:
 Question 1.5:
 What is the most general type of the following function f?
 
-f = \x y -> x (x (x y))
+  f = \x y -> x (x (x y))
 
 --------
 Answer: 
@@ -128,7 +128,7 @@ ___________________________________________________________
 
 Question 3.1:
 Write a function cntsat (including its most general type) 
-which takes a predicate function p and a ﬁnite list xs and
+which takes a predicate function p and a finite list xs and
 returns the number of elements x from xs that satisfy p x. 
 You are not allowed to use a list comprehension.
 
@@ -145,7 +145,7 @@ Question 3.2:
 Give an implementation (and the most general type) of the 
 function filter2 which takes a predicate and a list of
 lists, and outputs the list of lists that is obtained by 
-ﬁltering each list separately.
+filtering each list separately.
 
 For example: 
   
@@ -162,7 +162,7 @@ Answer:
 
 --------------------------------
 Question 3.3:
-Give a Haskell deﬁnition of the function applyAll 
+Give a Haskell definition of the function applyAll 
 (including its type) which takes a list of functions 
 and an argument. 
 It returns the value that is obtained by successively 
@@ -233,7 +233,7 @@ Answer:
 
 --------------------------------
 Question 4.2:
-The function mapfilter is deﬁned as: 
+The function mapfilter is defined as: 
 
   mapfilter f p = (map f).(filter p) 
   
@@ -300,11 +300,11 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Give a Haskell expression that yields the inﬁnite list 
+Give a Haskell expression that yields the infinite list 
 [1,2,2,3,3,3,4,4,4,4,5,5,5,5,5,6,6,6,6,6,6,.....].
 
 --------
@@ -317,7 +317,7 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -325,7 +325,7 @@ follows:
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
 
-Use it to deﬁne the Boolean function 
+Use it to define the Boolean function 
 semiprime :: Integer -> Bool which returns True if and only 
 if its argument is a product of exactly two prime numbers.
 
@@ -339,7 +339,7 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Given is the following deﬁnition of the inﬁnite list fs:
+Given is the following definition of the infinite list fs:
 
   fs = genfs 0 1 
     where genfs a b = a : genfs b (2*a + 3*b)
@@ -390,7 +390,6 @@ The following operations on arrays need to be implemented:
   of the array.
 
 --------
-
 Answer:
 
 > 
@@ -403,7 +402,7 @@ ___________________________________________________________
 7. Proof on lists
 ___________________________________________________________
 
-Given are the following deﬁnitions of the functions take 
+Given are the following definitions of the functions take 
 and drop:
 
   take _ [] = []
@@ -415,7 +414,7 @@ and drop:
 Prove the following property:
 
   take n xs ++ drop n xs == xs for any integer n 
-  and any ﬁnite list xs.
+  and any finite list xs.
 
 [Note: the definition for ++ is given in functions.md]
 
@@ -446,7 +445,7 @@ and isZero:
   isZero (Add a b) = isZero a && isZero b
   isZero (Mul a b) = isZero a || isZero b
 
-Prove for all ﬁnite expressions e: 
+Prove for all finite expressions e: 
 
   isZero e ⇒ eval e == 0
 

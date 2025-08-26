@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[not, []]
+  [not, []]
 
 --------
 Answer: 
@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[not],[]]
+  [[not],[]]
 
 --------
 Answer:
@@ -39,7 +39,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-(&&).(&&)
+  (&&).(&&)
 
 --------
 Answer: 
@@ -50,7 +50,7 @@ Answer:
 Question 1.4:
 What is the type of the following function g?
 
-g = not.not
+  g = not.not
 
 --------
 Answer: 
@@ -61,7 +61,7 @@ Answer:
 Question 1.5:
 What is the most general type of the following function f?
 
-f = \x -> \y -> \z -> (x (x y), x z)
+  f = \x -> \y -> \z -> (x (x y), x z)
 
 --------
 Answer: 
@@ -220,14 +220,15 @@ Answer:
 Question 4.3:
 The function pairs2 also takes a list xs and outputs a list
 of pairs. A recursive implementation is given below.
+
+  pairs2 [] = []
+  pairs2 (x:xs) = p x xs ++ pairs2 xs
+    where 
+      p x [] = []
+      p x (y:ys) = (x,y):p x ys
+
 For example, pairs2 [1,2,3,4] returns 
   [(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)].
-
-pairs2 [] = []
-pairs2 (x:xs) = p x xs ++ pairs2 xs
-  where 
-    p x [] = []
-    p x (y:ys) = (x,y):p x ys
 
 Give an equivalent implementation that makes use of (a) 
 list comprehension(s) that replaces the recursions.
@@ -260,11 +261,11 @@ Answer:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -285,9 +286,9 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Using zip or zipWith, give a deﬁnition of the inﬁnite list 
-delayedFib which is the list of delayed Fibonacci numbers 
-which are deﬁned as:
+Using zip or zipWith, give a definition of the infinite 
+list delayedFib which is the list of delayed Fibonacci 
+numbers which are defined as:
 
   F (n) = n for n < 3, 
   F (n) = F (n - 1) + F (n - 3) for n ≥ 3
@@ -305,7 +306,7 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Implement the inﬁnite list abc which consists of all 
+Implement the infinite list abc which consists of all 
 strings that can be produced with the letters 'a', 
 'b', and 'c'. For example, take 25 abc should return:
 
@@ -334,7 +335,7 @@ like:
   [1,1,1,4,5,2,2,2,2,2,2,1,1,1]
   
 This list can be stored more compactly as a list of pairs, 
-where the ﬁrst element represents a data element and the 
+where the first element represents a data element and the 
 second contains the length of the chunk. This type of data 
 storage is called RLE (Run Length Encoding). For the given 
 example, this representation would be:
@@ -360,7 +361,6 @@ be implemented:
   reversing the data lements in the RLElist xs.
 
 --------
-
 Answer:
 
 > 
@@ -382,7 +382,7 @@ Prove that
 
   length xs * length ys = length(f xs ys) 
   
-for all ﬁnite lists xs and ys.
+for all finite lists xs and ys.
 
 [Note: find the definition of length in the file
        functions.md included in this exam folder]

@@ -17,16 +17,16 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[[1<2, [not False], 2>1]]
+  [[1<2, [not False], 2>1]]
 
 --------
 Answer: 
 
 No, the expression is not type correct. In the inner list, 
-the first and last elements are of type Bool, while the 
-middle element is of type [Bool]. Since all elements of a 
-list must have the same type, this mismatch makes the 
-expression ill-typed.
+the first element (1<2) and last element (2>1) are of type 
+Bool, while the middle element [not False] is of type 
+[Bool]. Since all elements of a list must have the same 
+type, this mismatch makes the expression ill-typed.
 
 
 --------------------------------
@@ -34,7 +34,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[not]
+  [not]
 
 --------
 Answer:
@@ -49,7 +49,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[(&&), (||), not]
+  [(&&), (||), not]
 
 --------
 Answer: 
@@ -65,45 +65,51 @@ into a single type, the expression is ill-typed.
 Question 1.4:
 What is the most general type of the function g?
 
-g = (:).(:)
+  g = (:).(:)
 
 --------
 Answer: 
 
-This one is a bit tricky and can use some explanation. 
-First, let us recall the types of the function involved:
+This one is a bit tricky and requires some explanation. 
+First, let us recall the types of the functions involved:
   (:) :: a -> [a] -> [a] 
-  (.) :: (b -> c) -> (a -> b) -> a -> c
+  (.) :: (c -> d) -> (b -> c) -> b -> d
 
 The key point is that function composition (.) always 
-expects unary functions. So when we compose with (.), we 
-must read its arguments in curried form. For example, 
-although (:) is usually thought of as a binary function, 
-its curried type is
+expects unary functions. 
+Although (:) is usually thought of as a binary function, 
+its curried type is:
   (:) :: a -> ([a] -> [a])
-That is, it takes an element of type a and returns a 
-function that takes a list of type [a] and returns a
-new list of type [a] with the element prepended.
+
+That is, it takes an element x of type a and returns a 
+function taking a list of type [a] and returning a
+new list of type [a] with x prepended to it.
+
+Now, consider the expression g = (:).(:). 
+Unifying the inner (:) with the second argument of (.),
+we obtain: b = a, c = [a] -> [a]. 
 
 The outer (:) is also interpreted in its curried form.
 It receives the earlier function of type [a] -> [a] as 
-its left argument and, by simple substitution in its
-type signature, yields a unary function of type:
-  [[a] -> [a]] -> [[a] -> [a]]
+its left argument and yields a unary function as its output 
+that prepends the received function to a list of functions
+of the same type. By simple substitution in the type of (:),
+we get for the outer (:):
 
-that prepends the received function (: x) to a list of 
-such functions.
+  (:) :: ([a] -> [a]) -> [[a] -> [a]] -> [[a] -> [a]]
 
-Putting it all together, we can see that g is a unary
-function of the following type:
+Putting it all together, we can see that g, being the
+result of the composition of two unary functions, is
+itself a unary function b -> d, where b = a and
+d = [[a] -> [a]] -> [[a] -> [a]]. This yields the final 
+type signature for g:
 
     g :: a -> [[a] -> [a]] -> [[a] -> [a]]
 
-This means that g takes a single element x :: a, and 
-returns a unary function which takes a list of unary 
-functions of type [a] -> [a], that outputs the same
-list of unary functions with a new function (: x) 
-prepended.
+That is, g takes a single element x :: a, and returns a 
+unary function which takes a list of unary functions of 
+type [a] -> [a], and outputs the same list of unary 
+functions with a new function (: x) prepended.
 
 To clarify, we can define g as follows:
 
@@ -124,7 +130,7 @@ applied to lists of Ints, where the first function
 Question 1.5:
 What is the most general type of the following function f?
 
-f = \x y -> x (x (x y))
+  f = \x y -> x (x (x y))
 
 --------
 Answer: 
@@ -227,7 +233,7 @@ ___________________________________________________________
 
 Question 3.1:
 Write a function cntsat (including its most general type) 
-which takes a predicate function p and a ﬁnite list xs and
+which takes a predicate function p and a finite list xs and
 returns the number of elements x from xs that satisfy p x. 
 You are not allowed to use a list comprehension.
 
@@ -248,7 +254,7 @@ Question 3.2:
 Give an implementation (and the most general type) of the 
 function filter2 which takes a predicate and a list of
 lists, and outputs the list of lists that is obtained by 
-ﬁltering each list separately.
+filtering each list separately.
 
 For example: 
   
@@ -270,7 +276,7 @@ contains only the elements that satisfy the predicate.
 
 --------------------------------
 Question 3.3:
-Give a Haskell deﬁnition of the function applyAll 
+Give a Haskell definition of the function applyAll 
 (including its type) which takes a list of functions 
 and an argument. 
 It returns the value that is obtained by successively 
@@ -383,7 +389,7 @@ of sums x + y. The output is a flat list of these sums.
 
 --------------------------------
 Question 4.2:
-The function mapfilter is deﬁned as: 
+The function mapfilter is defined as: 
 
   mapfilter f p = (map f).(filter p) 
   
@@ -474,7 +480,7 @@ non-empty subsequences of the input list.
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
@@ -494,7 +500,7 @@ counter to repeat each x exactly x times.
 
 --------------------------------
 Question 5.2:
-Given is the inﬁnite list of prime numbers, defined as 
+Given is the infinite list of prime numbers, defined as 
 follows:
 
 > primes :: [Integer] 
@@ -502,7 +508,7 @@ follows:
 >   where
 >   sieve (p:xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
 
-Use it to deﬁne the Boolean function 
+Use it to define the Boolean function 
 semiprime :: Integer -> Bool which returns True if and only 
 if its argument is a product of exactly two prime numbers.
 
@@ -524,7 +530,7 @@ sharing in Haskell.
 
 --------------------------------
 Question 5.3:
-Given is the following deﬁnition of the inﬁnite list fs:
+Given is the following definition of the infinite list fs:
 
   fs = genfs 0 1 
     where genfs a b = a : genfs b (2*a + 3*b)
@@ -672,7 +678,7 @@ ___________________________________________________________
 7. Proof on lists
 ___________________________________________________________
 
-Given are the following deﬁnitions of the functions take 
+Given are the following definitions of the functions take 
 and drop:
 
   take _ [] = []
@@ -684,7 +690,7 @@ and drop:
 Prove the following property:
 
   p(xs): take n xs ++ drop n xs == xs 
-         for any integer n and any ﬁnite list xs
+         for any integer n and any finite list xs
 
 [Note: the definition for ++ is given in functions.md]
 
@@ -714,8 +720,10 @@ Inductive step: prove p(xs) => p((x : xs))
     Induction hypothesis:
       p(xs): take n xs ++ drop n xs == xs
 
-  The if condition in take and drop requires us to 
-  consider two cases: n <= 0 and n > 0.
+  The if condition in the definitions for take 
+  and drop requires us to do case analysis on 
+  the value of n. We consider two cases: 
+  n <= 0 and n > 0.
 
 • Case 1: n <= 0
 
@@ -764,7 +772,7 @@ and isZero:
   isZero (Add a b) = isZero a && isZero b
   isZero (Mul a b) = isZero a || isZero b
 
-Prove for all ﬁnite expressions e: 
+Prove for all finite expressions e: 
 
   p(e): isZero e ⇒ eval e == 0
 

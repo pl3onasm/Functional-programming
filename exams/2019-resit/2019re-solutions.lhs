@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[True]:[]
+  [True]:[]
 
 --------
 Answer: 
@@ -33,7 +33,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-[]:[True]
+  []:[True]
 
 --------
 Answer:
@@ -50,7 +50,7 @@ prepend a list to another list.
 Question 1.3:
 What is the most general type of the following function f?
 
-f = (\x -> \y -> \z -> [x (y z), y z])
+  f = (\x -> \y -> \z -> [x (y z), y z])
 
 --------
 Answer: 
@@ -71,7 +71,7 @@ both the output of x and the output of y must have the
 same type, so we can conclude that c must be equal to b.
 
 Thus, the most general type of f is:
-f :: (b -> b) -> (a -> b) -> a -> [b]
+  f :: (b -> b) -> (a -> b) -> a -> [b]
 where a, b, and c are type variables that can be 
 instantiated to any types.
 
@@ -80,7 +80,7 @@ instantiated to any types.
 Question 1.4:
 What is the most general type of the following function g?
 
-g = \x -> \y -> \z -> x.y.z
+  g = \x -> \y -> \z -> x.y.z
 
 --------
 Answer: 
@@ -111,7 +111,7 @@ instantiated to any types.
 Question 1.5:
 What is the type of the following function h?
 
-h = foldr (&&)
+  h = foldr (&&)
 
 --------
 Answer: 
@@ -120,16 +120,16 @@ The function h is a partially applied version of the foldr
 function with the operator (&&) as the first argument.
 
 The type of foldr is:
-foldr :: (a -> b -> b) -> b -> [a] -> b
+  foldr :: (a -> b -> b) -> b -> [a] -> b
 and the type of (&&) is:
-(&&) :: Bool -> Bool -> Bool
+  (&&) :: Bool -> Bool -> Bool
 
 When we partially apply foldr to (&&), the type of (&&)
 has to match the type of the first argument of foldr,
 which is a function of type a -> b -> b. So we can deduce
 that a = Bool and b = Bool. This leaves a function of type
 b -> [a] -> b, so that the type of h is:
-h :: Bool -> [Bool] -> Bool 
+  h :: Bool -> [Bool] -> Bool 
 
 
 ___________________________________________________________
@@ -248,7 +248,7 @@ one matches the input type of the next.
 
 --------------------------------
 Question 3.3:
-The function concatMap is deﬁned as follows: 
+The function concatMap is defined as follows: 
 
   concatMap f xs = concat(map f xs)
 
@@ -296,7 +296,7 @@ over the range starting from x+1.
 
 --------------------------------
 Question 4.2:
-The function evenLists is deﬁned as: 
+The function evenLists is defined as: 
 
   evenLists xss = map (filter even) xss
 
@@ -356,7 +356,7 @@ ___________________________________________________________
 ___________________________________________________________
 
 Question 5.1:
-Deﬁne the infinite list fibs of Fibonacci numbers using a 
+Define the infinite list fibs of Fibonacci numbers using a 
 list comprehension. So:
   
   take 10 fibs 
@@ -381,7 +381,7 @@ infinite list.
 
 --------------------------------
 Question 5.2:
-Without using a list comprehension, give a deﬁnition of 
+Without using a list comprehension, give a definition of 
 the infinite list natlists = [[0],[0,1],[0,1,2],...].
 
 --------
@@ -429,14 +429,14 @@ Answer:
 >   | x > y     = y : merge (x : xs) ys
 >   | otherwise = x : merge xs ys
 
-The function multiples takes a list of integers xs and
-generates an infinite list of multiples for each integer
-in xs. The list comprehension generates a list of 
-increasing lists of multiples for each integer x in xs,
-starting from x and incrementing by x each time.
+The list comprehension generates a list of increasing lists
+of multiples for each integer x in xs, starting from x and 
+incrementing by x each time.
 The foldr merge then takes these input streams of multiples
 and merges them into a single sorted infinite list, whilst
-removing duplicates. 
+removing duplicates (last guard in merge). The merge 
+function is similar to the merge step in the merge sort
+algorithm, efficiently combining two sorted lists into one.
 
 
 ___________________________________________________________
@@ -462,7 +462,6 @@ The following operations need to be implemented:
   Recall that (a + ib)(c + id) = (ac - bd) + i(ad + bc).
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -551,14 +550,17 @@ strenghen the induction hypothesis, we will use the common
 technique of generalizing the property p.  
 This means that we will first prove a lemma q where the
 third argument of rvl can be any finite list zs. If this 
-lemma holds, then so does the property pf.
+lemma holds, then so does the property p.
 
-Lemma q: 
-          q(xs): rvl (xs++ys) zs = rvl ys (rvl xs zs) 
-                 for all finite lists xs, ys, and zs.
+---------------------------------------------------
+Lemma q
+          
+      q(xs): rvl (xs++ys) zs = rvl ys (rvl xs zs) 
+             for all finite lists xs, ys, and zs.
+---------------------------------------------------
 
-We will prove this property q by structural induction on 
-the list xs. 
+We will prove this property q by structural 
+induction on the list xs. 
 
 --------------------------------------
 Base case: prove q([])
@@ -623,7 +625,7 @@ and mirror:
   mirror Empty = Empty
   mirror (Node x l r) = Node x (mirror r) (mirror l)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   p(t): inorder (mirror t) = reverse (inorder t)
 
@@ -690,12 +692,13 @@ Inductive step: prove p(l) ∧ p (r)
 □
 
 -------------------------------------------
-Lemma q: 
-        q(xs) : reverse(xs ++ ys) 
-                = reverse ys ++ reverse xs
+Lemma q
+         q(xs) : reverse(xs ++ ys) 
+                 = reverse ys ++ reverse xs
 -------------------------------------------
 
-We will prove this lemma by structural induction on xs.
+We will prove this lemma by structural 
+induction on the list xs.
 
 -------------------------------------------
 Base case: prove q([])
@@ -705,19 +708,20 @@ Base case: prove q([])
   reverse ([] ++ ys)
 =   {applying ++}
   reverse ys
-=   {as noted, we may use without proof that xs = xs ++ [],
-     with xs = reverse ys}
+=   {as noted, we may use without proof that 
+     xs = xs ++ [], with xs = reverse ys}
   reverse ys ++ []
 =   {unapplying reverse}
   reverse ys ++ reverse []
     {RHS of q([])}
 
---------------------------------------------
+-------------------------------------------
 Inductive step: prove q(xs) => q((x : xs))
---------------------------------------------
+-------------------------------------------
 
     Induction hypothesis:
-      q(xs) : reverse (xs ++ ys) = reverse ys ++ reverse xs
+      q(xs) : reverse (xs ++ ys) 
+              = reverse ys ++ reverse xs
 
     {LHS of q((x : xs))}
   reverse ((x : xs) ++ ys)

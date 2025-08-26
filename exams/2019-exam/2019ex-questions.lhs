@@ -15,7 +15,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-'a' : 'b' : [] : []
+  'a' : 'b' : [] : []
 
 --------
 Answer: 
@@ -27,7 +27,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the type of the expression.
 
-('a' : 'b' : []) : []
+  ('a' : 'b' : []) : []
 
 --------
 Answer:
@@ -38,7 +38,7 @@ Answer:
 Question 1.3:
 What is the most general type of the following function f?
 
-f = (\x -> \y -> \z -> [x y, x (x z)])
+  f = (\x -> \y -> \z -> [x y, x (x z)])
 
 --------
 Answer: 
@@ -49,7 +49,7 @@ Answer:
 Question 1.4:
 What is the most general type of the following function g?
 
-g = .not
+  g = (. not)
 
 --------
 Answer: 
@@ -60,7 +60,7 @@ Answer:
 Question 1.5:
 What is the most general type of the following function h?
 
-h = not.
+  h = (not .)
 
 --------
 Answer: 
@@ -72,7 +72,7 @@ ___________________________________________________________
 2. Programming in Haskell
 ___________________________________________________________
 
-A well formed string of parentheses is deﬁned by the 
+A well formed string of parentheses is defined by the 
 following recursive rules:
 
 • The empty string is well formed.
@@ -110,10 +110,10 @@ Without using recursion or a list comprehension, write a
 function selectiveMap which takes three arguments. Also, 
 give the type of the function selectiveMap. 
 
-The ﬁrst argument of the function is a predicate p, the 
+The first argument of the function is a predicate p, the 
 second some function f, and the third a list xs. The 
 function selectiveMap returns a list that is just like xs, 
-but in which every element x that satisﬁes p is replaced 
+but in which every element x that satisfies p is replaced 
 by f applied to x.
 
 For example, the call 
@@ -133,7 +133,7 @@ Answer:
 Question 3.2:
 Without using recursion or a list comprehension, write a 
 function thresholdPairs which takes two arguments.
-The ﬁrst is an Integer n, and the second is a list xs of 
+The first is an Integer n, and the second is a list xs of 
 Integer pairs. The output should be the list of pairs 
 (a,b), in the same order as in the list xs, for which the
 sum of a and b is greater than n.
@@ -258,9 +258,9 @@ Answer:
 
 --------------------------------
 Question 5.2:
-Give a deﬁnition of the infinite list tribonacci which is 
+Give a definition of the infinite list tribonacci which is 
 the ordered list of all tribonacci numbers. Recall that the
-tribonacci numbers are deﬁned as: 
+tribonacci numbers are defined as: 
 
   T (n) = n for n < 3
   T (n) = T (n - 1) + T (n - 2) + T (n - 3) for n ≥ 3
@@ -281,7 +281,7 @@ Answer:
 
 --------------------------------
 Question 5.3:
-Give a deﬁnition of the infinite list palindromes which is 
+Give a definition of the infinite list palindromes which is 
 a list of lists of palindromic bit strings. The n-th list
 contains all lexicographically sorted palindromes of length 
 n (starting with n = 0). For example: 
@@ -326,7 +326,6 @@ The following operations need to be implemented:
   scale 5.0 (makePolynomial [2.0,0.0,0.5])
 
 --------
-
 Answer:
 
 > 
@@ -377,7 +376,7 @@ and flatten:
   flatten Empty ys = ys
   flatten (Node x l r) ys = flatten l (x:flatten r ys)
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   inorder t = flatten t []
 

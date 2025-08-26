@@ -17,7 +17,7 @@ Question 1.1:
 Is the following expression type correct? 
 If YES, then give the most general type of the expression.
 
-[[],[[]]]
+  [[],[[]]]
 
 --------
 Answer: 
@@ -38,7 +38,7 @@ Question 1.2:
 Is the following expression type correct? 
 If YES, then give the most general type of the expression.
 
-[not, id]
+  [not, id]
 
 --------
 Answer:
@@ -49,8 +49,8 @@ second element is the function id, which has type a -> a
 for some type a. Since the elements of a list must have the
 same type, the type checking algorithm will unify the two
 types, yielding a = Bool. Hence, the expression represents
-a list of functions of type Bool -> Bool. The most general
-type of the expression is [Bool -> Bool].
+a list of functions of type Bool -> Bool. Thus, the most 
+general type of the expression is [Bool -> Bool].
 
 
 --------------------------------
@@ -58,7 +58,7 @@ Question 1.3:
 Is the following expression type correct? 
 If YES, then give the most general type of the expression.
 
-[(+), (:)]
+  [(+), (:)]
 
 --------
 Answer: 
@@ -67,20 +67,22 @@ No, this expression is not type correct. The first element
 of the list is the binary operator (+), which has the type 
 Num a => a -> a -> a. The second element is the binary
 cons operator (:), which has the type b -> [b] -> [b].
-For these two types to be unified, the type checker first
-needs to instantiate the type variable a to type b, so we
-have a = b. However, in order to resolve the second 
-argument of the operator, the type checker then needs to
+For these two types to be unified in a single list, the 
+type checker would need to make the type variables 
+compatible. It first tries to set a = b to unify the 
+element types. However, in order to match the second
+argument of (:), the type checker would then need to
 instantiate the type variable b to [b], which is not
-possible. Note that unification fails due to the type
-structures, not due to the type constraints.
+possible. Thus, unification fails due to incompatible 
+type structures (not due to type class constraints),
+and the expression is not type correct.
 
 
 --------------------------------
 Question 1.4:
 What is the most general type of the following function f?
 
-f = foldr (&&)
+  f = foldr (&&)
 
 --------
 Answer: 
@@ -90,33 +92,37 @@ foldr :: (a -> b -> b) -> b -> [a] -> b
 In this case, we partially apply foldr to the binary
 operator (&&). The type of (&&) is Bool -> Bool -> Bool.
 This means that we have a = Bool, b = Bool, and the type
-of the function becomes: f :: Bool -> [Bool] -> Bool
-It is a function that takes a Bool as its first argument,
-a list of Bool as its second argument, and returns a
-summary Bool value.
+of the function becomes: 
+  f :: Bool -> [Bool] -> Bool
+
+That is, f is a function that takes a Bool as its first 
+argument, a list of Bool as its second argument, and 
+returns a summary Bool value.
 
 
 --------------------------------
 Question 1.5:
 What is the most general type of the following function g?
 
-g = map map
+  g = map map
 
 --------
 Answer: 
 
 This is a partially applied function that applies the
 function map to itself. The type of the inner map is:
-map :: (a -> b) -> [a] -> [b]
+  map :: (a -> b) -> [a] -> [b]
 The type of the outer map is:
-map :: (c -> d) -> [c] -> [d]
+  map :: (c -> d) -> [c] -> [d]
 
 The outer map expects a function of type (c -> d) as its
 first argument. This function is the inner map. So the
 type checker will try to unify the types of the inner and
 outer map, yielding: c -> d = (a -> b) -> [a] -> [b]
-So let: c = a -> b and d = [a] -> [b]
-And then the partially applied function g has the type:
+So it sets: c = a -> b and d = [a] -> [b]
+
+This then gives us the type of the partially applied 
+function g:
   g :: [a -> b] -> [[a] -> [b]]
 
 In other words, g does not take a single function as its
@@ -124,7 +130,7 @@ argument anymore, because it has already been partially
 applied. It has become a function that takes a list of 
 functions of type a -> b and returns a list of functions  
 of type [a] -> [b]. It is a function that lifts the
-function map to a higher level, where it can be applied to
+function map to a higher level, allowing it to operate on
 a list of functions.
 
 
@@ -382,7 +388,7 @@ index i and then filters the pairs where x == n.
 
 --------------------------------
 Question 4.5:
-Deﬁne a function doubleReverse which takes a list of lists 
+Define a function doubleReverse which takes a list of lists 
 as its argument and reverses each element of the list and 
 then reverses the resulting list. The implementation of 
 doubleReverse must use a list comprehension. 
@@ -408,11 +414,11 @@ then reverse each sublist on its own:
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
-Give a Haskell expression that produces the inﬁnite string 
+Give a Haskell expression that produces the infinite string 
 "abbaaabbbbaaaaabbbbbbaaaaaaa...", i.e one a, two bs, three 
 as, four bs, etc.
 
@@ -456,7 +462,7 @@ the previous one.
 
 --------------------------------
 Question 5.3:
-Give a deﬁnition of the infinite list pals of non-empty 
+Give a definition of the infinite list pals of non-empty 
 palindromic strings that consist of the letters 'a' and
 'b'. For example: 
   take 8 pals 
@@ -508,7 +514,6 @@ implemented:
 • intersection: returns the intersection of two sets.
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -526,12 +531,12 @@ ST, thus hiding the concrete implementation details.
 
 > data Set a = ST [a]
 
-> -- Show instance for Set for pretty printing
+> -- Show instance for pretty printing of sets
 > instance (Show a) => Show (Set a) where
 >   show (ST xs) = "{" ++ showSet xs ++ "}"
 >     where
->       showSet []     = ""
->       showSet [x]   = show x
+>       showSet []     = " "
+>       showSet [x]    = show x
 >       showSet (x:xs) = show x ++ "," ++ showSet xs
 
 > -- creates an empty set
@@ -568,7 +573,7 @@ ST, thus hiding the concrete implementation details.
 >   where
 >     del _ [] = []
 >     del x (y : ys)
->       | x < y     = y : ys             -- x not in set
+>       | x < y     = y : ys            -- x not in set
 >       | x == y    = ys
 >       | otherwise = y : del x ys
 
@@ -630,7 +635,7 @@ ___________________________________________________________
 7. Proof on lists
 ___________________________________________________________
 
-In this problem we use the following deﬁnition of sum (the 
+In this problem we use the following definition of sum (the 
 definitions of reverse and ++ are in the file functions.md):
 
   sum [] = 0
@@ -669,7 +674,7 @@ Inductive case: prove p(xs) => p((x : xs))
   sum (reverse (x : xs))
 =   {applying reverse}
   sum (reverse xs ++ [x])
-=   {applying lemma}
+=   {applying lemma q}
   sum (reverse xs) + sum [x]
 =   {using induction hypothesis}
   sum xs + sum [x]
@@ -686,9 +691,13 @@ Inductive case: prove p(xs) => p((x : xs))
 □
 
 -----------------------------------------------
-Lemma:  q(xs): sum (xs ++ ys) = sum xs + sum ys
+Lemma q 
+  
+    q(xs): sum (xs ++ ys) = sum xs + sum ys
 -----------------------------------------------
-We will prove this lemma by structural induction on xs.
+
+We will prove this lemma by structural induction 
+on the list xs.
 [Note the similarity with: 
   length (xs ++ ys) = length xs + length ys]
 
@@ -748,7 +757,7 @@ size:
   size Empty = 0
   size (Node x l r) = 1 + size l + size r
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   p(t) : size (mirror t) = size t
 

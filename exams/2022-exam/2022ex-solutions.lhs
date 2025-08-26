@@ -16,31 +16,31 @@ ___________________________________________________________
 Question 1.1:
 What is the most general type of the following expression?
 
-[([],[]), ([],[])]
+  [([],[]), ([],[])]
 
 --------
 Answer: 
 
-Tuples do not require the elements to be of the same type,
-and since the empty list [] can be of any type, the most 
-general type for the tuple is ([a], [b]) where a and b can 
-be any types. Lists, on the other hand, do require their
-elements to be of the same type, so the most general type
-of the entire expression is: [([a], [b])]
+Tuples do not require their components to be of the same 
+type. Since the empty list [] can be of any list type, the 
+most general type for a tuple ([],[]) is ([a], [b]) where a 
+and b can be any types. Lists, however, do require all 
+their elements to be of the same type. Therefore, the most 
+general type of the entire expression is: [([a], [b])]
 
 
 --------------------------------
 Question 1.2:
 What is the most general type of the following expression?
 
-[([],"ABC"), ("DEF",[])]
+  [([],"ABC"), ("DEF",[])]
 
 --------
 Answer:
 
 The two tuples in the list have different types for their
 first and second components as the empty list [] can be of
-any type, while the string "ABC" and "DEF" are of type
+any list type, while the string "ABC" and "DEF" are of type
 [Char]. The first tuple has the type ([a], [Char]) 
 where a can be any type, and the second tuple has the type 
 ([Char], [b]) where b can also be any type. 
@@ -48,14 +48,14 @@ As lists require their elements to be of the same type, the
 type checker will try to unify these types, yielding
 a = [Char] and b = [Char].
 Hence, the most general type of the entire expression is
-[([Char], [Char])]
+  [([Char], [Char])]
 
 
 --------------------------------
 Question 1.3:
 What is the most general type of the function f?
 
-f g = \ (a,b) -> g a b
+  f g = \ (a,b) -> g a b
 
 --------
 Answer: 
@@ -65,9 +65,12 @@ and b, so g must be a function that takes two arguments.
 The type of g can be expressed as g :: a -> b -> c, where 
 a, b, and c are type variables that can be any type.
 The function f takes g as an argument and returns a new
-function that takes a tuple (a, b) as an argument.
-The type of the tuple has to match the types of the 
-arguments of g, so we can express the type of f as:
+function that takes a tuple (a, b) as an argument and
+returns a value of type c, by applying g to the two
+components of the tuple.
+This application is only possible if the types of the 
+tuple match the argument types of g. Therefore, the most
+general type of f can be expressed as:
 
   f :: (a -> b -> c) -> (a, b) -> c
 
@@ -106,7 +109,7 @@ in its type signature:
 Question 1.5:
 What is the type of the following Haskell function h?
 
-h f = map f "123" == [['1'],['2'],['3']]
+  h f = map f "123" == [['1'],['2'],['3']]
 
 --------
 Answer: 
@@ -114,22 +117,22 @@ Answer:
 In order to determine the type of the function h, the type
 checker will use all the information available in the 
 function body. In particular, it will infer the type of
-the function f based on how it is used in througout the
+the argument f based on how it is used througout the
 expression of the function body, in order to obtain the
-most general type of h, which takes f as an argument.
+most general type of h.
 
-This function f is repeately applied to the characters of 
-the string "123" by the map function. Since the equality 
-operator (==) is used, the result of the map function must
-be of the same type as the list [['1'],['2'],['3']].
+The function f is applied to each character of the string 
+"123" by the map function. The result of this mapping
+is then compared to the list of lists [['1'],['2'],['3']]
+using the equality operator (==). That means that both 
+sides of the equality must be of the same type.
 Therefore, each application of f must produce a singleton
 list of Char, and so the type of f can be expressed as:
   f :: Char -> [Char]
 
-Since the result of the map function is compared to a
-list of lists of Char, the type of the entire body of h
-is a Bool, and so the function h returns a Bool.
-Thus, the type of h can be expressed as:
+Since the equality operator (==) returns a Bool value, the
+entire expression of the function body has the type Bool.
+Thus, the most general type of the function h is:
   h :: (Char -> [Char]) -> Bool
 
 
@@ -351,7 +354,7 @@ of these two intermediate sums together.
 
 ___________________________________________________________
 
-5. Inﬁnite lists
+5. Infinite lists
 ___________________________________________________________
 
 Question 5.1:
@@ -467,7 +470,6 @@ implemented:
   non-empty).
 
 --------
-
 Answer:
 
 To turn the below code into a module, you would create
@@ -505,10 +507,12 @@ FO, thus hiding the concrete implementation details.
 
 > -- retrieves the 'oldest' element from the queue
 > top :: Fifo a -> a
+> top (FO []) = error "top from empty queue"
 > top (FO (x : _)) = x
 
 > -- removes the 'oldest' element from the queue
 > remove :: Fifo a -> Fifo a
+> remove (FO []) = error "remove from empty queue"
 > remove (FO (_ : xs)) = FO xs
 
 
@@ -640,11 +644,11 @@ Recursive case: prove p(l) ∧ p(r)
 =   {applying mapTree}
   mapTree f (Node (g x) (mapTree g l) (mapTree g r))
 =   {applying mapTree}                        
-  Node (f (g x)) (mapTree f l) (mapTree f r)
+  Node (f (g x)) (mapTree f (mapTree g l)) 
+                 (mapTree f (mapTree g r))
 =   {using induction hypothesis}
   Node (f (g x)) (mapTree (f . g) l) (mapTree (f . g) r)
-=   {function composition to obtain (f . g)}
-  mapTree (f . g) (Node x l r)
+=   {function composition: (f . g) x = f (g x)}
     Node ((f . g) x) (mapTree (f . g) l) (mapTree (f . g) r)
 =   {unapplying mapTree}
   mapTree (f . g) (Node x l r)

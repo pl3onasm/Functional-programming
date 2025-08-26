@@ -18,7 +18,7 @@ luhnDbl x = if d <= 9 then d else d - 9
     d = 2 * x
 
 -- takes four digits and checks if the 4-digit number is 
--- a valid bank car number
+-- a valid bank card number
 luhn :: Int -> Int -> Int -> Int -> Bool 
 luhn a b c d = 
   (luhnDbl a + b + luhnDbl c + d) `mod` 10 == 0 

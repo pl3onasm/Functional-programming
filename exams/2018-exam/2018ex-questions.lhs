@@ -267,7 +267,7 @@ coefficient normal form, i.e. in the form:
       aₙx^n + aₙ₋₁x^{n-1} + .. + a₀
     
 For example, (x + 1)^4 = x^4 + 4x^3 + 6x^2 + 4x + 1, yields 
-the list of coefﬁcients [1,4,6,4,1]. 
+the list of coefficients [1,4,6,4,1]. 
   
 Give a definition of the infinite list coefficients of 
 lists of coefficients, such that the n-th list corresponds 
@@ -318,7 +318,6 @@ implemented:
   multiplying the Peano numbers a and b.
 
 --------
-
 Answer:
 
 > 
@@ -375,7 +374,7 @@ Let f :: a -> a -> a be an associative function
 (i.e. f a (f b c) = f (f a b) c) with identity element z 
 such that f x z = f z x = x.
 
-Prove for all ﬁnite trees t: 
+Prove for all finite trees t: 
 
   foldT f z t = foldr f z (inorder t)
 
