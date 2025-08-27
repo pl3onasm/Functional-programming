@@ -1,6 +1,6 @@
 # The Craft of Functional Programming
 
-This repository contains my exercises and solutions from *The Craft of Functional Programming* by Simon Thompson.
+This folder contains my exercises and solutions from *The Craft of Functional Programming* by Simon Thompson.
 
 ## Setup
 
