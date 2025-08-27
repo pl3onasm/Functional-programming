@@ -481,8 +481,8 @@ Answer:
 This definition starts with a base list of the simplest
 palindromes: ["a", "b", "aa", "bb"]. Each next palindrome
 is then built by taking an existing palindrome mid from
-pals and adding an 'a' or 'b' to both ends, thus preserving
-the symmetric pattern of palindromes.
+pals and adding either an 'a' or a 'b' to both ends, thus 
+preserving the symmetric pattern of palindromes.
 Since the list pals generates palindromes in order of
 increasing length, the test: elem "abba" pals, will
 terminate after a finite number of steps. 
@@ -667,6 +667,7 @@ Base case: prove p([])
 ------------------------------------------
 Inductive case: prove p(xs) => p((x : xs))
 ------------------------------------------
+
     Induction hypothesis:
       p(xs): sum xs = sum (reverse xs)
 

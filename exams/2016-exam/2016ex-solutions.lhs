@@ -84,7 +84,7 @@ Answer:
 Foldr is a right-associative function that takes a binary
 function f as its first argument, followed by an initial 
 accumulator value and an input list. This is the same for
-is counterpart foldl. Where it differs from foldl is that
+its counterpart foldl. Where it differs from foldl is that
 the accumulator appears on the right in f, yielding the
 type:
 

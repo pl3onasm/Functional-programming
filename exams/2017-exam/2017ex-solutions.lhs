@@ -298,8 +298,9 @@ a single list of pairs.
 --------------------------------
 Question 4.3:
 The dot product of two vectors 
-a = [a₀, a₁, ..., aₙ] 
-b = [b₀, b₁, ..., bₙ]
+
+  a = [a₀, a₁, ..., aₙ] 
+  b = [b₀, b₁, ..., bₙ]
 
 is defined as:
 

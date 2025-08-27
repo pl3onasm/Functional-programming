@@ -701,7 +701,7 @@ Induction step: prove p(n) => p(n+1)
   g n 0 1 + f (n-1)
 =   {applying induction hypothesis for p(n-1)}
   g n 0 1 + g (n-1) 0 1
-=   {lemma below}
+=   {applying lemma q below}
   g (n+1) 0 1
     {RHS of p(n+1)}
 
@@ -720,8 +720,12 @@ where the arguments a and b can be any finite natural
 numbers. If this lemma holds, then it also holds for the
 specific case where a = 0 and b = 1.
 
-Lemma q: 
-          q(n): g (n+2) a b = g (n+1) a b + g n a b
+----------------------------------------------------
+Lemma q
+
+      q(n): g (n+2) a b = g (n+1) a b + g n a b
+            for all non-negative integers n 
+----------------------------------------------------
 
 We will prove this lemma by natural induction on n. 
 

@@ -155,7 +155,7 @@ of three as follows: 20 = 3^0 + 3^0 + 3^2 + 3^2, however 20
 is not a trinumber because the powers of three are not 
 distinct.
 
-Give a implementation of isTriNumber n (including its type) 
+Give an implementation of isTriNumber n (including its type) 
 which returns True if and only if n is a trinumber.
 
 --------
@@ -169,7 +169,7 @@ Answer:
 >       | power > n = False
 >       | otherwise = skip power || include power
 >       where
->         skip p    = check  rem      (p * 3)
+>         skip    p = check  rem      (p * 3)
 >         include p = check (rem - p) (p * 3)
 
 This is a recursive approach that, at each step, either
