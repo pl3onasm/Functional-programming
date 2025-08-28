@@ -1,5 +1,3 @@
-module Ex3_25 where
-
 import Test.QuickCheck
 import Ex3_23
 import Ex3_24
