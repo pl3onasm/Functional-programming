@@ -1,0 +1,32 @@
+-----------------------------------------------------------
+Exercise 3.6
+
+In exercise 3.5 we defined logical nAnd as follows:
+
+    nAnd :: Bool -> Bool -> Bool
+    nAnd x y = not (x && y)
+
+We will use this definition to calculate the requested 
+values.
+
+1. Calculation of nAnd True True
+
+  nAnd True True
+=   { applying the definition of nAnd }
+  not (True && True)
+=   { applying the definition of && }
+  not True
+=   { applying the definition of not }
+  False
+
+2. Calculation of nAnd True False
+
+  nAnd True False
+=   { applying the definition of nAnd }
+  not (True && False)
+=   { applying the definition of && }
+  not False
+=   { applying the definition of not }
+  True
+
+-----------------------------------------------------------

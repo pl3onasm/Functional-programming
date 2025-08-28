@@ -1,0 +1,16 @@
+-----------------------------------------------------------
+Exercise 3.27
+
+funny x = x+x
+ peculiar y = y
+
+With a space before peculiar, the function definition
+is not aligned with the previous one, so Haskell treats it
+as a continuation of the definition of funny, which is not
+valid syntax. The result is a parse error.
+If we remove the space, peculiar starts at the same column
+as funny, and will be accepted as a new top-level 
+definition.
+
+
+-----------------------------------------------------------

@@ -1,0 +1,14 @@
+-----------------------------------------------------------
+Exercise 3.8
+
+We are given the following function:
+
+  mystery :: Integer -> Integer -> Integer -> Bool
+  mystery m n p = not ((m==n) && (n==p))
+
+This function mystery returns False if all three integers 
+are the same, and True otherwise. In other words, it checks
+if at least one input Integer is different from the other
+ones.
+
+-----------------------------------------------------------
