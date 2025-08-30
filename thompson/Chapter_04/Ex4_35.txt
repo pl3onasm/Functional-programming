@@ -1,0 +1,35 @@
+-----------------------------------------------------------
+-- Exercise 4.35
+
+Since we are asked to devise black box test data for the
+a function we only have the specification for, we can only
+rely on the specification to guide us in creating the test
+data.
+In this case, the specification is that the function
+returns True if all three arguments are different, and that
+its signature is:
+
+allDifferent :: Integer -> Integer -> Integer -> Bool
+
+From this we can deduce the following test cases:
+
+1. All three arguments are the same: (1, 1, 1) -> False
+2. First two arguments are the same, third is different:
+    (1, 1, 2) -> False
+3. First and third arguments are the same, second is 
+   different:
+    (1, 2, 1) -> False
+4. Last two arguments are the same, first is different:
+    (2, 1, 1) -> False
+5. All three arguments are different:
+    (1, 2, 3) -> True
+6. All three arguments are different, different order:
+    (2, 3, 1) -> True 
+7. All three arguments are different, different order:
+    (3, 1, 2) -> True
+    
+These test cases cover all the possible scenarios for the
+function, ensuring that it behaves as expected in each 
+case.
+
+-----------------------------------------------------------

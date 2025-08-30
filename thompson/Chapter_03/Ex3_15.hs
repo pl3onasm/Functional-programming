@@ -1,6 +1,6 @@
 import Test.QuickCheck
-import Ex3_13
-import Ex3_14
+import Chapter_03.Ex3_13
+import Chapter_03.Ex3_14
 
 import Prelude hiding (min, max)
 
@@ -25,6 +25,7 @@ prop_max3 x y z = max x (max y z) == maxThree x y z
 
 Testing in GHCi
 
+ghci> :set -i..
 ghci> :l Ex3-15
 ghci> quickCheck prop_minMax
 +++ OK, passed 100 tests.

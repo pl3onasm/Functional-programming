@@ -1,4 +1,4 @@
-module Ex3_14 where
+module Chapter_03.Ex3_14 where
 
 import Prelude hiding (min)
 

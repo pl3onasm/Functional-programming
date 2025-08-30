@@ -1,6 +1,6 @@
 import Test.QuickCheck
-import Ex3_23
-import Ex3_24
+import Chapter_03.Ex3_23
+import Chapter_03.Ex3_24
 
 -----------------------------------------------------------
 -- Exercise 3.25
@@ -32,6 +32,7 @@ prop_satEq a b c
 
 Testing in GHCi
 
+ghci> :set -i..
 ghci> :l Ex3-25
 ghci> quickCheck prop_smaller
 +++ OK, passed 100 tests.

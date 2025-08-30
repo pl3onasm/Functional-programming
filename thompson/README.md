@@ -1,6 +1,8 @@
 # The Craft of Functional Programming
 
-This folder contains my exercises and solutions from *The Craft of Functional Programming* by Simon Thompson.
+This folder contains my solutions to all exercises from *The Craft of Functional Programming* by Simon Thompson.
+
+It is not necessary to install the code provided for the book to work through the exercises, but should you want to do so, the instructions are provided below.
 
 ## Setup
 

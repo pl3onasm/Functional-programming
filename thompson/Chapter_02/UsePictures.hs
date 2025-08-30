@@ -1,6 +1,6 @@
 module UsePictures where
 
-import Pictures
+import Library.Pictures
 
 -----------------------------------------------------------
 -- Exercise 2.1 
@@ -61,6 +61,7 @@ variant4 =
 
 Example usage:
 
+ghci> :set -i..
 ghci> :l UsePictures 
 
 ghci> printPicture fourSquares

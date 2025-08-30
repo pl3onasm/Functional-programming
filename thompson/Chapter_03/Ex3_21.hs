@@ -1,5 +1,5 @@
 import Test.QuickCheck
-import Ex3_20
+import Chapter_03.Ex3_20
 
 -----------------------------------------------------------
 -- Exercise 3.21

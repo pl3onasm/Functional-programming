@@ -1,4 +1,4 @@
-module Ex3_20 where
+module Chapter_03.Ex3_20 where
 
 -----------------------------------------------------------
 -- Exercise 3.20

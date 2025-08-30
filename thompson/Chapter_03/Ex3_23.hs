@@ -1,6 +1,6 @@
-module Ex3_23 where
+module Chapter_03.Ex3_23 where
 
-import Ex3_22
+import Chapter_03.Ex3_22
 
 -----------------------------------------------------------
 -- Exercise 3.23
@@ -16,3 +16,24 @@ numberRoots a b c
 
 
 -----------------------------------------------------------
+
+
+{-
+
+Testing in GHCi
+
+ghci> :set -i.. 
+ghci> :l Ex3_23
+ghci> numberRoots 1 1 1
+0
+ghci> numberRoots 1 4 1
+2
+ghci> numberRoots 1 2 1
+1
+ghci> numberRoots 0 0 1
+0
+ghci> numberRoots 0 0 0
+3
+
+
+-}

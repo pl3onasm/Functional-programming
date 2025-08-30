@@ -1,0 +1,45 @@
+-----------------------------------------------------------
+-- Exercise 4.10
+
+Given is the definition of the function from Exercise 4.9:
+
+maxThreeOccurs :: Int -> Int -> Int -> (Int,Int)
+maxThreeOccurs a b c = (m,count)
+  where 
+    m = max a (max b c)
+    count = cnt a + cnt b + cnt c
+    cnt x = if x == m then 1 else 0
+
+
+1. Calculation of maxThreeOccurs 4 5 5
+
+  maxThreeOccurs 4 5 5
+=   { applying the definition of maxThreeOccurs }
+  (m, count)
+    | where
+    |   m = max 4 (max 5 5) = max 4 5 = 5
+    |   count = cnt 4 + cnt 5 + cnt 5
+    |     | cnt 4 = if 4 == 5 then 1 else 0 = 0
+    |     | cnt 5 = if 5 == 5 then 1 else 0 = 1
+    |     | cnt 5 = if 5 == 5 then 1 else 0 = 1
+    |   count = 0 + 1 + 1 = 2
+=   { substituting the values of m and count }
+  (5, 2)
+
+2. Calculation of maxThreeOccurs 4 5 4
+
+  maxThreeOccurs 4 5 4
+=   { applying the definition of maxThreeOccurs }
+  (m, count)
+    | where
+    |   m = max 4 (max 5 4) = max 4 5 = 5
+    |   count = cnt 4 + cnt 5 + cnt 4
+    |     | cnt 4 = if 4 == 5 then 1 else 0 = 0
+    |     | cnt 5 = if 5 == 5 then 1 else 0 = 1
+    |     | cnt 4 = if 4 == 5 then 1 else 0 = 0
+    |   count = 0 + 1 + 0 = 1
+=   { substituting the values of m and count }
+  (5, 1)
+
+
+-----------------------------------------------------------

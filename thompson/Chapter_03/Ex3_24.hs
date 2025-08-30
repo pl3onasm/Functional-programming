@@ -1,6 +1,6 @@
-module Ex3_24 where
+module Chapter_03.Ex3_24 where
 
-import Ex3_23
+import Chapter_03.Ex3_23
 
 -----------------------------------------------------------
 -- Exercise 3.24
@@ -40,5 +40,14 @@ smallerRoot a b c
 
 Note that we have to work with min and max because we do
 not know the sign of a.
+
+Testing in GHCi
+
+ghci> :set -i.. 
+ghci> :l Ex3-24
+ghci> smallerRoot 1 4 1
+-3.732051
+ghci> largerRoot 1 4 1
+-0.26794922
 
 -}
