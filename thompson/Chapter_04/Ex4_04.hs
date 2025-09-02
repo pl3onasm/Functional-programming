@@ -1,5 +1,5 @@
 import Chapter_03.Ex3_11 (fourEqual)
-import Chapter_04.Ex4_03
+import Chapter_04.Ex4_03 (howManyEqual)
 
 -----------------------------------------------------------
 -- Exercise 4.4

@@ -31,7 +31,7 @@ chessBoard n
 -- | Alternative solution for a n x n chessboard pattern
 chessBoard' :: Integer -> Picture
 chessBoard' n
-  | n <= 0    = error "chessBoard: non-positive size"
+  | n <= 0    = error "chessBoard': non-positive size"
   | otherwise = rows 0
   where
     rows r

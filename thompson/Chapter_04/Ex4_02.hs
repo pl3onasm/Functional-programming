@@ -1,3 +1,5 @@
+module Chapter_04.Ex4_02 where
+
 -----------------------------------------------------------
 -- Exercise 4.2
 
@@ -8,11 +10,17 @@ middleNumber x y z
   | between x y z = y
   | otherwise     = z
   where
-    between x y z = x <= y && y <= z
+    between x y z = x <= y && y <= z || z <= y && y <= x
 
 -----------------------------------------------------------
 
 {-
+
+Note that we need to check both ascending and descending 
+order in the between function. If we only checked ascending 
+order, we would get wrong results in cases like:
+middleNumber 1 0 -1 or milddleNumber 3 3 2, which would 
+then return -1 and 2, respectively, instead of 0 and 3.
 
 Testing in GHCi
 

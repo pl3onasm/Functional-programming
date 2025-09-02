@@ -1,0 +1,46 @@
+-----------------------------------------------------------
+-- Exercise 5.27
+
+Given is the following database:
+
+  exampleBase :: Database
+  exampleBase
+    = [("Alice", "Tintin"), ("Anna", "Little Women"),
+       ("Alice", "Asterix"), ("Rory", "Tintin")]
+
+We also have the following definition:
+
+  books :: Database -> Person -> [Book]
+  books dBase findPerson =
+    [book | (pers, book) <- dBase, pers == findPerson]
+
+
+1. Calculation of books exampleBase "Charlie"
+
+  [book | (pers, book) <- exampleBase, pers == "Charlie"]
+
+  pers =  "Alice"   "Anna"   "Alice"   "Rory"
+  book =  "Tintin" "Little  "Asterix" "Tintin"
+                    Women"  
+  pers==
+  Charlie    F        F         F         F
+  book = 
+  
+  Result: []
+
+
+2. Calculation of books exampleBase "Rory"
+
+  [book | (pers, book) <- exampleBase, pers == "Rory"]
+
+  pers =  "Alice"   "Anna"   "Alice"   "Rory"
+  book =  "Tintin" "Little  "Asterix" "Tintin"
+                    Women"
+  pers==
+  Rory       F        F         F         T
+  book =                               "Tintin"
+  
+  Result: ["Tintin"]
+
+
+-----------------------------------------------------------

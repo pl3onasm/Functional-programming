@@ -40,6 +40,7 @@ antiDiagonal' n
 
 Testing in GHCi
 
+ghci> :set -i..
 ghci> :load Ex4_28
 printPicture (antiDiagonal 5)
 ........................######

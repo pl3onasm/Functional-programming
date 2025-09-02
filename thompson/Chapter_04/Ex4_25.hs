@@ -38,7 +38,7 @@ whiteChess n m
 
 {-
 
-Testing in GHCi:
+Testing in GHCi
 
 ghci> :set -i..
 ghci> :load Ex4_25.hs

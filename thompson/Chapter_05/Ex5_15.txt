@@ -1,0 +1,31 @@
+-----------------------------------------------------------
+-- Exercise 5.15
+
+The value of the expression [0,0.1..1] is:
+
+  [0.0,0.1,0.2,0.30000000000000004,0.4,0.5,
+   0.6000000000000001,0.7000000000000001,0.8,0.9,1.0]
+
+This is because floating point numbers cannot always 
+represent decimal fractions exactly, leading to small 
+precision errors in calculations.
+
+If we want a list of numbers from 0 to 1 in increments of 
+0.1 without such precision issues, we can use the Rational 
+type in Haskell, which represents numbers as fractions of 
+two integers. Here is how we can do that:
+
+  [0, 1 % 10 .. 1]
+
+This yields the exact values:
+
+  [0 % 1, 1 % 10, 1 % 5, 3 % 10, 2 % 5, 1 % 2,
+   3 % 5, 7 % 10, 4 % 5, 9 % 10, 1 % 1]
+
+Note that in order to use the (%) operator, we need to
+import it from the Data.Ratio module:
+
+  import Data.Ratio ((%))
+  
+
+-----------------------------------------------------------

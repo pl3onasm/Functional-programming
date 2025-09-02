@@ -1,0 +1,70 @@
+-----------------------------------------------------------
+-- Exercise 5.9
+
+When we use deriving (Eq, Show, Ord) for a datatype 
+definition, the compiler automatically generates default 
+implementations for equality (==), for conversion to a 
+string (show), and for ordering (compare, <, >, etc.),
+based purely on the structure of the datatype.
+
+The definitions of Shape and Move:
+
+type Radius = Float
+type Height = Float
+type Width  = Float
+type Side   = Float
+
+data Shape = Circle Radius 
+           | Rectangle Height Width
+           | Triangle Side Side Side
+  deriving (Eq,Ord,Show)
+
+data Move = Rock | Paper | Scissors
+  deriving (Eq,Show)
+
+
+For Shape the derived (==) checks structural equality, 
+meaning that it checks that the constructors are the same
+and that the fields are equal (using == for Float). Note
+that floating-point comparisons may produce unexpected
+results due to precision errors. 
+The derived show function produces a string representation
+of the value, mainly for debugging purposes, not for 
+user-friendly output. The derived Ord instance defines an
+ordering based first on the order of the constructors in 
+the datatype definition (Circle < Rectangle < Triangle).
+After comparing constructors, if two values share the same 
+constructor, it compares their fields lexicographically.
+
+For Move the derived (==) simply checks for exact 
+constructor matches, and the derived show function just
+converts the constructor name to a string. 
+
+Examples:
+
+ghci> circ1 = Circle 6.5
+ghci> circ2 = Circle 4
+ghci> circ 
+Circle 6.5
+ghci> circ1 == circ2
+False
+ghci> circ1 > circ2
+True
+ghci> rect = Rectangle 4 5
+ghci> rect == circ1
+False
+ghci> rect > circ1
+True
+ghci> rect
+Rectangle 4.0 5.0
+ghci> move1 = Rock
+ghci> move2 = Paper
+ghci> move1 == move2
+False
+ghci> move1 
+Rock
+ghci> :type (show move1)
+(show move1) :: String
+
+
+-----------------------------------------------------------

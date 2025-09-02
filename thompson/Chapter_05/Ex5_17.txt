@@ -1,0 +1,24 @@
+-----------------------------------------------------------
+-- Exercise 5.17
+
+The result of evaluating the expression [2..2] is a 
+singleton list containing the number 2: [2]. This is 
+because the range syntax [x..y] generates a list starting 
+from x and ending at y (inclusive), with a default step of 
+1. Wen x and y are equal, the resulting list contains just 
+that single element.
+
+Evaluating [2,7..4] results in the same singleton list 
+[2]. In this case, the range syntax [x,y..z] generates a 
+list starting from x, with a step size determined by y - x. 
+However, since the first step from 2 would be 7, which 
+exceeds the upper limit of 4, the list cannot include any 
+further elements beyond the starting point.
+
+Evaluating [2,2..2] results in an infinite list of 2s: 
+[2,2,2,2,...]. Here, the step size is 0 (since 2 - 2 = 0),
+which means that every subsequent element in the list is
+the same as the starting element.
+
+
+-----------------------------------------------------------

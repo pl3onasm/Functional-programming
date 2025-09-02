@@ -1,0 +1,57 @@
+-----------------------------------------------------------
+-- Exercise 5.29
+
+Given is the following database:
+
+ db :: Database
+ db = [("Alice", "Tintin"), ("Anna", "Little Women"),
+       ("Alice", "Asterix"), ("Rory", "Tintin")]
+
+We also have the following definition:
+
+  returnLoan :: Database -> Person -> Book -> Database
+  returnLoan dBase pers bk
+    = [pair | pair <- dBase , pair /= (pers, bk)]
+
+
+1. Calculation of returnLoan db "Alice" "Asterix"
+
+  [pair | pair <- db , pair /= ("Alice", "Asterix")]
+
+  pair =    ("Alice", "Tintin")   ("Anna", "Little Women")
+            ("Alice", "Asterix")  ("Rory", "Tintin")
+  pair /=
+  ("Alice", 
+  "Asterix")    T          T           F         T
+  
+  pair =    ("Alice", "Tintin")   ("Anna", "Little Women")
+            ("Rory", "Tintin")
+
+  Result: [("Alice", "Tintin"), ("Anna", "Little Women"), 
+           ("Rory", "Tintin")]
+
+  The result is the database db with the pair 
+  ("Alice", "Asterix") removed.
+
+
+2. Calculation of returnLoan db "Alice" "Little Women"
+
+  [pair | pair <- db , pair /= ("Alice", "Little Women")]
+
+  pair =    ("Alice", "Tintin")   ("Anna", "Little Women")
+            ("Alice", "Asterix")  ("Rory", "Tintin")
+  pair /=
+  ("Alice", 
+  "Little Women")    T          T          T         T
+
+  pair =    ("Alice", "Tintin")   ("Anna", "Little Women")
+            ("Alice", "Asterix")  ("Rory", "Tintin")
+
+  Result: [("Alice", "Tintin"), ("Anna", "Little Women"), 
+           ("Alice", "Asterix"), ("Rory", "Tintin")]
+
+  The result is the same as the database db, since the pair
+  ("Alice", "Little Women") is not present in db.
+
+
+-----------------------------------------------------------

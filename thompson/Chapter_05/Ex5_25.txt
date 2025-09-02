@@ -1,0 +1,12 @@
+-----------------------------------------------------------
+-- Exercise 5.25
+
+In the specification of pushRight in Exercise 5.24, it was
+assumed that the length of the string to be pushed did not
+exceed the line length. In defining pushRight, we tacitly
+assumed that in the exceptional case where the string is
+longer than the line length, the string should be returned
+unchanged. 
+
+
+-----------------------------------------------------------

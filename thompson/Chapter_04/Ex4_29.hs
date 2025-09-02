@@ -10,7 +10,7 @@ import Chapter_04.Ex4_28
 -- top-left to bottom-right and top-right to bottom-left
 diagonals :: Integer -> Picture
 diagonals n
-  | n <= 0    = error "diag: non-positive size"
+  | n <= 0    = error "diagonals: non-positive size"
   | otherwise = rows 0
   where
     rows r
@@ -34,6 +34,7 @@ diagonals' n = superimpose (diagonal n) (antiDiagonal n)
 
 Testing in GHCi
 
+ghci> :set -i..
 ghci> :load Ex4_29
 ghci> printPicture (diagonals 5)
 ######..................######

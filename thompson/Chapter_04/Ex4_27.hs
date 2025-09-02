@@ -41,6 +41,7 @@ diagonal' n
 
 Testing in GHCi
 
+ghci> :set -i..
 ghci> :load Ex4_27
 printPicture (diagonal 5)
 ######........................

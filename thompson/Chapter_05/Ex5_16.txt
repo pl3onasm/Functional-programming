@@ -1,0 +1,14 @@
+-----------------------------------------------------------
+-- Exercise 5.16
+
+The list [2,3] contains two elements, 2 and 3. The type of
+the list is Num a => [a], since numeric literals can be of
+any type that is an instance of the Num type class.
+
+By contrast, the list [[2,3]] contains a single element,
+which is itself a list containing the elements 2 and 3.
+The type of this list is Num a => [[a]], indicating that it
+is a list of lists of numeric elements.
+
+
+-----------------------------------------------------------
