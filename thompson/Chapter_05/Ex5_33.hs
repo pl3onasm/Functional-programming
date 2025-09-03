@@ -31,7 +31,7 @@ property_notLoaned dBase pers bk =
 {-
 
 Both QuickCheck properties can be kept as they are. This is
-because the signature of the functions have not changed. 
+because the signatures of the functions have not changed. 
 They behave as before, even though the internal 
 representation of the database has changed. From the point 
 of view of the tests, nothing has changed: the functions 

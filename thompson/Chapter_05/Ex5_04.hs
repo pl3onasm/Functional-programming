@@ -137,7 +137,7 @@ expected: (-3,-2,-1)
 Cases: 19  Tried: 19  Errors: 0  Failures: 5
 
 These results revealed bugs in the orderTriple function,
-defined in Ex5_02.hs. From the reported failures it can 
+defined in Ex5_02.hs. From the reported failures it 
 was clear that it was always the middle number that was 
 incorrect. In fact, these errors were due to an incorrect 
 implementation of the middleNumber function in Ex4_02.hs, 
