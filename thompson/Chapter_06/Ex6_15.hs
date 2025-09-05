@@ -67,7 +67,7 @@ ghci> quickCheck prop_InvertColour2
 The message indicates that only 45 out of 1000 randomly 
 generated pictures satisfied the precondition. This is 
 because chances of a randomly generated character being
-either '.' or '#' is very low. This is why we got so
+either '.' or '#' are very low. This is why we got so
 many discarded tests and why QuickCheck gave up: it did 
 not manage to find 100 valid cases in the default 1000 
 tests.

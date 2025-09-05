@@ -70,7 +70,7 @@ We will check this manually:
 We see that the two functions give different results for 
 the counterexample (1,0,0). So the property is false,
 and the two functions are not equivalent.
-ThreeDifferent check if all three arguments are pairwise
+ThreeDifferent checks if all three arguments are pairwise
 different, while not . threeEqual only checks that not all
 three arguments are the same.
 

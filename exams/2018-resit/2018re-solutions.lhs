@@ -43,14 +43,16 @@ No, this is not type correct. The composition operator (.)
 expects two unary functions as arguments, which are 
 provided by the sections (+1) and (0<). The inner section
 (0<) is a unary function that takes a number and returns a
-Boolean value indicating whether the number is less than 0.
+Boolean value indicating whether the number is greater 
+than 0.
 The outer section (+1) is a unary function that takes a
 number and adds 1 to it. As a result, the type of the
 expression (+1) . (0<) is not well-formed because the
 output type of the inner function (0<) is a Boolean, while
 the input type of the outer function (+1) is a number.
-Thus, the types do not match, and the expression is not
-type correct.
+Thus, the types do not match, which means that the two
+functions cannot be composed. Therefore, the expression is
+not type correct.
 
 
 --------------------------------

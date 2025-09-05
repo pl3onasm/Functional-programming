@@ -5,13 +5,22 @@ import Library.Pictures
 -----------------------------------------------------------
 -- Exercise 6.17
 
--- | Modified version ensuring the result is rectangular
-abv :: Picture -> Picture -> Picture
-abv picT picB = padToRect (picT ++ picB)
+-- | Stacks two pictures, one above the other
+above :: Picture -> Picture -> Picture
+above = (++)
 
+-- | Places two pictures beside each other
+beside :: Picture -> Picture -> Picture
+beside picL picR
+    = [lineL ++ lineR | (lineL,lineR) <- zip picL picR]
+
+-- | Modified above guaranteeing rectangular result
+abv :: Picture -> Picture -> Picture
+abv picT picB = padToRect $ above picT picB
+
+-- | Modified beside guaranteeing rectangular result
 besd :: Picture -> Picture -> Picture
-besd picL picR = padToRect [lineL ++ lineR | 
-                           (lineL, lineR) <- zip picL picR]
+besd picL picR = padToRect $ beside picL picR
 
 
 -----------------------------------------------------------
