@@ -8,7 +8,7 @@ type Picture = [[(Int, Char)]]
 -- | Prints a picture
 printPicture :: Picture -> IO ()
 printPicture pic = putStr $ unlines 
-  [[c | (n,c) <- line, _ <- [1..n] ] | line <- pic]
+  [[c | (n,c) <- line, _ <- [1..n]] | line <- pic]
 
 -- | Pads a picture with '.' to make it rectangular
 padToRect :: Picture -> Picture
@@ -54,17 +54,20 @@ padToSameHeight pic1 pic2
 
 -- | Places two pictures beside each other
 beside :: Picture -> Picture -> Picture
-beside pic1 pic2 =  
-  [patch line1 line2 | (line1, line2) <- zip p1 p2]
+beside [] pic2 = pic2
+beside pic1 [] = pic1
+beside pic1 pic2 = 
+  [patch line1 line2 | (line1, line2) <- zip l r]
   where
+    (l, r) = (padToRect p1, padToRect p2)
     (p1, p2) = padToSameHeight pic1 pic2
     patch ln1 ln2 
-      | last ln1 == (n1, '.') && head ln2 == (n2, '.')
-          = init ln1 ++ [(n1 + n2, '.')] ++ tail ln2
+      | c1 == c2 
+        = init ln1 ++ [(n1 + n2, c1)] ++ tail ln2
       | otherwise = ln1 ++ ln2
       where
-        (n1, _) = last ln1
-        (n2, _) = head ln2
+        (n1, c1) = last ln1
+        (n2, c2) = head ln2
     
 -- | Flips a picture in a horizontal mirror
 flipH :: Picture -> Picture
@@ -233,6 +236,18 @@ ghci> printPicture $ flipV $ scale arrow 3
 ..............................######
 ..............................######
 ..............................######
+ghci> printPicture (arrow `beside` pic)
+##...........##.
+#..#.........#.#
+#....#.......###
+#......#....####
+#........#......
+#..........#....
+#........#......
+#......#........
+#....#..........
+#..#............
+##..............
 
 
 
