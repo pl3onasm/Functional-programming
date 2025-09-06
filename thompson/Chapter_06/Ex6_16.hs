@@ -78,7 +78,7 @@ The message indicates that only 44 out of 1000 randomly
 generated pictures satisfied the precondition. This is 
 because chances of two randomly generated pictures having
 the same height are very low. This is why we got so many
-discarded tests and why QuickCheck gave up: it did 
+discarded tests and why QuickCheck gave up: it did not
 manage to find 100 valid cases in the default 1000 tests.
 
 If we want to avoid discarded tests, we can define a 
