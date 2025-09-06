@@ -64,14 +64,10 @@ height pic = length pic
 width :: Picture -> Int
 width pic = maximum [sum [n | (n,_) <- line] | line <- pic]
 
--- | A blank picture
-blank :: Picture
-blank = [[(1, '.')]]
-
 -- | Pads two pictures to the same height
 padToSameHeight :: Picture -> Picture -> (Picture, Picture)
-padToSameHeight [] pic2 = (blank, padToRect pic2)
-padToSameHeight pic1 [] = (padToRect pic1, blank)
+padToSameHeight [] pic2 = ([], pic2)
+padToSameHeight pic1 [] = (pic1, [])
 padToSameHeight pic1 pic2
   | h1 < h2   = (padToRect (pic1 ++ 
                  replicate (h2 - h1) [(w1, '.')]), pic2)
