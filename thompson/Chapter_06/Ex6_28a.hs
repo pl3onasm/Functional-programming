@@ -4,9 +4,9 @@ import qualified Data.Set as S
 -- Exercise 6.28, part 1
 
 -- | A picture is represented as a set of points
---   where each point is a (column, row) coordinate of
---   a black pixel ('#'). The background is white ('.').
---   The picture also stores its width and height.
+--   where each point is a pair (x,y) of coordinates
+--   of a black pixel. The background is assumed to
+--   be white.
 type Point = (Int, Int)
 type Width = Int
 type Height = Int
