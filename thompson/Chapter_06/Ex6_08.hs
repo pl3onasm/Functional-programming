@@ -8,12 +8,15 @@ import Test.QuickCheck
 
 -- | Flips a picture in a vertical mirror
 flipV :: Picture -> Picture
-flipV pic
-  = [reverse line | line <- pic]
+flipV pic = [reverse line | line <- pic]
 
 -- | Flips a picture in a horizontal mirror
 flipH :: Picture -> Picture
 flipH = reverse
+
+-- | Rotates a picture 180 degrees
+rotate :: Picture -> Picture
+rotate = flipH . flipV
 
 -- | Transposes a picture: each row becomes a column 
 -- and vice versa

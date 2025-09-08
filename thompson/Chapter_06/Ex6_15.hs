@@ -1,3 +1,4 @@
+module Chapter_06.Ex6_15 where
 import Test.QuickCheck
 
 type Picture = [[Char]]
@@ -5,50 +6,50 @@ type Picture = [[Char]]
 -----------------------------------------------------------
 -- Exercise 6.15
 
--- | Inverts the colours of a picture
+-- | Inverts the colors of a picture
 invertChar :: Char -> Char
 invertChar ch = if ch == '.' then '#' else '.'
 
-invertColour :: Picture -> Picture
-invertColour pic = 
+invertColor :: Picture -> Picture
+invertColor pic = 
   [[invertChar ch | ch <- line ] | line <- pic]
 
--- | Property: inverting the colours of a picture twice
+-- | Property: inverting the colors of a picture twice
 -- should return the original picture.
-prop_InvertColour1 :: Picture -> Bool
-prop_InvertColour1 pic =
-  (invertColour . invertColour) pic == pic
+prop_InvertColor1 :: Picture -> Bool
+prop_InvertColor1 pic =
+  (invertColor . invertColor) pic == pic
 
 -- | Property: same as previous but restricted to
 -- pictures containing only '.' and '#'.
-prop_InvertColour2 :: Picture -> Property
-prop_InvertColour2 pic =
+prop_InvertColor2 :: Picture -> Property
+prop_InvertColor2 pic =
   all (all (`elem` ".#")) pic ==>
-    (invertColour . invertColour) pic == pic
+    (invertColor . invertColor) pic == pic
 
 
 -----------------------------------------------------------
 
 {-
 
-A property that we would expect invertColour to have is 
-that inverting the colours of a picture twice should
+A property that we would expect invertColor to have is 
+that inverting the colors of a picture twice should
 return the original picture.
 This, however, is not true for randomly generated pictures
 because they may contain characters other than '.' and '#'.
-If we run quickCheck on prop_InvertColour1 we get:
-ghci> quickCheck prop_InvertColour1
+If we run quickCheck on prop_InvertColor1 we get:
+ghci> quickCheck prop_InvertColor1
 *** Failed! Falsifiable (after 2 tests and 1 shrink): 
 [["a"]]
 
-Indeed, the inner invertColour call changes the input into
+Indeed, the inner invertColor call changes the input into
 [["."]], and the outer call then changes this into [["#"]].
 Since [["#"]] is not equal to [["a"]], the property fails.
 
 To fix this, we could restrict the input pictures to only
 contain '.' and '#' characters.
 
-This is done in prop_InvertColour2 using the QuickCheck
+This is done in prop_InvertColor2 using the QuickCheck
 implication operator (==>). The property is now only
 tested for pictures that satisfy the precondition
 (all (all (`elem` ".#")) pic), i.e. all characters should
@@ -61,7 +62,7 @@ prelude, and can be defined using and (see fig 6.2):
 
 Testing in GHCi
 ghci> :l Ex6_15
-ghci> quickCheck prop_InvertColour2
+ghci> quickCheck prop_InvertColor2
 *** Gave up! Passed only 45 tests; 1000 discarded tests.
 
 The message indicates that only 45 out of 1000 randomly 
