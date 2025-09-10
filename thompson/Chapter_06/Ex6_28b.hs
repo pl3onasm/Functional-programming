@@ -1,11 +1,10 @@
 -----------------------------------------------------------
 -- Exercise 6.28, part 2
 
--- | A picture is represented as a function from (x,y)
--- coordinates to a Bool value indicating whether the pixel
--- at that position is set ('#') or clear ('.').
--- The first two Int values represent the width and height
--- of the picture.
+-- | A picture is represented as a triple consisting of its
+-- width, height, and a function mapping (x,y) coordinates 
+-- to a Bool value indicating whether the pixel at that 
+-- position is set ('#') or clear ('.').
 type Point   = (Int, Int)
 type Width   = Int
 type Height  = Int
@@ -118,7 +117,7 @@ This way, calls to the function for the same (x,y)
 coordinates will return the cached result in constant time, 
 instead of recomputing it each time.
 
-Using this representation, we can also define infitely 
+Using this representation, we can also define infinitely 
 large pictures, such as tiling patterns. However, the
 printPicture function will only print the part that fits
 within the specified width and height.

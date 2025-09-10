@@ -8,10 +8,10 @@ import Chapter_06.Ex6_15 (invertColor)
 -- Exercise 6.36
 
 -- | Superimposes two images
-superImpose :: Image -> Image -> Image
-superImpose img1 ([], _) = img1
-superImpose ([], _) img2 = img2
-superImpose (pic1, (x1, y1)) (pic2, (x2, y2)) = 
+superimpose :: Image -> Image -> Image
+superimpose img1 ([], _) = img1
+superimpose ([], _) img2 = img2
+superimpose (pic1, (x1, y1)) (pic2, (x2, y2)) = 
   (newPic, (x, y))
   where
     -- Dimensions of the input pictures
