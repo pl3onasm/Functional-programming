@@ -684,7 +684,7 @@ We will prove this property p by structural induction on
 the list xs. 
 
 ------------------------------------------
-Base case: prove ([])
+Base case: prove p([])
 ------------------------------------------
 
     {RHS of p([])}
