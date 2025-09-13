@@ -85,14 +85,14 @@ t17 = Trick North [c4C, c6D, c6C, c9D]
 -- | Tests for checkPlays
 testCheckPlays :: Test
 testCheckPlays = TestList
-  [TestCase (assertEqual "Valid: all plays legal"
-      True (checkPlays game1)),
-   TestCase (assertEqual "Invalid: South does not have 6D"
-      False (checkPlays game2)),
-   TestCase (assertEqual "Invalid: East should follow suit\ 
-      \in tricks 7 & 8" False (checkPlays game3)),
-   TestCase (assertEqual "Invalid: North replays 4C in\
-      \trick 9" False (checkPlays game4))
+  [TestCase (assertEqual "Valid: all plays legal and\
+      \ possible" True (checkPlays game1)),
+   TestCase (assertEqual "Not possible: South does not\
+      \ have 6D in trick 2" False (checkPlays game2)),
+   TestCase (assertEqual "Not legal: East should follow\ 
+      \suit in tricks 7 & 8" False (checkPlays game3)),
+   TestCase (assertEqual "Not possible: North replays 4C\
+      \in trick 9" False (checkPlays game4))
   ]
   where
     game1 = [t1, t2, t3, t4, t5, t6, t7, t8, 
