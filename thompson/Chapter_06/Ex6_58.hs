@@ -23,12 +23,12 @@ winT trump (Trick lead cards) = snd (maximum candidates)
 
 -- | Example cards
 c2H, c5H, cKH, cAC, cQC, c9S :: Card
-c2H = (Two, Hearts)
-c5H = (Five, Hearts)
-cKH = (King, Hearts)
-cAC = (Ace, Clubs)
+c2H = (Two,   Hearts)
+c5H = (Five,  Hearts)
+cKH = (King,  Hearts)
+cAC = (Ace,   Clubs)
 cQC = (Queen, Clubs)
-c9S = (Nine, Spades)
+c9S = (Nine,  Spades)
 
 -- | Example tricks
 t1, t2, t3 :: Trick

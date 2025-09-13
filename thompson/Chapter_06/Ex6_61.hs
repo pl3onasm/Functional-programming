@@ -28,15 +28,15 @@ checkPlay hands (Trick lead cards) =
 
 -- | Example cards
 c2H, c5H, cKH, cAH, c2C, cQC, cAC, c9S, cKS :: Card
-c2H = (Two, Hearts)
-c5H = (Five, Hearts)
-cKH = (King, Hearts)
-cAH = (Ace, Hearts)
-c2C = (Two, Clubs)
+c2H = (Two,   Hearts)
+c5H = (Five,  Hearts)
+cKH = (King,  Hearts)
+cAH = (Ace,   Hearts)
+c2C = (Two,   Clubs)
 cQC = (Queen, Clubs)
-cAC = (Ace, Clubs)
-c9S = (Nine, Spades)
-cKS = (King, Spades)
+cAC = (Ace,   Clubs)
+c9S = (Nine,  Spades)
+cKS = (King,  Spades)
 
 -- | Example hands 
 h1, h2, h3, h4 :: Hands

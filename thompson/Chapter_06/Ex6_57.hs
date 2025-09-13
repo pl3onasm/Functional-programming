@@ -20,16 +20,16 @@ winNT (Trick lead cards) = snd (maximum ledCards)
 
 -- | Example cards
 c2H, c5H, cKH, cJH, cAC, cQC, c9C, cKC :: Card
-c2H = (Two, Hearts)
-c5H = (Five, Hearts)
-cKH = (King, Hearts)
-cJH = (Jack, Hearts)
-cAC = (Ace, Clubs)
+c2H = (Two,   Hearts)
+c5H = (Five,  Hearts)
+cKH = (King,  Hearts)
+cJH = (Jack,  Hearts)
+cAC = (Ace,   Clubs)
 cQC = (Queen, Clubs)
-c9C = (Nine, Clubs)
-cKC = (King, Clubs)
-cAH = (Ace, Hearts)
-cAS = (Ace, Spades)
+c9C = (Nine,  Clubs)
+cKC = (King,  Clubs)
+cAH = (Ace,   Hearts)
+cAS = (Ace,   Spades)
 
 
 -----------------------------------------------------------
