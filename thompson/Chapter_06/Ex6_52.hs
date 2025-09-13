@@ -14,25 +14,25 @@ type BillType = [(Name,Price)]
 type Database = [(BarCode, Name, Price)]
 
 
--- | Add one sale into the table of total sales
+-- | Adds one sale into the table of total sales
 addSale :: (Name, Price) -> [(Name, Price)] -> [(Name, Price)]
 addSale (n,p) [] = [(n,p)]
 addSale (n,p) ((m, q) : rest)
   | n == m    = (m, q + p) : rest
   | otherwise = (m,q) : addSale (n,p) rest
 
--- | Add all sales from one bill into a table
+-- | Adds all sales from one bill into a table
 addBill :: BillType -> [(Name, Price)] -> [(Name, Price)]
 addBill [] acc     = acc
 addBill (x : xs) acc = addBill xs (addSale x acc)
 
--- | Compute total sales across all tills
+-- | Computes total sales across all tills
 salesTotals :: [TillType] -> [(Name, Price)]
 salesTotals []       = []
 salesTotals (bs : bss) = 
   addBill (makeBill bs) (salesTotals bss)
 
--- | Pretty-print a table of total sales, including the 
+-- | Pretty-prints a table of total sales, including the 
 -- grand total on the last line
 formatSalesTotals :: [TillType] -> String
 formatSalesTotals bss = "\nTotal Sales\n\n" ++ concat (
@@ -44,13 +44,14 @@ formatSalesTotals bss = "\nTotal Sales\n\n" ++ concat (
         totals = salesTotals bss
 
 -- | Given a list of items, returns all unique pairs of 
--- items
+-- items, ignoring same-item pairs and order of items in
+-- the pair (i.e., (a,b) is the same as (b,a))
 pairs :: Ord a => [a] -> [(a,a)]
 pairs []       = []
 pairs (x : xs) = 
   [(min x y, max x y) | y <- xs, y /= x] ++ pairs xs
 
--- | Add one pair into the table of co-purchases
+-- | Adds one pair into the table of co-purchases
 addPair :: (Name,Name) -> [((Name,Name), Int)] 
             -> [((Name,Name), Int)]
 addPair p [] = [(p,1)]
@@ -58,13 +59,13 @@ addPair (a,b) (((x,y), n) : rest)
   | (a,b) == (x,y) = ((x,y), n + 1) : rest
   | otherwise      = ((x,y), n) : addPair (a,b) rest
 
--- | Add all pairs into the table of co-purchases
+-- | Adds all pairs into the table of co-purchases
 addPairs :: [(Name,Name)] -> [((Name,Name), Int)] 
             -> [((Name,Name), Int)]
 addPairs [] acc     = acc
 addPairs (p : ps) acc = addPairs ps (addPair p acc)
 
--- | Count co-purchases across all tills
+-- | Counts co-purchases across all tills
 coPurchases :: [TillType] -> [((Name,Name), Int)]
 coPurchases []       = []
 coPurchases (bs:bss) =
@@ -72,7 +73,7 @@ coPurchases (bs:bss) =
       billPairs = pairs items
   in addPairs billPairs (coPurchases bss)
 
--- | Pretty-print a table of co-purchases of items across
+-- | Pretty-prints a table of co-purchases of items across
 -- all tills, sorted in descending order of frequency
 formatCoPurchases :: [TillType] -> String
 formatCoPurchases bss = "\nCo-Purchases\n\n" ++ concat 
@@ -80,7 +81,8 @@ formatCoPurchases bss = "\nCo-Purchases\n\n" ++ concat
   | ((a,b), n) <- sorted]
     where sorted = reverse (sortOn snd (coPurchases bss))
 
--- | Example sales data 
+-- | Example sales data: a list of bills, each represented
+-- as a list of bar codes of items sold
 sales :: [TillType]
 sales =
   [ [1234, 4719, 3814], 
@@ -138,6 +140,38 @@ Co-Purchases
 1 x Fish Fingers & Hula Hoops
 1 x Dry Sherry, 1lt & Hula Hoops (Giant)
 1 x Hula Hoops & Hula Hoops (Giant)
+
+The list of co-purchases is sorted in descending order of 
+frequency. As expected, its length is given by the binomial
+coefficient C(n,2) where n is the number of distinct items
+sold. In this example, there are 6 distinct items, so the
+number of co-purchases is C(6,2) = 15.
+
+Note that the function pairs may generate duplicate pairs
+if an item occurs multiple times in the same bill. For 
+example, in a bill [a,a,b], the pair (a,b) will be produced
+twice. This is intentional: the idea is that if a customer
+buys two of item a and one of item b, then this should be
+counted as two co-purchase events. If only unique pairs
+are desired, then the input list should be pre-processed
+to remove duplicates (e.g., using 'nub' from Data.List).
+This would count each co-purchase event only once per bill.
+
+So, it is good to realize that the current implementation 
+counts quantity-sensitive co-purchases, while using 'nub' 
+would count quantity-insensitive co-purchases, i.e. unique 
+co-purchases per bill.
+
+Another point to note is that tables of total sales and
+co-purchases are built using lists with a total time 
+complexity of O(n^2) in the worst case, where n is the
+number of distinct items being tracked in the table.
+This is because each insertion may require a linear scan
+of the table to find the correct item or pair. For small
+datasets, this is acceptable, but for larger datasets,
+more efficient data structures such as maps or hash
+tables should be considered. Since the book has not yet
+covered these data structures, we have used lists.
 
 
 -}
