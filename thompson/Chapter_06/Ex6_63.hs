@@ -90,9 +90,9 @@ testCheckPlays = TestList
    TestCase (assertEqual "Not possible: South does not\
       \ have 6D in trick 2" False (checkPlays game2)),
    TestCase (assertEqual "Not legal: East should follow\ 
-      \suit in tricks 7 & 8" False (checkPlays game3)),
+      \ suit in tricks 7 & 8" False (checkPlays game3)),
    TestCase (assertEqual "Not possible: North replays 4C\
-      \in trick 9" False (checkPlays game4))
+      \ in trick 9" False (checkPlays game4))
   ]
   where
     game1 = [t1, t2, t3, t4, t5, t6, t7, t8, 
@@ -136,6 +136,31 @@ This is a sound check, because if any player plays a card
 not in their hand at any point in the game, the 
 reconstructed initial hands will be incomplete, and the
 possibility check will fail.
+
+Note that in this case, the helper function checkPlay can 
+only check the legality with respect to the reconstructed
+hands at that point. It cannot check possibility, because
+the initial hands are not known during the recursive
+process. Those hands must be reconstructed by working 
+backwards from the sequence of tricks. Only then can we 
+verify possibility by confirming that the reconstructed 
+initial hands together contain exactly the full deck.
+
+An alternative approach would be to first reconstruct the 
+initial hands, and then in a second pass (working forwards) 
+check both legality and possibility. In that case, 
+checkPlay could be used for both conditions, but an 
+additional helper function would be needed to remove the 
+played cards from the hands after each trick as the game 
+is replayed forwards.
+
+Reconstruction of the initial hands in this alternative 
+scenario could be done in either direction. Going backwards 
+has the advantage of efficiency, since cards can be added 
+back to hands using the cons operator (:), which is more 
+efficient than appending (++). A forwards approach can be 
+made equally efficient, but only if written in 
+accumulator-passing style.
 
 Testing in GHCi
 
