@@ -155,12 +155,12 @@ played cards from the hands after each trick as the game
 is replayed forwards.
 
 Reconstruction of the initial hands in this alternative 
-scenario could be done in either direction. Going backwards 
-has the advantage of efficiency, since cards can be added 
-back to hands using the cons operator (:), which is more 
-efficient than appending (++). A forwards approach can be 
-made equally efficient, but only if written in 
-accumulator-passing style.
+scenario could be done in either direction, since the
+order of cards in each hand does not matter. We just need
+to take care to avoid using ++, which is O(n) in the length
+of its left argument, and would lead to O(n^2) complexity
+overall. Using (:) as in the current solution keeps each 
+step O(1), leading to O(n) overall.
 
 Testing in GHCi
 
