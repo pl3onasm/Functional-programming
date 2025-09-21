@@ -34,7 +34,7 @@ outcome player1 player2
 
 {-
 
-The function beat returns the move that beast the given
+The function beat returns the move that beats the given
 move, and the function lose returns the move that loses to
 the given move. 
 
